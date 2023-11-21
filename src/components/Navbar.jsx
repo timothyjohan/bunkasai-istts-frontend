@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Navbar(){
     return(
         <>
@@ -8,9 +10,16 @@ export default function Navbar(){
                         <img src="nippongo.png" className="w-20 h-20 object-contain" />
                     </div>
                     <div className="flex items-center">
-                        <button className="mx-5 text-xl font-medium">HOME</button>
-                        <button className="mx-5 text-xl font-medium">TENANT</button>
-                        <button className="mx-5 text-xl font-medium">COMPETITION</button>
+                        <Link to={"/"} className="mx-5 text-xl font-medium transition-all hover:scale-110">
+                            <button className=" ">HOME</button>
+                        </Link>
+                        <Link to={"/tenant-conf"} className="mx-5 text-xl font-medium transition-all hover:scale-110">
+                            <button className=" ">TENANT</button>
+                        </Link>
+                        <Link to={"/competition-select"} className="mx-5 text-xl font-medium transition-all hover:scale-110">
+                            <button className="">COMPETITION</button>
+                        </Link>
+
                         
                     </div>
                 </nav>
