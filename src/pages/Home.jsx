@@ -1,8 +1,9 @@
 export default function Home(){
   return(
     <>
-      
-      <h1>Home</h1>
+      <div className="h-screen ]">
+        <img src="/banner.png" className="h-4/6 mx-auto" />
+      </div>
     </>
   )
 }
