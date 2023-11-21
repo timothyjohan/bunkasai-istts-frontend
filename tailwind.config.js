@@ -10,6 +10,9 @@ export default {
         sans: ['Roboto', 'sans-serif'],
       },
     },
+    backgroundImage:{
+      'bg-banner': "url('/background.png')"
+    }
   },
   plugins: [],
 }

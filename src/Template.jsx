@@ -6,7 +6,7 @@ export default function Template(){
     return(
         <>
             <Navbar />
-            <div className="pt-44 min-h-screen">
+            <div className=" min-h-screen">
                 <Outlet/>
             </div>
             <Footer />
