@@ -16,7 +16,7 @@ export default function TenantConf(){
     setLoad(false);
     setTimeout(() => {
       navigate("/")
-    }, 100);
+    }, 200);
     
   }
 
