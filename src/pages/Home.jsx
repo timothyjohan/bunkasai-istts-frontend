@@ -3,8 +3,11 @@ import { useEffect, useState } from "react"
 export default function Home(){
   const [load, setLoad] = useState(false)
 
+  
   useEffect(()=>{
-    setLoad(true)
+    setTimeout(() => {
+      setLoad(true)
+    }, 0);
   },[])
 
   return(
