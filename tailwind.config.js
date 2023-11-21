@@ -12,7 +12,7 @@ export default {
     },
     backgroundImage:{
       'bg-banner': "url('/background.png')"
-    }
+    },
   },
   plugins: [],
 }
