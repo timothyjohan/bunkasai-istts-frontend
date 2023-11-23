@@ -44,7 +44,7 @@ export default function CompSelect(){
             <div style={{height: "55vh"}} onMouseEnter={jsongHover} onMouseLeave={jsongHovernt} className={`bg-[url('/j-song.png')] z-0 bg-center bg-cover flex flex-col justify-end transition-all ${jsong ? 'scale-110 brightness-50 blur-sm' : '' }  rounded-md brightness-75  shadow-xl relative`}>
               <p className="text-4xl mb-4 font-semibold blur-none ">J-SONG</p>
             </div>
-            <p onMouseEnter={jsongHover} className={`mx-5 -mt-80 z-10 relative text-left transition duration-500 ${jsong ? 'opacity-100 scale-100' : 'opacity-0 scale-90' }`}>{jsong}</p>
+            <p onMouseEnter={jsongHover} onMouseLeave={jsongHovernt} className={`mx-5 -mt-80 z-10 relative text-left transition duration-500 ${jsong ? 'opacity-100 scale-100' : 'opacity-0 scale-90' }`}>{jsong}</p>
             
           </div>
             
@@ -52,7 +52,7 @@ export default function CompSelect(){
           <div style={{height: "55vh"}} onMouseEnter={coswalkHover} onMouseLeave={coswalkHovernt} className={`bg-[url('/coswalk.png')] z-0 bg-center bg-cover flex flex-col justify-end transition-all ${coswalk ? 'scale-110 brightness-50 blur-sm' : '' }  rounded-md brightness-75 shadow-xl relative`}>
                 <p className="text-4xl mb-4 font-semibold blur-none">COSWALK</p>
             </div>
-            <p onMouseEnter={coswalkHover} className={`mx-5 -mt-80 z-10 relative text-left transition duration-500 ${coswalk ? 'opacity-100 scale-100' : 'opacity-0 scale-90' }`}>{coswalk}</p>
+            <p onMouseEnter={coswalkHover} onMouseLeave={coswalkHovernt} className={`mx-5 -mt-80 z-10 relative text-left transition duration-500 ${coswalk ? 'opacity-100 scale-100' : 'opacity-0 scale-90' }`}>{coswalk}</p>
 
           </div>
           
