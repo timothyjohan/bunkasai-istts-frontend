@@ -7,6 +7,7 @@ import Template from './Template.jsx';
 import Home from './pages/Home.jsx';
 import TenantConf from './pages/TenantConf.jsx';
 import CompSelect from './pages/CompSelect.jsx';
+import TenantForm from './pages/TenantForm.jsx';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path:"/tenant-conf",
         element:<TenantConf />
+      },
+      {
+        path:"/tenant-form",
+        element:<TenantForm />
       },
       {
         path:"/competition-select",
