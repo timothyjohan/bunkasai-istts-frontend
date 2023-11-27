@@ -8,6 +8,7 @@ import Home from './pages/Home.jsx';
 import TenantConf from './pages/TenantConf.jsx';
 import CompSelect from './pages/CompSelect.jsx';
 import TenantForm from './pages/TenantForm.jsx';
+import JsongForm from './pages/JsongForm.jsx';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path:"/competition-select",
         element:<CompSelect />
+      },
+      {
+        path:"/jsong-form",
+        element:<JsongForm />
       },
     ]
   }

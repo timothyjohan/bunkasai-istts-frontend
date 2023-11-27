@@ -14,14 +14,6 @@ export default function TenantForm(){
     }, 0)
   },[])
 
-  const disagree = () =>{
-    setDisagreeClick(true);
-    setLoad(false);
-    setTimeout(() => {
-      navigate("/")
-    }, 200);
-    
-  }
 
   return(
     <>
@@ -40,7 +32,7 @@ export default function TenantForm(){
               <input type="phone" id="notel" placeholder="contoh: 0812XXXXX" className="w-full p-2 px-4 bg-neutral-700 rounded-xl" />
               <br /><br />
               <label htmlFor="alamat" className="m-2">Alamat</label>
-              <input type="phone" id="alamat" placeholder="contoh: Jl. Ngagel Jaya Tengah No.73-77" className="w-full p-2 px-4 bg-neutral-700 rounded-xl mb-10" />
+              <input type="address" id="alamat" placeholder="contoh: Jl. Ngagel Jaya Tengah No.73-77" className="w-full p-2 px-4 bg-neutral-700 rounded-xl mb-10" />
               <button type="submit" className="bg-neutral-700 w-full py-2 rounded-xl hover:font-bold transition-all hover:scale-110 hover:text-violet-500 hover:bg-green-400">Submit</button>
               
 
