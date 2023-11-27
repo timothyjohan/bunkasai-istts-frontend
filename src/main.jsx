@@ -9,6 +9,7 @@ import TenantConf from './pages/TenantConf.jsx';
 import CompSelect from './pages/CompSelect.jsx';
 import TenantForm from './pages/TenantForm.jsx';
 import JsongForm from './pages/JsongForm.jsx';
+import CoswalkForm from './pages/CoswalkForm.jsx';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path:"/jsong-form",
         element:<JsongForm />
+      },
+      {
+        path:"/coswalk-form",
+        element:<CoswalkForm />
       },
     ]
   }

@@ -36,7 +36,13 @@ export default function CompSelect(){
       navigate('/jsong-form')
 
     }, 900)
-    // navigate("/jsong-form")
+  }
+  const toCoswalk = ()=>{
+    setSelected(true)
+    setTimeout(()=>{
+      navigate('/coswalk-form')
+
+    }, 900)
   }
 
   return(
@@ -56,7 +62,7 @@ export default function CompSelect(){
             
           </div>
             
-          <div className="text-center h-full ml-20">
+          <div className="text-center h-full ml-20" onClick={toCoswalk}>
             <div style={{height: "55vh"}} onMouseEnter={coswalkHover} onMouseLeave={coswalkHovernt} className={`bg-[url('/coswalk.png')] z-0 bg-center bg-cover flex flex-col justify-end transition-all ${coswalk ? 'scale-110 brightness-50 blur-sm' : '' }  rounded-md brightness-75 shadow-xl relative`}>
                 <p className="text-4xl mb-4 font-semibold blur-none text-neutral-100">COSWALK</p>
             </div>
