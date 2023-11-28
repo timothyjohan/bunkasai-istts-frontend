@@ -53,19 +53,19 @@ export default function JsongForm(){
           <form onSubmit={handleSubmit(submitCoswalk)}>
             <h1 className="text-2xl mb-10 text-center ">Form pendaftaran J-Song</h1>
             <label htmlFor="nama_tenant" className="m-2">Nama</label>
-            <input {...register('nama_peserta')} type="text" id="nama_tenant" placeholder="Nama peserta" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+            <input {...register('nama_peserta')} disabled={btnClick ? 'true' :null} type="text" id="nama_tenant" placeholder="Nama peserta" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /> <br />
             <label htmlFor="notel" className="m-2">Nomor telp</label>
-            <input {...register('telp')} type="phone" id="notel" placeholder="contoh: 0812XXXXX" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+            <input {...register('telp')} disabled={btnClick ? 'true' :null} type="phone" id="notel" placeholder="contoh: 0812XXXXX" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /> <br />
             <label htmlFor="nama_panggung" className="m-2">Nama panggung / Stage name</label>
-            <input {...register('nama_panggung')} type="name" id="nama_panggung" placeholder="Nama panggung" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+            <input {...register('nama_panggung')} disabled={btnClick ? 'true' :null} type="name" id="nama_panggung" placeholder="Nama panggung" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /><br />
             <label htmlFor="lagu" className="m-2">Judul dan asal lagu</label>
-            <input {...register('lagu')} type="title" id="lagu" placeholder="contoh: Unravel - Tokyo Ghoul" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+            <input {...register('lagu')} disabled={btnClick ? 'true' :null} type="title" id="lagu" placeholder="contoh: Unravel - Tokyo Ghoul" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /><br />
             <label htmlFor="link" className="m-2">Link lagu / instrument (optional)</label>
-            <input {...register('link')} type="title" id="link" placeholder="contoh: https://youtu.be/5c8MGs_8ngg?si=ZDHI9kSidmGkwbxN" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+            <input {...register('link')} disabled={btnClick ? 'true' :null} type="title" id="link" placeholder="contoh: https://youtu.be/5c8MGs_8ngg?si=ZDHI9kSidmGkwbxN" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /><br />
 
             {

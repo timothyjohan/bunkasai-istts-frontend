@@ -53,13 +53,13 @@ export default function CoswalkForm(){
           <form onSubmit={handleSubmit(submitCoswalk)}>
             <h1 className="text-2xl mb-10 text-center">Form pendaftaran Coswalk</h1>
             <label htmlFor="nama_peserta" className="m-2">Nama</label>
-            <input {...register('nama_peserta')}  type="text" id="nama_peserta" placeholder="Nama peserta" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+            <input {...register('nama_peserta')} disabled={btnClick ? 'true' :null} type="text" id="nama_peserta" placeholder="Nama peserta" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /> <br />
             <label htmlFor="nama_panggung" className="m-2">Nama panggung / Stage name</label>
-            <input {...register('nama_panggung')} type="name" id="nama_panggung" placeholder="Nama panggung" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+            <input {...register('nama_panggung')} disabled={btnClick ? 'true' :null} type="name" id="nama_panggung" placeholder="Nama panggung" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /><br />
             <label htmlFor="insta" className="m-2">Instagram</label>
-            <input {...register('instagram')} type="title" id="insta" placeholder="contoh: @bunkasaiistts" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+            <input {...register('instagram')} disabled={btnClick ? 'true' :null} type="title" id="insta" placeholder="contoh: @bunkasaiistts" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /><br />
 
             {

@@ -48,16 +48,16 @@ export default function TenantForm(){
             <form onSubmit={handleSubmit(submitTenant)}>
               <h1 className="text-2xl mb-10 text-center">Form pendaftaran tenant</h1>
               <label htmlFor="nama_tenant" className="m-2">Nama tenant</label>
-              <input {...register('nama_tenant')} type="text" id="nama_tenant" placeholder="Nama Tenant" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+              <input {...register('nama_tenant')} disabled={btnClick ? 'true' :null} type="text" id="nama_tenant" placeholder="Nama Tenant" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
               <br /> <br />
               <label htmlFor="nm_cp" className="m-2">Nama contact person</label>
-              <input {...register('nama_cp')} type="text" id="nm_cp" placeholder="Nama contact person" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+              <input {...register('nama_cp')} disabled={btnClick ? 'true' :null} type="text" id="nm_cp" placeholder="Nama contact person" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
               <br /> <br />
               <label htmlFor="notel" className="m-2">Nomor telp</label>
-              <input {...register('telp')} type="phone" id="notel" placeholder="contoh: 0812XXXXX" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+              <input {...register('telp')} disabled={btnClick ? 'true' :null} type="phone" id="notel" placeholder="contoh: 0812XXXXX" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
               <br /><br />
               <label htmlFor="alamat" className="m-2">Alamat</label>
-              <input {...register('alamat')} type="address" id="alamat" placeholder="contoh: Jl. Ngagel Jaya Tengah No.73-77" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02] mb-10 " />
+              <input {...register('alamat')} disabled={btnClick ? 'true' :null} type="address" id="alamat" placeholder="contoh: Jl. Ngagel Jaya Tengah No.73-77" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02] mb-10 " />
               {
                 success ? 
                 <>
