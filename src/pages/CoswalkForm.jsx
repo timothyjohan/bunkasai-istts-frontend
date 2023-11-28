@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react"
 import { useForm } from "react-hook-form";
@@ -27,7 +28,7 @@ export default function CoswalkForm(){
       setError('Form tidak boleh ada yang kosong')
     }else{
       try {
-        // await axios.post(`http://localhost:3666/api/jsong/new`, data)
+        await axios.post(`http://localhost:3666/api/coswalk/new`, data)
         setSuccess(true)
         setError(null)
       } catch (error) {
