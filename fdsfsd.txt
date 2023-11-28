@@ -4,3 +4,5 @@ halo ini timot
 .
 .
 ini codingan timot
+
+edit txt lagi punya timot
