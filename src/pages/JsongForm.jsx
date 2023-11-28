@@ -22,6 +22,7 @@ export default function JsongForm(){
   },[])
 
   const submitCoswalk = async data =>{
+    setBtnClick(true)
     if(!data.nama_peserta || !data.telp || !data.nama_panggung || !data.lagu || !data.link){
       setSuccess(null)
       setError('Form tidak boleh ada yang kosong')
@@ -35,7 +36,7 @@ export default function JsongForm(){
         setError(error)
       }
     }
-
+    setBtnClick(false)
     reset()
   }
 
@@ -97,8 +98,12 @@ export default function JsongForm(){
                 
               }
 
-            <button type="submit" className="bg-neutral-700 w-full py-2 rounded-xl hover:font-bold transition-all hover:scale-110 hover:text-violet-500 hover:bg-green-400 ">Submit</button>
-            
+            {
+              btnClick ? 
+                <button type="submit" disabled className="w-full py-2 rounded-xl font-bold transition-all text-violet-500 bg-green-400"><img src="loading.png"className="h-6 mx-auto transition-all animate-spin" alt="" /></button>
+                :
+                <button type="submit" className="bg-neutral-700 w-full py-2 rounded-xl hover:font-bold transition-all hover:scale-110 hover:text-violet-500 hover:bg-green-400">Submit</button>
+            }
 
           </form>
         </div>

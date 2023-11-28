@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function TenantForm(){
   const [disagreeClick, setDisagreeClick] = useState(false)
+  const [btnClick, setBtnClick] = useState(false)
+
   const [success, setSuccess] = useState(null)
   const [error, setError] = useState(null)
   const{register, handleSubmit, reset} = useForm()
@@ -20,7 +22,7 @@ export default function TenantForm(){
   },[])
 
   const submitTenant = async data =>{
-    console.log(data);
+    setBtnClick(true)
     if(!data.nama_tenant || !data.nama_cp || !data.telp || !data.alamat){
       setSuccess(null)
       setError('Form tidak boleh ada yang kosong')
@@ -34,6 +36,7 @@ export default function TenantForm(){
         setError(error)
       }
     }
+    setBtnClick(false)
     reset()
   }
 
@@ -85,8 +88,12 @@ export default function TenantForm(){
                 
               }
 
-              <button type="submit" className="bg-neutral-700 w-full py-2 rounded-xl hover:font-bold transition-all hover:scale-110 hover:text-violet-500 hover:bg-green-400 ">Submit</button>
-              
+              {
+                btnClick ? 
+                  <button type="submit" disabled className="w-full py-2 rounded-xl font-bold transition-all text-violet-500 bg-green-400"><img src="loading.png"className="h-6 mx-auto transition-all animate-spin" alt="" /></button>
+                  :
+                  <button type="submit" className="bg-neutral-700 w-full py-2 rounded-xl hover:font-bold transition-all hover:scale-110 hover:text-violet-500 hover:bg-green-400">Submit</button>
+              }
 
             </form>
           </div>
