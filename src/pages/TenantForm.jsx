@@ -58,25 +58,34 @@ export default function TenantForm(){
               {
                 success ? 
                 <>
-                  <div className="bg-green-400 text-neutral-700 font-semibold py-2 px-4 mb-8 rounded-xl text-violet-500">
+                  <div className="bg-green-400 text-neutral-700 font-semibold py-2 px-4 mb-8 rounded-xl text-violet-500 transition duration-400 scale-100">
                     <p >Pengajuan tenant telah disimpan</p>
                   </div>
                 </>
                 :
-                null
+                <>
+                  <div className="bg-green-400 text-neutral-700 font-semibold py-2 px-4 mb-8 rounded-xl text-violet-500 transition  duration-400 scale-0 absolute">
+                    <p >Pengajuan tenant telah disimpan</p>
+                  </div>
+                </>
               }
               {
                 error ? 
                 <>
-                  <div className="text-green-300 text-neutral-700 font-semibold py-2 px-4 mb-8 rounded-xl bg-violet-500">
+                  <div className="text-green-300 text-neutral-700 font-semibold py-2 px-4 mb-8 rounded-xl bg-violet-500 transition duration-400 scale-100">
                     <p> {error} </p>
                   </div>
                 </>
                 :
-                null
+                <>
+                  <div className="text-green-300 text-neutral-700 font-semibold py-2 px-4 mb-8 rounded-xl bg-violet-500 transition duration-400 scale-0 absolute">
+                    <p> {error} </p>
+                  </div>
+                </>
+                
               }
 
-              <button type="submit" className="bg-neutral-700 w-full py-2 rounded-xl hover:font-bold transition-all hover:scale-110 hover:text-violet-500 hover:bg-green-400 focus:font-bold focus:scale-110 focus:text-violet-500 focus:bg-green-400">Submit</button>
+              <button type="submit" className="bg-neutral-700 w-full py-2 rounded-xl hover:font-bold transition-all hover:scale-110 hover:text-violet-500 hover:bg-green-400 ">Submit</button>
               
 
             </form>
