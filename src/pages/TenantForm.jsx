@@ -28,7 +28,7 @@ export default function TenantForm(){
       setError('Form tidak boleh ada yang kosong')
     }else{
       try {
-        await axios.post(`http://localhost:3666/api/tenants/new`, data)
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/tenants/new`, data)
         setSuccess(true)
         setError(null)
       } catch (error) {

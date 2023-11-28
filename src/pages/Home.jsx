@@ -5,7 +5,6 @@ export default function Home(){
 
   
   useEffect(()=>{
-    console.log(import.meta.env);
     setTimeout(() => {
       setLoad(true)
     }, 0);

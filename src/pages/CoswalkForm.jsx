@@ -28,7 +28,7 @@ export default function CoswalkForm(){
       setError('Form tidak boleh ada yang kosong')
     }else{
       try {
-        await axios.post(`http://localhost:3666/api/coswalk/new`, data)
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/coswalk/new`, data)
         setSuccess(true)
         setError(null)
       } catch (error) {

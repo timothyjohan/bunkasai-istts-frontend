@@ -28,7 +28,7 @@ export default function JsongForm(){
       setError('Form tidak boleh ada yang kosong')
     }else{
       try {
-        await axios.post(`http://localhost:3666/api/jsong/new`, data)
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/jsong/new`, data)
         setSuccess(true)
         setError(null)
       } catch (error) {
