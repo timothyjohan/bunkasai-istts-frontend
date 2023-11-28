@@ -1,11 +1,14 @@
 import { useEffect } from "react";
 import { useState } from "react"
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 export default function CoswalkForm(){
   const [btnClick, setBtnClick] = useState(false)
   const [load, setLoad] = useState(false)
   const [selected, setSelected] = useState(true)
+  const{register, handleSubmit} = useForm()
+  
 
   useEffect(()=>{
     setTimeout(()=>{
@@ -18,7 +21,7 @@ export default function CoswalkForm(){
   return(
     <>  
       {/* Transition */}
-      <div style={{height: '110vh'}} className={`bg-yellow-300 rotate-45 h-screen w-screen transition duration-1000 absolute z-30 ${selected ? 'scale-150 translate-x-0 -translate-y-0' : 'scale-0 -translate-x-full translate-y-full'}  `}>
+      <div style={{height: '110vh'}} className={`bg-yellow-300 rotate-45 h-screen w-screen rounded-xl transition duration-1000 absolute z-30 ${selected ? 'scale-150 translate-x-0 -translate-y-0' : 'scale-0 -translate-x-full translate-y-full'}  `}>
       </div>
       {/*  */}
 
@@ -28,7 +31,7 @@ export default function CoswalkForm(){
           <form>
             <h1 className="text-2xl mb-10 text-center">Form pendaftaran Coswalk</h1>
             <label htmlFor="nama_tenant" className="m-2">Nama</label>
-            <input type="text" id="nama_tenant" placeholder="Nama peserta" className="w-full p-2 px-4 bg-neutral-700 rounded-xl" />
+            <input  type="text" id="nama_tenant" placeholder="Nama peserta" className="w-full p-2 px-4 bg-neutral-700 rounded-xl" />
             <br /> <br />
             <label htmlFor="nama_panggung" className="m-2">Nama panggung / Stage name</label>
             <input type="name" id="nama_panggung" placeholder="Nama panggung" className="w-full p-2 px-4 bg-neutral-700 rounded-xl" />
