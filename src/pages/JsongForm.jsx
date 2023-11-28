@@ -85,13 +85,13 @@ export default function JsongForm(){
               {
                 error ? 
                 <>
-                  <div className="text-green-300 text-neutral-700 font-semibold py-2 px-4 mb-8 rounded-xl bg-violet-500 transition duration-400 scale-100">
+                  <div className="text-green-400 text-neutral-700 font-semibold py-2 px-4 mb-8 rounded-xl bg-violet-500 transition duration-400 scale-100">
                     <p> {error} </p>
                   </div>
                 </>
                 :
                 <>
-                  <div className="text-green-300 text-neutral-700 font-semibold py-2 px-4 mb-8 rounded-xl bg-violet-500 transition duration-400 scale-0 absolute">
+                  <div className="text-green-400 text-neutral-700 font-semibold py-2 px-4 mb-8 rounded-xl bg-violet-500 transition duration-400 scale-0 absolute">
                     <p> {error} </p>
                   </div>
                 </>
