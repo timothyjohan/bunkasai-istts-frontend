@@ -21,25 +21,33 @@ export default function JsongForm(){
     }, 0)
   },[])
 
-  const submitCoswalk = async data =>{
-    setBtnClick(true)
-    if(!data.nama_peserta || !data.telp || !data.nama_panggung || !data.lagu || !data.link){
-      setSuccess(null)
-      setError('Form tidak boleh ada yang kosong')
-    }else{
+  const submitCoswalk = async (data) => {
+    setBtnClick(true);
+    if (!data.nama_peserta || !data.telp || !data.nama_panggung || !data.lagu || !data.link || !data.bukti[0]) {
+      setSuccess(null);
+      setError('Form tidak boleh ada yang kosong');
+    } else {
       try {
-        await axios.post(`${import.meta.env.VITE_API_URL}/api/jsong/new`, data)
-        setSuccess(true)
-        setError(null)
+        const formData = new FormData();
+        formData.append('nama_peserta', data.nama_peserta);
+        formData.append('telp', data.telp);
+        formData.append('nama_panggung', data.nama_panggung);
+        formData.append('lagu', data.lagu);
+        formData.append('link', data.link);
+        formData.append('bukti', data.bukti[0]);
+  
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/jsong/new`, formData);
+  
+        setSuccess(true);
+        setError(null);
       } catch (error) {
-        setSuccess(null)
-        setError(error)
+        setSuccess(null);
+        setError(error);
       }
     }
-    setBtnClick(false)
-    reset()
-  }
-
+    setBtnClick(false);
+    reset();
+  };
   return(
     <>  
       {/* Transition */}
@@ -66,6 +74,9 @@ export default function JsongForm(){
             <br /><br />
             <label htmlFor="link" className="m-2">Link lagu / instrument (optional)</label>
             <input {...register('link')} disabled={btnClick ? 'true' :null} type="title" id="link" placeholder="contoh: https://youtu.be/5c8MGs_8ngg?si=ZDHI9kSidmGkwbxN" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+            <br /><br />
+            <label htmlFor="bukti" className="m-2">Bukti Transfer</label>
+            <input {...register('bukti')} disabled={btnClick ? 'true' :null} type="file" accept="image/*" id="link" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /><br />
 
             {
