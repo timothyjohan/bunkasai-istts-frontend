@@ -23,12 +23,17 @@ export default function CoswalkForm(){
 
   const submitCoswalk = async data =>{
     setBtnClick(true)
-    if(!data.nama_peserta || !data.nama_panggung || !data.instagram){
+    if(!data.nama_peserta || !data.nama_panggung || !data.instagram || !data.bukti[0]){
       setSuccess(null)
       setError('Form tidak boleh ada yang kosong')
     }else{
       try {
-        await axios.post(`${import.meta.env.VITE_API_URL}/api/coswalk/new`, data)
+        const formData = new FormData();
+        formData.append('nama_peserta', data.nama_peserta);
+        formData.append('nama_panggung', data.nama_panggung);
+        formData.append('instagram', data.instagram);
+        formData.append('bukti', data.bukti[0]);
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/coswalk/new`, formData)/
         setSuccess(true)
         setError(null)
       } catch (error) {
@@ -60,6 +65,9 @@ export default function CoswalkForm(){
             <br /><br />
             <label htmlFor="insta" className="m-2">Instagram</label>
             <input {...register('instagram')} disabled={btnClick ? 'true' :null} type="title" id="insta" placeholder="contoh: @bunkasaiistts" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+            <br /><br />
+            <label htmlFor="bukti" className="m-2">Bukti Transfer</label>
+            <input {...register('bukti')} disabled={btnClick ? 'true' :null} type="file" accept="image/*" id="link" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /><br />
 
             {
