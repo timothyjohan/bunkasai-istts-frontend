@@ -51,19 +51,19 @@ export default function CompSelect(){
       </div>
 
       <div className="pt-28 min-h-screen">
-        <h1 className="text-4xl text-center text-neutral-200 font-semibold">Pendaftaran Lomba</h1>
-        <div className={`${load ? '-translate-x-0 transition-all duration-300' : 'translate-x-full'} flex items-center justify-center mt-16  w-4/6 mx-auto p-10 text-neutral-200 rounded-md grid grid-cols-2`}>
+        <h1 className="text-4xl text-center text-neutral-200 font-semibold ">Pendaftaran Lomba</h1>
+        <div className={`${load ? '-translate-x-0 transition-all duration-300' : 'translate-x-full'} flex items-center justify-center mt-16 w-4/6 mx-auto p-10 text-neutral-200 rounded-md grid xl:grid-cols-2 lg:grid:cols-1 gap-y-24 `}>
 
-          <div className="text-center h-full mr-20 relative " onClick={toJsong}>
-            <div style={{height: "55vh"}} onMouseEnter={jsongHover} onMouseLeave={jsongHovernt} className={`bg-[url('/j-song.png')] z-0 bg-center bg-cover flex flex-col justify-end transition-all ${jsong ? 'scale-110 brightness-50 blur-sm' : '' }  rounded-md brightness-75  shadow-xl relative`}>
+          <div className="text-center h-[50vh] w-[50vh] relative mx-auto " onClick={toJsong}>
+            <div  onMouseEnter={jsongHover} onMouseLeave={jsongHovernt} className={`bg-[url('/j-song.png')] h-full w-full z-0 bg-center bg-cover flex flex-col justify-end transition-all ${jsong ? 'scale-110 brightness-50 blur-sm' : '' }  rounded-md brightness-75  shadow-xl relative`}>
               <p className="text-4xl mb-4 font-semibold blur-none text-neutral-100">J-SONG</p>
             </div>
             <p onMouseEnter={jsongHover} onMouseLeave={jsongHovernt} className={`mx-5 -mt-80 z-10 relative text-left transition duration-500 ${jsong ? 'opacity-100 scale-100' : 'opacity-0 scale-90' }`}>{jsong}</p>
             
           </div>
             
-          <div className="text-center h-full ml-20" onClick={toCoswalk}>
-            <div style={{height: "55vh"}} onMouseEnter={coswalkHover} onMouseLeave={coswalkHovernt} className={`bg-[url('/coswalk.png')] z-0 bg-center bg-cover flex flex-col justify-end transition-all ${coswalk ? 'scale-110 brightness-50 blur-sm' : '' }  rounded-md brightness-75 shadow-xl relative`}>
+          <div className="text-center h-[50vh] w-[50vh] mx-auto" onClick={toCoswalk}>
+            <div onMouseEnter={coswalkHover} onMouseLeave={coswalkHovernt} className={`bg-[url('/coswalk.png')] h-full w-full z-0 bg-center bg-cover flex flex-col justify-end transition-all ${coswalk ? 'scale-110 brightness-50 blur-sm' : '' }  rounded-md brightness-75 shadow-xl relative`}>
                 <p className="text-4xl mb-4 font-semibold blur-none text-neutral-100">COSWALK</p>
             </div>
             <p onMouseEnter={coswalkHover} onMouseLeave={coswalkHovernt} className={`mx-5 -mt-80 z-10 relative text-left transition duration-500 ${coswalk ? 'opacity-100 scale-100' : 'opacity-0 scale-90' }`}>{coswalk}</p>
