@@ -18,44 +18,40 @@ export default function Home(){
       </div>
 
       <div className="min-h-screen mt-44 w-5/6 mx-auto text-neutral-200">
-        <div className="grid grid-cols-2">
+        <Fade bottom cascade>
+          <h1 className="text-center text-5xl font-semibold my-20 mb-80 animate-pulse">INTRODUCING OUR CAST</h1>
+        </Fade>
 
+
+        <div className="grid grid-cols-2 mb-44">
           <Fade>
             <div>
               <img className="opacity-90 max-h-[85%] " src="/clariss-pose-1.png" alt="" />
             </div>
           </Fade>
 
-          <h1>
-              <div className="text-right h-2/6 mt-20">
-                <Fade bottom>
-                  <h1 className="text-4xl font-semibold">MEET CLARISS</h1>
+            <div className="text-right mt-20">
+              <Fade bottom>
+                <h1 className="text-4xl font-semibold">MEET CLARISS</h1>
 
+              </Fade>
+              <br />
+              
+              <p>
+                <Fade bottom cascade>
+                  <p className="text-lg">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi doloribus corrupti soluta quas quia possimus obcaecati reiciendis debitis veniam reprehenderit adipisci molestias dicta, quisquam, impedit, ex dolorem perspiciatis sed ipsum. lorem</p>
                 </Fade>
-                <br />
-                
-                <p>
-                  <Fade bottom cascade>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi doloribus corrupti soluta quas quia possimus obcaecati reiciendis debitis veniam reprehenderit adipisci molestias dicta, quisquam, impedit, ex dolorem perspiciatis sed ipsum. lorem</p>
-                    
-
-                  </Fade>
-                </p>
-              </div>
-
-
-          </h1>
+              </p>
+            </div>
 
 
           <div className="text-left mt-20">
             <Fade>
               <h1 className="text-4xl font-semibold">MEET CLUE</h1>
-
             </Fade>
             <br />
             <Fade bottom cascade>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi doloribus corrupti soluta quas quia possimus obcaecati reiciendis debitis veniam reprehenderit adipisci molestias dicta, quisquam, impedit, ex dolorem perspiciatis sed ipsum. lorem</p>
-
+              <p className="text-lg">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi doloribus corrupti soluta quas quia possimus obcaecati reiciendis debitis veniam reprehenderit adipisci molestias dicta, quisquam, impedit, ex dolorem perspiciatis sed ipsum. lorem</p>
             </Fade>
           </div>
 
@@ -63,9 +59,35 @@ export default function Home(){
             <div className="">
               <img className="opacity-90 max-h-[85%] " src="/clue-pose-2.png" alt="" />
             </div>
-
           </Fade>
 
+
+          <Fade>
+            <div>
+              <img className="h-96 rounded-xl shadow-xl " src="/dsc.png"  />
+            </div>
+            
+          </Fade>
+          <div className="text-right mt-10">
+            <Fade>
+              <h1 className="text-4xl font-semibold">APA ITU BUNKASAI?</h1>
+
+            </Fade>
+            <br />
+            <Fade bottom cascade>
+              <p className="text-lg">Festival Budaya Jepang atau yang lebih dikenal dengan Bunkasai (文化祭) merupakan salah satu festival yang cukup terkenal dan biasanya diadakan di sekolah atau perguruan tinggi di Jepang untuk menunjukkan hasil kegiatan dari sekolah atau perguruan tinggi terkait. Kegiatan ini seringkali dijadikan ajang untuk  menampilkan dan memperkenalkan budaya-budaya yang ada di Jepang sekaligus untuk menunjukkan minat serta bakat yang berkaitan dengan budaya dari Jepang.</p>
+
+            </Fade>
+
+          </div>
+        </div>
+        <div>
+          <Fade bottom cascade>
+            <h1 className="text-center text-5xl font-semibold mb-96">SCHEDULE</h1>
+
+          </Fade>
+          
+         
         </div>
       </div>
     </>
