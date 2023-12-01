@@ -46,7 +46,7 @@ export default function Home(){
 
 
           <div className="text-left mt-20">
-            <Fade>
+            <Fade bottom>
               <h1 className="text-4xl font-semibold">MEET CLUE</h1>
             </Fade>
             <br />
@@ -69,7 +69,7 @@ export default function Home(){
             
           </Fade>
           <div className="text-right mt-10">
-            <Fade>
+            <Fade bottom>
               <h1 className="text-4xl font-semibold">APA ITU BUNKASAI?</h1>
 
             </Fade>
