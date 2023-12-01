@@ -20,7 +20,7 @@ export default function Home(){
         <div className="grid grid-cols-2">
 
           <div className="">
-            <img className="opacity-90 max-h-[95%] " src="/clariss-pose-1.png" alt="" />
+            <img className="opacity-90 max-h-[85%] " src="/clariss-pose-1.png" alt="" />
           </div>
 
           <div className="text-right mt-20">
@@ -37,7 +37,7 @@ export default function Home(){
           </div>
 
           <div className="">
-            <img className="opacity-90 max-h-[95%] " src="/clue-pose-2.png" alt="" />
+            <img className="opacity-90 max-h-[85%] " src="/clue-pose-2.png" alt="" />
           </div>
 
         </div>
