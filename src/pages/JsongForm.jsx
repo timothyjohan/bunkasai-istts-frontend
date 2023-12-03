@@ -141,19 +141,19 @@ export default function JsongForm(){
             <br />
             <label htmlFor="bukti" className="m-2">Bukti Transfer</label>
             <input {...register('bukti', 
-        //     {
-        //     required: 'File is required',
-        //     validate: {
-        //     validFileType: (value) => {
-        //       const fileType = value[0]?.type.split('/')[0];
-        //       return fileType === 'image' || 'File must be an image';
-        //     },
-        //     validFileSize: (value) => {
-        //       const fileSize = value[0]?.size;
-        //       return fileSize <= 1024 * 1024 * 5 || 'File size must be less than 5MB';
-        //     },
-        //   },
-        // }
+            {
+            required: 'File is required',
+            validate: {
+            validFileType: (value) => {
+              const fileType = value[0]?.type.split('/')[0];
+              return fileType === 'image' || 'File must be an image';
+            },
+            validFileSize: (value) => {
+              const fileSize = value[0]?.size;
+              return fileSize <= 1024 * 1024 * 5 || 'File size must be less than 5MB';
+            },
+          },
+        }
         )} disabled={btnClick ? 'true' :null} type="file" accept="image/*" id="link" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /> 
             <br />
