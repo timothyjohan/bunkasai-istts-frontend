@@ -3,6 +3,8 @@ import axios from "axios";
 import { useState } from "react"
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import Joi from "joi";
+import { joiResolver } from "@hookform/resolvers/joi";
 
 export default function JsongForm(){
   const [btnClick, setBtnClick] = useState(false)
@@ -10,27 +12,82 @@ export default function JsongForm(){
   const [selected, setSelected] = useState(true)
   const [success, setSuccess] = useState(null)
   const [error, setError] = useState(null)
-  const{register, handleSubmit, reset, formState} = useForm()
 
+  const schema = Joi.object({
+    nama_peserta: Joi.string().required().messages({
+        "string.empty":"Nama is required"
+    }),
+    notel: Joi.number().integer().messages({
+      "number.base": "No Telpon harus berupa angka",
+      "number.integer": "No Telpon harus berupa angka bulat",
+    }).custom((value, helpers) => {
+      const isNumeric = /^[0-9]+$/.test(value);
+      if (isNumeric) {
+        return value;
+      } else {
+        return helpers.message({ "string.pattern.base": "No Telpon tidak boleh mengandung simbol" });
+      }
+    }).required().messages({
+      "any.required": "No Telpon is required",
+    }),
+    nama_panggung: Joi.string().required().messages({
+        "string.empty":"Nama panggung/Stage name is required"
+    }),
+    lagu: Joi.string()
+      .required()
+      .pattern(new RegExp('.*-.*')) // This ensures that the string includes "-"
+      .messages({
+        "string.empty": "Judul dan asal lagu is required",
+        "string.pattern.base": 'The lagu field must include the string "-"',
+    }),
+    link: Joi.string().required().messages({
+      "string.empty":'Please fill the link lagu/instrument by "-"'
+    }),
+    bukti: Joi.object().required().messages({
+      "any.required":"deskripsi tidak boleh kosong"
+    })
+  })
+
+  const { register, handleSubmit, reset, formState: { errors } } = useForm({resolver: joiResolver(schema)});
+  
+  const ShowErrors =  () => {
+    if(errors.nama_peserta){
+      setError(errors.nama_peserta.message)
+    }
+    else if(errors.notel){
+      setError(errors.notel.message)
+    }
+    else if(errors.nama_panggung){
+      setError(errors.nama_panggung.message)
+    }
+    else if(errors.lagu){
+      setError(errors.lagu.message)
+    }
+    else if(errors.link){
+      setError(errors.link.message)
+    }
+  }
+
+  useEffect(()=>{
+    ShowErrors()
+  },[errors])
 
   useEffect(()=>{
     setTimeout(()=>{
       setSelected(false)
       setLoad(true)
-
     }, 0)
   },[])
 
-  const submitCoswalk = async (data) => {
-    setBtnClick(true);
-    if (!data.nama_peserta || !data.telp || !data.nama_panggung || !data.lagu || !data.link || !data.bukti[0]) {
+  const submitJsong = async (data) => {
+    console.log(data.bukti[0]);
+    if(data.bukti[0]){
+      setBtnClick(true);
       setSuccess(null);
-      setError('Form tidak boleh ada yang kosong');
-    } else {
       try {
         const formData = new FormData();
         formData.append('nama_peserta', data.nama_peserta);
-        formData.append('telp', data.telp);
+        formData.append('notel', data.notel);
         formData.append('nama_panggung', data.nama_panggung);
         formData.append('lagu', data.lagu);
         formData.append('link', data.link);
@@ -44,9 +101,11 @@ export default function JsongForm(){
         setSuccess(null);
         setError(error);
       }
+      setBtnClick(false);
+      reset();
+    }else{
+      setError("Bukti transfer is required")
     }
-    setBtnClick(false);
-    reset();
   };
   return(
     <>  
@@ -58,38 +117,56 @@ export default function JsongForm(){
       <div className="pt-28 min-h-screen">
 
         <div className="flex items-center justify-center mt-20 bg-neutral-800/80 w-2/6 mx-auto p-10 text-neutral-200 rounded-xl">
-          <form onSubmit={handleSubmit(submitCoswalk)}>
+          <form onSubmit={handleSubmit(submitJsong)}>
             <h1 className="text-2xl mb-10 text-center ">Form pendaftaran J-Song</h1>
-            <label htmlFor="nama_tenant" className="m-2">Nama</label>
-            <input {...register('nama_peserta')} disabled={btnClick ? 'true' :null} type="text" id="nama_tenant" placeholder="Nama peserta" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
-            <br /> <br />
+            <label htmlFor="nama_peserta" className="m-2">Nama</label>
+            <input {...register('nama_peserta')} disabled={btnClick ? 'true' :null} type="text" id="nama_peserta" placeholder="Nama peserta" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+            <br /> 
+            <br />
             <label htmlFor="notel" className="m-2">Nomor telp</label>
-            <input {...register('telp')} disabled={btnClick ? 'true' :null} type="phone" id="notel" placeholder="contoh: 0812XXXXX" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
-            <br /> <br />
+            <input {...register('notel')} disabled={btnClick ? 'true' :null} type="phone" id="notel" placeholder="contoh: 0812XXXXX" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+            <br /> 
+            <br />
             <label htmlFor="nama_panggung" className="m-2">Nama panggung / Stage name</label>
             <input {...register('nama_panggung')} disabled={btnClick ? 'true' :null} type="name" id="nama_panggung" placeholder="Nama panggung" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
-            <br /><br />
+            <br /> 
+            <br />
             <label htmlFor="lagu" className="m-2">Judul dan asal lagu</label>
             <input {...register('lagu')} disabled={btnClick ? 'true' :null} type="title" id="lagu" placeholder="contoh: Unravel - Tokyo Ghoul" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
-            <br /><br />
+            <br /> 
+            <br />
             <label htmlFor="link" className="m-2">Link lagu / instrument (optional)</label>
             <input {...register('link')} disabled={btnClick ? 'true' :null} type="title" id="link" placeholder="contoh: https://youtu.be/5c8MGs_8ngg?si=ZDHI9kSidmGkwbxN" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
-            <br /><br />
+            <br /> 
+            <br />
             <label htmlFor="bukti" className="m-2">Bukti Transfer</label>
-            <input {...register('bukti')} disabled={btnClick ? 'true' :null} type="file" accept="image/*" id="link" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
-            <br /><br />
+            <input {...register('bukti', {
+            required: 'File is required',
+            validate: {
+            validFileType: (value) => {
+              const fileType = value[0]?.type.split('/')[0];
+              return fileType === 'image' || 'File must be an image';
+            },
+            validFileSize: (value) => {
+              const fileSize = value[0]?.size;
+              return fileSize <= 1024 * 1024 * 5 || 'File size must be less than 5MB';
+            },
+          },
+        })} disabled={btnClick ? 'true' :null} type="file" accept="image/*" id="link" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+            <br /> 
+            <br />
 
             {
                 success ? 
                 <>
                   <div className="bg-green-400 text-neutral-700 font-semibold py-2 px-4 mb-8 rounded-xl text-violet-500 transition duration-400 scale-100">
-                    <p >Pengajuan tenant telah disimpan</p>
+                    <p >Pengajuan J-Song Competition telah disimpan</p>
                   </div>
                 </>
                 :
                 <>
                   <div className="bg-green-400 text-neutral-700 font-semibold py-2 px-4 mb-8 rounded-xl text-violet-500 transition  duration-400 scale-0 absolute">
-                    <p >Pengajuan tenant telah disimpan</p>
+                    <p >Pengajuan J-Song Competition telah disimpan</p>
                   </div>
                 </>
               }
@@ -113,9 +190,10 @@ export default function JsongForm(){
               btnClick ? 
                 <button type="submit" disabled className="w-full py-2 rounded-xl font-bold transition-all text-violet-500 bg-green-400"><img src="loading.png"className="h-6 mx-auto transition-all animate-spin" alt="" /></button>
                 :
-                <button type="submit" className="bg-neutral-700 w-full py-2 rounded-xl hover:font-bold transition-all hover:scale-110 hover:text-violet-500 hover:bg-green-400">Submit</button>
+                <button type="submit" className="bg-neutral-700 w-full py-2 rounded-xl hover:font-bold transition-all hover:scale-110 hover:text-violet-500 hover:bg-green-400" 
+                  onClick={(ShowErrors)}
+                >Submit</button>
             }
-
           </form>
         </div>
       </div>
