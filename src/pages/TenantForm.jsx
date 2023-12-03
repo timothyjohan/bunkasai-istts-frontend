@@ -3,38 +3,79 @@ import axios from "axios";
 import { useState } from "react"
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { joiResolver } from "@hookform/resolvers/joi";
+import Joi from "joi";
 
 export default function TenantForm(){
   const [disagreeClick, setDisagreeClick] = useState(false)
   const [btnClick, setBtnClick] = useState(false)
-
   const [success, setSuccess] = useState(null)
   const [error, setError] = useState(null)
-  const{register, handleSubmit, reset} = useForm()
+  // const{register, handleSubmit, reset} = useForm()
   const [load, setLoad] = useState(false)
   const navigate = useNavigate()
+
+  const schema = Joi.object({
+    nama_tenant: Joi.string().required().messages({
+        "string.empty":"Nama tenant is required"
+    }),
+    nama_cp: Joi.string().required().messages({
+      "string.empty":"Nama contact person is required"
+    }),
+    notel: Joi.number().integer().messages({
+      "number.base": "No Telpon harus berupa angka",
+      "number.integer": "No Telpon harus berupa angka bulat",
+    }).custom((value, helpers) => {
+      const isNumeric = /^[0-9]+$/.test(value);
+      if (isNumeric) {
+        return value;
+      } else {
+        return helpers.message({ "string.pattern.base": "No Telpon tidak boleh mengandung simbol" });
+      }
+    }).required().messages({
+      "any.required": "No Telpon is required",
+    }),
+    alamat: Joi.string().required().messages({
+        "string.empty":"Alamat is required"
+    }),
+  })
+
+  const { register, handleSubmit, reset, formState: { errors } } = useForm({resolver: joiResolver(schema)});
+  
+  const ShowErrors =  () => {
+    if(errors.nama_tenant){
+      setError(errors.nama_tenant.message)
+    }
+    else if(errors.nama_cp){
+      setError(errors.nama_cp.message)
+    }
+    else if(errors.notel){
+      setError(errors.notel.message)
+    }
+    else if(errors.alamat){
+      setError(errors.alamat.message)
+    }
+  }
+
+  useEffect(()=>{
+    ShowErrors()
+  },[errors])
 
   useEffect(()=>{
     setTimeout(()=>{
       setLoad(true)
-
     }, 0)
   },[])
 
   const submitTenant = async data =>{
     setBtnClick(true)
-    if(!data.nama_tenant || !data.nama_cp || !data.telp || !data.alamat){
+    try {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/tenants/new`, data)
+      setSuccess(true)
+      setError(null)
+    } catch (error) {
       setSuccess(null)
-      setError('Form tidak boleh ada yang kosong')
-    }else{
-      try {
-        await axios.post(`${import.meta.env.VITE_API_URL}/api/tenants/new`, data)
-        setSuccess(true)
-        setError(null)
-      } catch (error) {
-        setSuccess(null)
-        setError(error)
-      }
+      setError(error)
     }
     setBtnClick(false)
     reset()
@@ -46,15 +87,15 @@ export default function TenantForm(){
         <div className={`${disagreeClick ? '-translate-x-full transition-all duration-300' : ''} ${load ? '-translate-x-0 transition-all duration-300' : 'translate-x-[100vw]'} flex items-center justify-center mt-20 bg-neutral-800/80 w-2/6 mx-auto p-10 text-neutral-200 rounded-xl`}>
           <div className="">
             <form onSubmit={handleSubmit(submitTenant)}>
-              <h1 className="text-2xl mb-10 text-center">Form pendaftaran tenant</h1>
+              <h1 className="text-2xl mb-10 text-center">Form pendaftaran Tenant</h1>
               <label htmlFor="nama_tenant" className="m-2">Nama tenant</label>
               <input {...register('nama_tenant')} disabled={btnClick ? 'true' :null} type="text" id="nama_tenant" placeholder="Nama Tenant" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
               <br /> <br />
-              <label htmlFor="nm_cp" className="m-2">Nama contact person</label>
+              <label htmlFor="nama_cp" className="m-2">Nama contact person</label>
               <input {...register('nama_cp')} disabled={btnClick ? 'true' :null} type="text" id="nm_cp" placeholder="Nama contact person" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
               <br /> <br />
               <label htmlFor="notel" className="m-2">Nomor telp</label>
-              <input {...register('telp')} disabled={btnClick ? 'true' :null} type="phone" id="notel" placeholder="contoh: 0812XXXXX" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+              <input {...register('notel')} disabled={btnClick ? 'true' :null} type="phone" id="notel" placeholder="contoh: 0812XXXXX" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
               <br /><br />
               <label htmlFor="alamat" className="m-2">Alamat</label>
               <input {...register('alamat')} disabled={btnClick ? 'true' :null} type="address" id="alamat" placeholder="contoh: Jl. Ngagel Jaya Tengah No.73-77" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02] mb-10 " />

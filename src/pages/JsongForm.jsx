@@ -15,7 +15,7 @@ export default function JsongForm(){
 
   const schema = Joi.object({
     nama_peserta: Joi.string().required().messages({
-        "string.empty":"Nama is required"
+        "string.empty":"Nama peserta is required"
     }),
     notel: Joi.number().integer().messages({
       "number.base": "No Telpon harus berupa angka",
@@ -119,7 +119,7 @@ export default function JsongForm(){
         <div className="flex items-center justify-center mt-20 bg-neutral-800/80 w-2/6 mx-auto p-10 text-neutral-200 rounded-xl">
           <form onSubmit={handleSubmit(submitJsong)}>
             <h1 className="text-2xl mb-10 text-center ">Form pendaftaran J-Song</h1>
-            <label htmlFor="nama_peserta" className="m-2">Nama</label>
+            <label htmlFor="nama_peserta" className="m-2">Nama peserta</label>
             <input {...register('nama_peserta')} disabled={btnClick ? 'true' :null} type="text" id="nama_peserta" placeholder="Nama peserta" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /> 
             <br />
@@ -140,19 +140,21 @@ export default function JsongForm(){
             <br /> 
             <br />
             <label htmlFor="bukti" className="m-2">Bukti Transfer</label>
-            <input {...register('bukti', {
-            required: 'File is required',
-            validate: {
-            validFileType: (value) => {
-              const fileType = value[0]?.type.split('/')[0];
-              return fileType === 'image' || 'File must be an image';
-            },
-            validFileSize: (value) => {
-              const fileSize = value[0]?.size;
-              return fileSize <= 1024 * 1024 * 5 || 'File size must be less than 5MB';
-            },
-          },
-        })} disabled={btnClick ? 'true' :null} type="file" accept="image/*" id="link" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+            <input {...register('bukti', 
+        //     {
+        //     required: 'File is required',
+        //     validate: {
+        //     validFileType: (value) => {
+        //       const fileType = value[0]?.type.split('/')[0];
+        //       return fileType === 'image' || 'File must be an image';
+        //     },
+        //     validFileSize: (value) => {
+        //       const fileSize = value[0]?.size;
+        //       return fileSize <= 1024 * 1024 * 5 || 'File size must be less than 5MB';
+        //     },
+        //   },
+        // }
+        )} disabled={btnClick ? 'true' :null} type="file" accept="image/*" id="link" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /> 
             <br />
 
