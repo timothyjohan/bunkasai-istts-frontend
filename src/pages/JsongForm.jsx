@@ -15,33 +15,25 @@ export default function JsongForm(){
 
   const schema = Joi.object({
     nama_peserta: Joi.string().required().messages({
-        "string.empty":"Nama peserta is required"
+        "string.empty":"Field 'Nama peserta' harus terisi"
     }),
-    notel: Joi.number().integer().messages({
-      "number.base": "No Telpon harus berupa angka",
-      "number.integer": "No Telpon harus berupa angka bulat",
-    }).custom((value, helpers) => {
-      const isNumeric = /^[0-9]+$/.test(value);
-      if (isNumeric) {
-        return value;
-      } else {
-        return helpers.message({ "string.pattern.base": "No Telpon tidak boleh mengandung simbol" });
-      }
+    notel: Joi.string().pattern(/^[0-9]{10,}$/).messages({
+      "string.pattern.base": "Field 'No Telpon' invalid",
     }).required().messages({
-      "any.required": "No Telpon is required",
+      "string.empty": "Field 'No Telpon' harus diisi",
     }),
     nama_panggung: Joi.string().required().messages({
-        "string.empty":"Nama panggung/Stage name is required"
+      "string.empty":"Field 'Nama panggung/Stage name' harus terisi"
     }),
     lagu: Joi.string()
       .required()
       .pattern(new RegExp('.*-.*')) // This ensures that the string includes "-"
       .messages({
-        "string.empty": "Judul dan asal lagu is required",
-        "string.pattern.base": 'The lagu field must include the string "-"',
+        "string.empty": "Field 'Judul dan asal lagu' harus terisi",
+        "string.pattern.base": "Field 'Judul dan asal lagu' diisi dengan format <judul> - <asal>",
     }),
     link: Joi.string().required().messages({
-      "string.empty":'Please fill the link lagu/instrument by "-"'
+      'string.empty': `Isi field 'link' dengan "-" jika tidak ada`,
     }),
     bukti: Joi.object().required().messages({
       "any.required":"deskripsi tidak boleh kosong"
@@ -104,7 +96,7 @@ export default function JsongForm(){
       setBtnClick(false);
       reset();
     }else{
-      setError("Bukti transfer is required")
+      setError("Field 'Bukti transfer' harus diupload")
     }
   };
   return(
@@ -135,7 +127,7 @@ export default function JsongForm(){
             <input {...register('lagu')} disabled={btnClick ? 'true' :null} type="title" id="lagu" placeholder="contoh: Unravel - Tokyo Ghoul" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /> 
             <br />
-            <label htmlFor="link" className="m-2">Link lagu / instrument (optional)</label>
+            <label htmlFor="link" className="m-2">Link lagu / instrument</label>
             <input {...register('link')} disabled={btnClick ? 'true' :null} type="title" id="link" placeholder="contoh: https://youtu.be/5c8MGs_8ngg?si=ZDHI9kSidmGkwbxN" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /> 
             <br />

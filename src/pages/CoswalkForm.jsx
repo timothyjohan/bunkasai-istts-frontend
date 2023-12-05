@@ -15,17 +15,17 @@ export default function CoswalkForm(){
 
   const schema = Joi.object({
     nama_peserta: Joi.string().required().messages({
-        "string.empty":"Nama peserta is required"
+        "string.empty":"Field 'Nama peserta' harus terisi"
     }),
     nama_panggung: Joi.string().required().messages({
-        "string.empty":"Nama panggung/Stage name is required"
+        "string.empty":"Field 'Nama panggung/Stage name' harus terisi"
     }),
     instagram: Joi.string().required().regex(/^@/).messages({
-      "string.empty": "Instagram is required",
-      "string.pattern.base": 'Instagram must start with "@"',
-  }),
+      "string.empty": "Field 'Instagram' harus terisi",
+      "string.pattern.base": "Field 'Instagram' harus diawali dengan '@'",
+    }),
     bukti: Joi.object().required().messages({
-      "any.required":"deskripsi tidak boleh kosong"
+      "any.required":"Field Bukti Transfer harus terisi"
     })
   })
 
@@ -77,7 +77,7 @@ export default function CoswalkForm(){
       setBtnClick(false)
       reset()
     }else{
-      setError("Bukti transfer is required")
+      setError("Field 'Bukti Transfer' harus terisi")
     }
   }
 
