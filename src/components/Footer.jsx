@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Footer(){
     return(
         <>
@@ -22,7 +24,7 @@ export default function Footer(){
                         <div className="text-right">
                             <p className="mb-5">Jl. Ngagel Jaya Tengah No.73-77 · 0821-2290-7788</p>
                             <p className="mb-5">Surabaya, Jawa Timur, Indonesia</p>
-                            <a href=""><p className="mt-14">Feedback</p></a>
+                            <Link to={"/feedback-form"}><p className="mt-14">Feedback</p></Link>
                         </div>
 
                     </div>
