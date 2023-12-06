@@ -10,6 +10,7 @@ import CompSelect from './pages/CompSelect.jsx';
 import TenantForm from './pages/TenantForm.jsx';
 import JsongForm from './pages/JsongForm.jsx';
 import CoswalkForm from './pages/CoswalkForm.jsx';
+import FeedbackForm from './pages/FeedbackForm.jsx';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path:"/coswalk-form",
         element:<CoswalkForm />
+      },
+      {
+        path:"/feedback-form",
+        element:<FeedbackForm />
       },
     ]
   }
