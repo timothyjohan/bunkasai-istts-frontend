@@ -1,4 +1,6 @@
 import axios from "axios";
+import Joi from "joi";
+import { joiResolver } from "@hookform/resolvers/joi";
 import { useEffect } from "react";
 import { useState } from "react"
 import { useForm } from "react-hook-form";
@@ -10,23 +12,55 @@ export default function CoswalkForm(){
   const [selected, setSelected] = useState(true)
   const [success, setSuccess] = useState(null)
   const [error, setError] = useState(null)
-  const{register, handleSubmit, reset} = useForm()
+
+  const schema = Joi.object({
+    nama_peserta: Joi.string().required().messages({
+        "string.empty":"Field 'Nama peserta' harus terisi"
+    }),
+    nama_panggung: Joi.string().required().messages({
+        "string.empty":"Field 'Nama panggung/Stage name' harus terisi"
+    }),
+    instagram: Joi.string().required().regex(/^@/).messages({
+      "string.empty": "Field 'Instagram' harus terisi",
+      "string.pattern.base": "Field 'Instagram' harus diawali dengan '@'",
+    }),
+    bukti: Joi.object().required().messages({
+      "any.required":"Field Bukti Transfer harus terisi"
+    })
+  })
+
+  const { register, handleSubmit, reset, formState: { errors } } = useForm({resolver: joiResolver(schema)});
+  
+  const ShowErrors =  () => {
+    if(errors.nama_peserta){
+      setError(errors.nama_peserta.message)
+    }
+    else if(errors.nama_panggung){
+      setError(errors.nama_panggung.message)
+    }
+    else if(errors.instagram){
+      setError(errors.instagram.message)
+    }
+    else if(errors.link){
+      setError(errors.link.message)
+    }
+  }
+
+  useEffect(()=>{
+    ShowErrors()
+  },[errors])
   
 
   useEffect(()=>{
     setTimeout(()=>{
       setSelected(false)
       setLoad(true)
-
     }, 0)
   },[])
 
   const submitCoswalk = async data =>{
-    setBtnClick(true)
-    if(!data.nama_peserta || !data.nama_panggung || !data.instagram || !data.bukti[0]){
-      setSuccess(null)
-      setError('Form tidak boleh ada yang kosong')
-    }else{
+    if(data.bukti[0]){
+      setBtnClick(true)
       try {
         const formData = new FormData();
         formData.append('nama_peserta', data.nama_peserta);
@@ -40,9 +74,11 @@ export default function CoswalkForm(){
         setSuccess(null)
         setError(error)
       }
+      setBtnClick(false)
+      reset()
+    }else{
+      setError("Field 'Bukti Transfer' harus terisi")
     }
-    setBtnClick(false)
-    reset()
   }
 
   return(
@@ -57,7 +93,7 @@ export default function CoswalkForm(){
         <div className="flex items-center justify-center mt-20 bg-neutral-800/80 w-2/6 mx-auto p-10 text-neutral-200 rounded-xl">
           <form onSubmit={handleSubmit(submitCoswalk)}>
             <h1 className="text-2xl mb-10 text-center">Form pendaftaran Coswalk</h1>
-            <label htmlFor="nama_peserta" className="m-2">Nama</label>
+            <label htmlFor="nama_peserta" className="m-2">Nama peserta</label>
             <input {...register('nama_peserta')} disabled={btnClick ? 'true' :null} type="text" id="nama_peserta" placeholder="Nama peserta" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /> <br />
             <label htmlFor="nama_panggung" className="m-2">Nama panggung / Stage name</label>
@@ -67,7 +103,21 @@ export default function CoswalkForm(){
             <input {...register('instagram')} disabled={btnClick ? 'true' :null} type="title" id="insta" placeholder="contoh: @bunkasaiistts" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /><br />
             <label htmlFor="bukti" className="m-2">Bukti Transfer</label>
-            <input {...register('bukti')} disabled={btnClick ? 'true' :null} type="file" accept="image/*" id="link" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+            <input {...register('bukti',
+                {
+                  required: 'File is required',
+                  validate: {
+                  validFileType: (value) => {
+                    const fileType = value[0]?.type.split('/')[0];
+                    return fileType === 'image' || 'File must be an image';
+                  },
+                  validFileSize: (value) => {
+                    const fileSize = value[0]?.size;
+                    return fileSize <= 1024 * 1024 * 5 || 'File size must be less than 5MB';
+                  },
+                },
+              }
+            )} disabled={btnClick ? 'true' :null} type="file" accept="image/*" id="link" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /><br />
 
             {
