@@ -22,7 +22,7 @@ export default function TenantForm(){
     nama_cp: Joi.string().required().messages({
       "string.empty":"Nama contact person is required"
     }),
-    notel: Joi.number().integer().messages({
+    telp: Joi.number().integer().messages({
       "number.base": "No Telpon harus berupa angka",
       "number.integer": "No Telpon harus berupa angka bulat",
     }).custom((value, helpers) => {
@@ -49,8 +49,8 @@ export default function TenantForm(){
     else if(errors.nama_cp){
       setError(errors.nama_cp.message)
     }
-    else if(errors.notel){
-      setError(errors.notel.message)
+    else if(errors.telp){
+      setError(errors.telp.message)
     }
     else if(errors.alamat){
       setError(errors.alamat.message)
@@ -94,8 +94,8 @@ export default function TenantForm(){
               <label htmlFor="nama_cp" className="m-2">Nama contact person</label>
               <input {...register('nama_cp')} disabled={btnClick ? 'true' :null} type="text" id="nm_cp" placeholder="Nama contact person" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
               <br /> <br />
-              <label htmlFor="notel" className="m-2">Nomor telp</label>
-              <input {...register('notel')} disabled={btnClick ? 'true' :null} type="phone" id="notel" placeholder="contoh: 0812XXXXX" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+              <label htmlFor="telp" className="m-2">Nomor telp</label>
+              <input {...register('telp')} disabled={btnClick ? 'true' :null} type="phone" id="telp" placeholder="contoh: 0812XXXXX" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
               <br /><br />
               <label htmlFor="alamat" className="m-2">Alamat</label>
               <input {...register('alamat')} disabled={btnClick ? 'true' :null} type="address" id="alamat" placeholder="contoh: Jl. Ngagel Jaya Tengah No.73-77" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02] mb-10 " />
