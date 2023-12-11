@@ -1,14 +1,16 @@
 import {createSlice} from "@reduxjs/toolkit"
 
 const initialState = {
-    page:1,
+    page:0,
+    previous:0
 }
 
 export const pageSlice = createSlice({
     name:"page",
     initialState,
     reducers:{
-        setPage : (state, action) => {
+        changePage : (state, action) => {
+            state.previous = state.page
             state.page = action.payload
         }
     }
