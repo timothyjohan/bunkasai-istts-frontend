@@ -10,7 +10,7 @@ export default function CompSelect(){
   const [coswalk, setCoswalk] = useState(null)
   const navigate = useNavigate()
   const page = useSelector((state)=>state.page)
-
+ 
 
   useEffect(()=>{
     console.log(page);
