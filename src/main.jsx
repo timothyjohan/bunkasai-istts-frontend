@@ -53,10 +53,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router}>
-      <Provider store={store}>
-        
-      </Provider>
-    </RouterProvider>
+    <Provider store={store}>
+      <RouterProvider router={router}>
+          
+      </RouterProvider>
+    </Provider>
   </React.StrictMode>,
 )
