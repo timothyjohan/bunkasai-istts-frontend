@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export default function TenantConf(){
@@ -7,8 +8,10 @@ export default function TenantConf(){
   const [agreeClick, setAgreeClick] = useState(false)
   const [load, setLoad] = useState(false)
   const navigate = useNavigate()
+  const page = useSelector((state)=>state.page)
 
   useEffect(()=>{
+    console.log(page);
     setLoad(true)
   },[])
 

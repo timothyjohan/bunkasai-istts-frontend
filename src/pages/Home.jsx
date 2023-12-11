@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { Fade } from "react-reveal";
-import { changePage } from "../app/pageSlice";
 
 export default function Home(){
   const [load, setLoad] = useState(false)
   const page = useSelector((state)=>state.page)
-  const dispatch = useDispatch()
+
 
   
   useEffect(()=>{
-    dispatch(changePage(0))
     console.log(page);
     setTimeout(() => {
       setLoad(true)
