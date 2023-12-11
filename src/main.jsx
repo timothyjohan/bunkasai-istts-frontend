@@ -11,6 +11,8 @@ import TenantForm from './pages/TenantForm.jsx';
 import JsongForm from './pages/JsongForm.jsx';
 import CoswalkForm from './pages/CoswalkForm.jsx';
 import FeedbackForm from './pages/FeedbackForm.jsx';
+import { Provider } from 'react-redux';
+import store from './app/store.js';
 
 const router = createBrowserRouter([
   {
@@ -51,8 +53,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router}>
-
-    </RouterProvider>
+    <Provider store={store}>
+      <RouterProvider router={router}>
+          
+      </RouterProvider>
+    </Provider>
   </React.StrictMode>,
 )

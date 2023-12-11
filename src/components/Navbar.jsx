@@ -1,6 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { changePage } from "../app/pageSlice";
+import { useDispatch } from "react-redux";
 
 export default function Navbar(){
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const toHome = () =>{
+        dispatch(changePage(0))
+        navigate("/")
+    }
+    const toTenant = () =>{
+        dispatch(changePage(1))
+        navigate("/tenant-conf")
+    }
+    const toComp = () =>{
+        dispatch(changePage(2))
+        navigate("/competition-select")
+    }
     
     return(
         <>
@@ -8,18 +24,17 @@ export default function Navbar(){
                 <nav className="w-11/12 mx-auto p-2 mt-2 flex items-center justify-between ">
                     <div className="flex items-center">
                         <img src="bunkasai-logo.png" className="w-20 h-20 object-contain mx-5" />
-                        {/* <img src="nippongo.png" className="w-20 h-20 object-contain" /> */}
                     </div>
                     <div className="flex items-center text-neutral-300">
-                        <Link to={"/"} className="mx-5 text-xl font-bold transition-all hover:scale-110">
+                        <button onClick={toHome} className="mx-5 text-xl font-bold transition-all hover:scale-110">
                             <button className=" ">HOME</button>
-                        </Link>
-                        <Link to={"/tenant-conf"} className="mx-5 text-xl font-bold transition-all hover:scale-110">
+                        </button>
+                        <button onClick={toTenant} className="mx-5 text-xl font-bold transition-all hover:scale-110">
                             <button className=" ">TENANT</button>
-                        </Link>
-                        <Link to={"/competition-select"} className="mx-5 text-xl font-bold transition-all hover:scale-110">
+                        </button>
+                        <button onClick={toComp} className="mx-5 text-xl font-bold transition-all hover:scale-110">
                             <button className="">COMPETITION</button>
-                        </Link>
+                        </button>
 
                         
                     </div>

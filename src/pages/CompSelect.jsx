@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react"
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export default function CompSelect(){
@@ -8,8 +9,11 @@ export default function CompSelect(){
   const [jsong, setJsong] = useState(null)
   const [coswalk, setCoswalk] = useState(null)
   const navigate = useNavigate()
+  const page = useSelector((state)=>state.page)
+ 
 
   useEffect(()=>{
+    console.log(page);
     setLoad(true)
     setSelected(false)
   },[])

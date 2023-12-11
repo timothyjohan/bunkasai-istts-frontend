@@ -108,7 +108,7 @@ export default function JsongForm(){
 
       <div className="pt-28 min-h-screen">
 
-        <div className="flex items-center justify-center mt-20 bg-neutral-800/80 w-2/6 mx-auto p-10 text-neutral-200 rounded-xl">
+        <div className="flex items-center justify-center mt-20 bg-neutral-800/80 w-2/6 mx-auto p-10 text-neutral-200 rounded-xl mb-44">
           <form onSubmit={handleSubmit(submitJsong)}>
             <h1 className="text-2xl mb-10 text-center ">Form pendaftaran J-Song</h1>
             <label htmlFor="nama_peserta" className="m-2">Nama peserta</label>

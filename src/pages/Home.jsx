@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux";
 import { Fade } from "react-reveal";
 
 export default function Home(){
   const [load, setLoad] = useState(false)
+  const page = useSelector((state)=>state.page)
+
 
   
   useEffect(()=>{
+    console.log(page);
     setTimeout(() => {
       setLoad(true)
     }, 0);
