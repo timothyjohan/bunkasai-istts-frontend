@@ -17,7 +17,7 @@ export default function JsongForm(){
     nama_peserta: Joi.string().required().messages({
         "string.empty":"Field 'Nama peserta' harus terisi"
     }),
-    notel: Joi.string().pattern(/^[0-9]{10,}$/).messages({
+    telp: Joi.string().pattern(/^[0-9]{10,}$/).messages({
       "string.pattern.base": "Field 'No Telpon' invalid",
     }).required().messages({
       "string.empty": "Field 'No Telpon' harus diisi",
@@ -46,8 +46,8 @@ export default function JsongForm(){
     if(errors.nama_peserta){
       setError(errors.nama_peserta.message)
     }
-    else if(errors.notel){
-      setError(errors.notel.message)
+    else if(errors.telp){
+      setError(errors.telp.message)
     }
     else if(errors.nama_panggung){
       setError(errors.nama_panggung.message)
@@ -79,7 +79,7 @@ export default function JsongForm(){
       try {
         const formData = new FormData();
         formData.append('nama_peserta', data.nama_peserta);
-        formData.append('notel', data.notel);
+        formData.append('telp', data.telp);
         formData.append('nama_panggung', data.nama_panggung);
         formData.append('lagu', data.lagu);
         formData.append('link', data.link);
@@ -115,8 +115,8 @@ export default function JsongForm(){
             <input {...register('nama_peserta')} disabled={btnClick ? 'true' :null} type="text" id="nama_peserta" placeholder="Nama peserta" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /> 
             <br />
-            <label htmlFor="notel" className="m-2">Nomor telp</label>
-            <input {...register('notel')} disabled={btnClick ? 'true' :null} type="phone" id="notel" placeholder="contoh: 0812XXXXX" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
+            <label htmlFor="telp" className="m-2">Nomor telp</label>
+            <input {...register('telp')} disabled={btnClick ? 'true' :null} type="phone" id="telp" placeholder="contoh: 0812XXXXX" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
             <br /> 
             <br />
             <label htmlFor="nama_panggung" className="m-2">Nama panggung / Stage name</label>
