@@ -79,9 +79,9 @@ export default function FeedbackForm(){
   return(
     <>  
       {/* Transition */}
-      <div style={{height: '110vh'}} className={`bg-yellow-300 rotate-45 h-screen w-screen rounded-xl transition duration-1000 absolute z-30 ${selected ? 'scale-150 translate-x-0 -translate-y-0' : 'scale-0 -translate-x-full translate-y-full'}  `}>
-      </div>
-      {/*  */}
+      {/* <div style={{height: '110vh'}} className={`bg-yellow-300 rotate-45 h-screen w-screen rounded-xl transition duration-1000 absolute z-30 ${selected ? 'scale-150 translate-x-0 -translate-y-0' : 'scale-0 -translate-x-full translate-y-full'}  `}>
+      </div> */}
+      
 
       <div className="pt-28 min-h-screen">
 
