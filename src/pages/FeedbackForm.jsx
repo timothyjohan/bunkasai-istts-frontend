@@ -81,7 +81,7 @@ export default function FeedbackForm(){
       <div className="pt-28 min-h-screen">
 
         <div className="flex items-center justify-center mt-20 bg-neutral-800/80 w-1/3 mx-auto p-10 text-neutral-200 rounded-xl">
-          <form onSubmit={handleSubmit(submitCoswalk)}>
+          <form onSubmit={handleSubmit(submitFeedback)}>
             <h1 className="text-2xl mb-10 text-center">Form Feedback</h1>
             <label htmlFor="kritik" className="m-2">Kritik</label>
             <input {...register('kritik')} disabled={btnClick ? 'true' :null} type="text" id="kritik" placeholder="Kritik" className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]" />
