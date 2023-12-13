@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { Fade } from "react-reveal";
+import { Carousel } from "flowbite-react";
 
 export default function Home(){
   const [load, setLoad] = useState(false)
@@ -22,6 +23,29 @@ export default function Home(){
       </div>
 
       <div className="min-h-screen mt-44 w-5/6 mx-auto text-neutral-200">
+      <div className="grid grid-cols-2 my-80">
+          
+          <div className="text-right mt-10">
+            <Fade bottom>
+              <h1 className="text-4xl font-semibold">APA ITU BUNKASAI?</h1>
+
+            </Fade>
+            <br />
+            <Fade bottom cascade>
+              <p className="text-lg">Festival Budaya Jepang atau yang lebih dikenal dengan Bunkasai (文化祭) merupakan salah satu festival yang cukup terkenal dan biasanya diadakan di sekolah atau perguruan tinggi di Jepang untuk menunjukkan hasil kegiatan dari sekolah atau perguruan tinggi terkait. Kegiatan ini seringkali dijadikan ajang untuk  menampilkan dan memperkenalkan budaya-budaya yang ada di Jepang sekaligus untuk menunjukkan minat serta bakat yang berkaitan dengan budaya dari Jepang.</p>
+
+            </Fade>
+
+          </div>
+          <Fade>
+            <div className=" w-4/5 h-96 ml-auto">
+            <Carousel slideInterval={5000} >
+                <img src="/dsc.png" alt="" />
+            </Carousel>
+            </div>
+            
+          </Fade>
+      </div>
         <Fade bottom cascade>
           <h1 className="text-center text-5xl font-semibold my-20 mb-80 animate-pulse">INTRODUCING OUR CAST</h1>
         </Fade>
@@ -66,24 +90,6 @@ export default function Home(){
           </Fade>
 
 
-          <Fade>
-            <div>
-              <img className="h-96 rounded-xl shadow-xl " src="/dsc.png"  />
-            </div>
-            
-          </Fade>
-          <div className="text-right mt-10">
-            <Fade bottom>
-              <h1 className="text-4xl font-semibold">APA ITU BUNKASAI?</h1>
-
-            </Fade>
-            <br />
-            <Fade bottom cascade>
-              <p className="text-lg">Festival Budaya Jepang atau yang lebih dikenal dengan Bunkasai (文化祭) merupakan salah satu festival yang cukup terkenal dan biasanya diadakan di sekolah atau perguruan tinggi di Jepang untuk menunjukkan hasil kegiatan dari sekolah atau perguruan tinggi terkait. Kegiatan ini seringkali dijadikan ajang untuk  menampilkan dan memperkenalkan budaya-budaya yang ada di Jepang sekaligus untuk menunjukkan minat serta bakat yang berkaitan dengan budaya dari Jepang.</p>
-
-            </Fade>
-
-          </div>
         </div>
         <div>
           <Fade bottom cascade>
