@@ -60,12 +60,7 @@ export default function FeedbackForm(){
   const submitCoswalk = async data =>{
       setBtnClick(true)
       try {
-        const formData = new FormData();
-        formData.append('kritik', data.kritik);
-        formData.append('saran', data.saran);
-        formData.append('pesan', data.pesan);
-        formData.append('kesan', data.kesan);
-        // await axios.post(`${import.meta.env.VITE_API_URL}/api/coswalk/new`, formData)/
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/feedback/new`, data)
         setSuccess(true)
         setError(null)
       } catch (error) {
