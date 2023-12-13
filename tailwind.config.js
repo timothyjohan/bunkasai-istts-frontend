@@ -17,7 +17,5 @@ export default {
       'bg-banner': "url('/background.png')"
     },
   },
-  plugins: [
-    require('flowbite/plugin')
-]
+  plugins: []
 }

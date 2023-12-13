@@ -22,6 +22,7 @@ export default function Home(){
     }, 0);
   },[])
 
+  
 
   return(
     <>
@@ -46,7 +47,7 @@ export default function Home(){
           </div>
           <Fade>
             <div className=" w-4/5 h-96 ml-auto">
-            <Carousel slideInterval={5000} >
+            <Carousel b slideInterval={5000} >
                 {
                   images.map((elements)=>{
                     return(
@@ -106,14 +107,14 @@ export default function Home(){
 
 
         </div>
-        <div>
+        {/* <div>
           <Fade bottom cascade>
             <h1 className="text-center text-5xl font-semibold mb-96">SCHEDULE</h1>
 
           </Fade>
           
          
-        </div>
+        </div> */}
       </div>
     </>
   )
