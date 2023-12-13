@@ -57,7 +57,7 @@ export default function FeedbackForm(){
     }, 0)
   },[])
 
-  const submitCoswalk = async data =>{
+  const submitFeedback = async data =>{
       setBtnClick(true)
       try {
         await axios.post(`${import.meta.env.VITE_API_URL}/api/feedback/new`, data)
