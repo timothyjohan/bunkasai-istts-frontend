@@ -1,10 +1,17 @@
-import {configureStore} from "@reduxjs/toolkit"
-import pageReducer from "./pageSlice"
+// Mengimpor fungsi configureStore dari pustaka redux toolkit
+import { configureStore } from "@reduxjs/toolkit";
 
-//store digunakan untuk menampung semua slice redux
+// Mengimpor pageReducer dari file pageSlice
+import pageReducer from "./pageSlice";
+
+// Store digunakan untuk menampung semua slice redux
+// Dalam hal ini, kita hanya memiliki satu slice yaitu 'page'
+// yang diatur oleh pageReducer
 const store = configureStore({
-    reducer:{
-        page:pageReducer
+    reducer: {
+        page: pageReducer,
     },
-})
-export default store
+});
+
+// Eksport default store sehingga dapat digunakan di file lain
+export default store;
