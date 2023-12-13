@@ -2,19 +2,26 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { Fade } from "react-reveal";
 import { Carousel } from "flowbite-react";
+import axios from "axios";
 
 export default function Home(){
   const [load, setLoad] = useState(false)
   const page = useSelector((state)=>state.page)
+  const [images, setImages] = useState([])
 
+  const fetchImage = async () =>{
+    const request = await axios.get(`${import.meta.env.VITE_API_URL}/api/gallery`)
+    setImages(request.data)
+  }
 
   
   useEffect(()=>{
-    console.log(page);
+    fetchImage()
     setTimeout(() => {
       setLoad(true)
     }, 0);
   },[])
+
 
   return(
     <>
@@ -40,7 +47,15 @@ export default function Home(){
           <Fade>
             <div className=" w-4/5 h-96 ml-auto">
             <Carousel slideInterval={5000} >
-                <img src="/dsc.png" alt="" />
+                {
+                  images.map((elements)=>{
+                    return(
+                      <>
+                        <img src={`${elements.img}`} alt="" />
+                      </>
+                    )
+                  })
+                }
             </Carousel>
             </div>
             
