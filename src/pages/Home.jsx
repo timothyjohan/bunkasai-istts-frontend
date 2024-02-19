@@ -41,7 +41,7 @@ export default function Home() {
     // mengembalikan JSX untuk render komponen
     return (
         <>
-            <div className="h-screen flex items-center justify-center bg-repeat">
+            <div className="lg:h-screen flex items-center justify-center bg-repeat ">
                 <img
                     src="/banner.gif"
                     className={`h-full mx-auto opacity-75 ${
@@ -51,6 +51,19 @@ export default function Home() {
                     }`}
                 />
             </div>
+
+            <div className="video-container mx-auto bg-yellow aspect-w-16 aspect-h-9 my-44">
+                <iframe
+                    className="mx-auto w-5/6 lg:h-[80vh] sm:h-[37vh] object-cover"
+                    src="https://www.youtube.com/embed/MLLEpXi_EE0?autoplay=1&mute=1&loop=1&playlist=MLLEpXi_EE0&si=1nvFBuOkHpIwi5h_"
+                    title="BUNKASAI ISTTS 2023 - Kibou no Hono"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    loop
+                ></iframe>
+            </div>
+
 
             <div className="min-h-screen mt-44 w-5/6 mx-auto text-neutral-200">
                 <div className="grid grid-cols-2 my-80">

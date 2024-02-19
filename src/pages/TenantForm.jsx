@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function TenantForm() {
     // State untuk menentukan apakah tombol tidak setuju telah ditekan
@@ -23,6 +24,7 @@ export default function TenantForm() {
     const [load, setLoad] = useState(false);
     // Fungsi untuk navigasi antar halaman
     const navigate = useNavigate();
+    const [captcha, setCaptcha] = useState(false);
 
     // validasi schema Joi
     // pesan error akan ditampilkan jika data yang dimasukkan tidak sesuai dengan schema
@@ -105,20 +107,28 @@ export default function TenantForm() {
     // 9. setTimeout untuk menunggu 300ms sebelum navigasi ke halaman TenantConf
     const submitTenant = async (data) => {
         setBtnClick(true);
-        try {
-            await axios.post(
-                `${import.meta.env.VITE_API_URL}/api/tenants/new`,
-                data
-            );
-            setSuccess(true);
-            setError(null);
-        } catch (error) {
-            setSuccess(null);
-            setError(error);
+        if(captcha){
+            try {
+                await axios.post(
+                    `${import.meta.env.VITE_API_URL}/api/tenants/new`,
+                    data
+                );
+                setSuccess(true);
+                setError(null);
+            } catch (error) {
+                setSuccess(null);
+                setError(error);
+            }
+        }else{
+            setError("Please complete captcha")
         }
         setBtnClick(false);
         reset();
     };
+    const captchaConf = (value)=>{
+        console.log("Captcha value:", value);
+        setCaptcha(true)
+    }
 
     // Mengembalikan JSX untuk render komponen
     return (
@@ -188,6 +198,12 @@ export default function TenantForm() {
                                 placeholder="contoh: Jl. Ngagel Jaya Tengah No.73-77"
                                 className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02] mb-10 "
                             />
+                            <ReCAPTCHA
+                                className=""
+                                sitekey={import.meta.env.VITE_RECAPTCHA_KEY}
+                                onChange={captchaConf}
+                            />
+                            <br />
                             {success ? (
                                 <>
                                     <div className="bg-green-400 text-neutral-700 font-semibold py-2 px-4 mb-8 rounded-xl text-violet-500 transition duration-400 scale-100">

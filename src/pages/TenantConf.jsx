@@ -51,7 +51,7 @@ export default function TenantConf() {
     // Mengembalikan JSX untuk render komponen
     return (
         <>
-            <div className="pt-28 min-h-screen">
+            <div className="pt-28 min-h-screen mb-44">
                 <div
                     className={`${
                         disagreeClick
@@ -74,22 +74,21 @@ export default function TenantConf() {
                     } flex items-center justify-center mt-20 bg-neutral-800/80 w-4/6 mx-auto p-10 text-neutral-200 rounded-md`}
                 >
                     <div className="text-center">
-                        <h1 className="text-2xl mb-10">Syarat dan ketentuan</h1>
-                        <p className="text-lg">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Accusantium, ex a nihi l beatae reiciendis
-                            doloribus cupiditate explicabo quasi deserunt
-                            quisquam impedit non corrupti modi ipsum facere sed
-                            architecto? Laudantium, facilis. Lorem ipsum dolor
-                            sit amet consectetur adipisicing elit. Commodi iure
-                            placeat accusantium sint repellendus, explicabo
-                            ducimus maiores culpa vero. Expedita a ut commodi
-                            vitae eveniet nobis esse iure, ducimus facilis.
-                            Lorem ipsum dolor, sit amet consectetur adipisicing
-                            elit. Dolorem, eos delectus incidunt earum cumque
-                            nostrum voluptatibus necessitatibus alias quod,
-                            nobis aliquam? Illo aliquam eos ex nesciunt neque
-                            esse harum fugiat?
+                        <h1 className="text-2xl font-bold mb-10">Syarat dan ketentuan</h1>
+                        <p className="text-lg text-justify w-5/6 mx-auto">
+                            <li>Halaman ini adalah halaman pendaftaran tenant untuk acara BUNKASAI ISTTS.</li> 
+                            <br />
+                            <li>Dengan mengisi formulir ini, Anda setuju untuk memberikan informasi kontak yang valid.</li>
+                            <br />
+                            <li>Kami akan menghubungi Anda lebih lanjut melalui nomor telepon yang Anda berikan.</li>
+                            <br />
+                            <li>Informasi yang Anda berikan akan digunakan untuk memberikan informasi lebih lanjut dan tindak lanjut terkait pendaftaran Anda.</li>
+                            <br />
+                            <li>Dengan menekan tombol 'Setuju', Anda menyetujui untuk menerima komunikasi dari kami melalui nomor telepon yang Anda berikan.</li>
+                            <br />
+                            <li>Kami berhak untuk menghubungi Anda menggunakan nomor telepon yang Anda sediakan untuk keperluan administratif terkait acara BUNKASAI ISTTS.</li>
+                            <br />
+                            <li>Informasi kontak yang Anda berikan akan diperlakukan secara rahasia dan tidak akan dibagikan kepada pihak ketiga tanpa izin Anda.</li>
                         </p>
                         <button
                             onClick={disagree}
