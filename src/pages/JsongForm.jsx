@@ -21,6 +21,8 @@ export default function JsongForm() {
     // State untuk menentukan apakah terjadi error
     const [error, setError] = useState(null);
 
+    const [hide, setHide] = useState(false);
+
     // validasi form menggunakan joi
     // pesan error akan ditampilkan jika data yang dimasukkan tidak sesuai dengan schema
     const schema = Joi.object({
@@ -90,6 +92,12 @@ export default function JsongForm() {
         }, 50);
     }, []);
 
+    useEffect(()=>{
+        setTimeout(() => {
+            setHide(!hide)
+        }, 1000);
+    },[selected])
+
     // fungsi untuk submit jsong
     // data yang diinputkan akan dikirim ke server
     // cara kerja:
@@ -138,12 +146,18 @@ export default function JsongForm() {
         <>
             {/* Transition */}
             <div
-                style={{ height: "110vh" }}
-                className={`bg-yellow-300 -rotate-45 xl:rotate-45 h-screen w-screen transition duration-1000 absolute z-30 ${
+                className={`h-[200vh] bg-yellow-300 -rotate-45 xl:rotate-45  w-screen transition duration-1000 absolute z-30 
+                ${
                     selected
                         ? "scale-150 translate-x-0 -translate-y-0"
                         : "scale-0 -translate-x-full translate-y-full"
-                }  `}
+                }
+                ${
+                    hide
+                    ? "hidden"
+                    : ""
+                }
+                `}
             ></div>
             {/*  */}
 

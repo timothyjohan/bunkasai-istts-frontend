@@ -21,6 +21,9 @@ export default function CoswalkForm() {
     // State untuk menentukan status error
     const [error, setError] = useState(null);
 
+    const [hide, setHide] = useState(false);
+
+
     // validasi schema Joi
     // pesan error akan ditampilkan jika data yang dimasukkan tidak sesuai dengan schema
     const schema = Joi.object({
@@ -67,10 +70,16 @@ export default function CoswalkForm() {
     // useEffect yang akan dijalankan saat komponen dipasang
     useEffect(() => {
         setTimeout(() => {
-            setSelected(false);
             setLoad(true);
+            setSelected(false);
         }, 50);
     }, []);
+
+    useEffect(()=>{
+        setTimeout(() => {
+            setHide(!hide)
+        }, 1000);
+    },[selected])
 
     // fungsi untuk submit data
     // cara kerja:
@@ -110,17 +119,24 @@ export default function CoswalkForm() {
         <>
             {/* Transition */}
             <div
-                style={{ height: "110vh" }}
-                className={`bg-yellow-300 -rotate-45 xl:rotate-45 h-screen w-screen rounded-xl transition duration-1000 absolute z-30 ${
+                className={`h-[200vh] h-1 bg-yellow-300 -rotate-45 xl:rotate-45 w-screen transition duration-1000 absolute z-30 
+                ${
                     selected
                         ? "scale-150 translate-x-0 -translate-y-0"
                         : "scale-0 -translate-x-full translate-y-full"
-                }  `}
+                }  
+                ${
+                    hide
+                    ? "hidden"
+                    : ""
+                }
+                `}
             ></div>
             {/*  */}
 
             <div className="pt-28 min-h-screen">
                 <div className="flex items-center justify-center mt-20 bg-neutral-800/80 w-2/6 mx-auto p-10 text-neutral-200 rounded-xl">
+                    
                     <form onSubmit={handleSubmit(submitCoswalk)}>
                         <h1 className="text-2xl mb-10 text-center">
                             Form pendaftaran Coswalk
