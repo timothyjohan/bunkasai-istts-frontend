@@ -20,7 +20,6 @@ export default function TenantConf() {
 
     // useEffect yang akan dijalankan saat komponen dipasang
     useEffect(() => {
-        console.log(page);
         setLoad(true);
     }, []);
 

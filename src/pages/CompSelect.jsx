@@ -23,7 +23,6 @@ export default function CompSelect() {
 
     // useEffect yang akan dijalankan saat komponen dipasang
     useEffect(() => {
-        console.log(page);
         setLoad(true);
         setSelected(false);
     }, []);
