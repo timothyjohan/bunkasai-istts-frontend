@@ -116,7 +116,7 @@ export default function CompSelect() {
                     </div>
 
                     <div
-                        className="text-center h-[50vh] w-[50vh] mx-auto -mt-28"
+                        className="text-center h-[50vh] w-[50vh] mx-auto xl:mt-0 -mt-28"
                         onClick={toCoswalk}
                     >
                         <div
