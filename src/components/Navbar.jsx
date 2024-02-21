@@ -47,7 +47,7 @@ export default function Navbar() {
             <div className="flex items-center">
                 <img
                     src="bunkasai-logo.png"
-                    className="w-20 h-20 object-contain mx-5"
+                    className="xl:w-20 xl:h-20 w-16 h-16 object-contain mx-5"
                     alt="Logo"
                 />
             </div>

@@ -67,10 +67,11 @@ export default function CompSelect() {
     return (
         <>
             <div
-                style={{ height: "110vh" }}
-                className={`bg-yellow-300 rotate-45 h-screen w-screen transition duration-1000 absolute z-30 ${
+                
+                // style={{ height: "110vh" }}
+                className={`xl:h-[110vh] h-1 bg-yellow-300 rotate-45 xl:w-screen transition duration-1000 xl:absolute z-30 ${
                     selected
-                        ? "scale-150 translate-x-0 -translate-y-0"
+                        ? "xl:scale-150 scale-0 translate-x-0 -translate-y-0"
                         : "scale-0 translate-x-full -translate-y-full"
                 }  `}
             ></div>
@@ -82,8 +83,8 @@ export default function CompSelect() {
                 <div
                     className={`${
                         load
-                            ? "-translate-x-0 transition-all duration-300"
-                            : "translate-x-full"
+                            ? "xl:-translate-x-0 transition-all duration-300"
+                            : "xl:translate-x-full"
                     } flex items-center justify-center mt-16 w-4/6 mx-auto p-10 text-neutral-200 rounded-md grid xl:grid-cols-2 lg:grid:cols-1 gap-y-24 `}
                 >
                     <div
@@ -93,7 +94,7 @@ export default function CompSelect() {
                         <div
                             onMouseEnter={jsongHover}
                             onMouseLeave={jsongHovernt}
-                            className={`bg-[url('/j-song.png')] h-full w-full z-0 bg-center bg-cover flex flex-col justify-end transition-all ${
+                            className={`bg-[url('/j-song.png')] h-4/6 w-4/6 mx-auto xl:h-full xl:w-full z-0 bg-center bg-cover flex flex-col justify-end transition-all ${
                                 jsong ? "scale-110 brightness-50 blur-sm" : ""
                             }  rounded-md brightness-75  shadow-xl relative`}
                         >
@@ -104,7 +105,7 @@ export default function CompSelect() {
                         <p
                             onMouseEnter={jsongHover}
                             onMouseLeave={jsongHovernt}
-                            className={`mx-5 -mt-80 z-10 relative text-left transition duration-500 ${
+                            className={`text-justify xl: xl:-mt-80 z-10 w-4/6 xl:w-5/6 -mt-52 mx-auto relative text-left transition duration-500 ${
                                 jsong
                                     ? "opacity-100 scale-100"
                                     : "opacity-0 scale-90"
@@ -121,7 +122,7 @@ export default function CompSelect() {
                         <div
                             onMouseEnter={coswalkHover}
                             onMouseLeave={coswalkHovernt}
-                            className={`bg-[url('/coswalk.png')] h-full w-full z-0 bg-center bg-cover flex flex-col justify-end transition-all ${
+                            className={`bg-[url('/coswalk.png')] h-4/6 w-4/6 mx-auto xl:h-full xl:w-full z-0 bg-center bg-cover flex flex-col justify-end transition-all ${
                                 coswalk ? "scale-110 brightness-50 blur-sm" : ""
                             }  rounded-md brightness-75 shadow-xl relative`}
                         >
@@ -132,7 +133,7 @@ export default function CompSelect() {
                         <p
                             onMouseEnter={coswalkHover}
                             onMouseLeave={coswalkHovernt}
-                            className={`mx-5 -mt-80 z-10 relative text-left transition duration-500 ${
+                            className={`text-justify xl: xl:-mt-80 z-10 w-4/6 xl:w-5/6 -mt-52 mx-auto z-10 relative text-left transition duration-500 ${
                                 coswalk
                                     ? "opacity-100 scale-100"
                                     : "opacity-0 scale-90"
