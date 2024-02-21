@@ -110,7 +110,6 @@ export default function JsongForm() {
     // 7. fungsi ShowErrors akan dijalankan
     // 8. fungsi submitJsong akan dijalankan lagi setelah 5 detik
     const submitJsong = async (data) => {
-        console.log(data.bukti[0]);
         if (data.bukti[0]) {
             setBtnClick(true);
             setSuccess(null);

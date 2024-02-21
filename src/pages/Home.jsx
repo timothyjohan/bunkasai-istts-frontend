@@ -85,11 +85,11 @@ export default function Home() {
         </div>
         <Fade>
             <div className="w-full xl:w-5/6 h-96 mt-[-4rem] mx-auto xl:ml-auto">
-                <Carousel b slideInterval={5000}>
-                    {images.map((elements) => {
+                <Carousel slideInterval={5000}>
+                    {images.map((elements, key) => {
                         return (
                             <img
-                                key={elements.id}
+                                key={key}
                                 src={`${elements.img}`}
                                 alt=""
                             />
@@ -126,16 +126,16 @@ export default function Home() {
             </Fade>
             <br />
 
-            <p>
-                <Fade bottom cascade>
-                    <div>
-                        <p className="text-lg">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi doloribus corrupti soluta quas quia possimus obcaecati reiciendis debitis veniam reprehenderit adipisci molestias dicta, quisquam, impedit, ex dolorem perspiciatis sed ipsum. lorem
-                        </p>
 
-                    </div>
-                </Fade>
-            </p>
+            <Fade bottom cascade>
+                <div>
+                    <p className="text-lg">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi doloribus corrupti soluta quas quia possimus obcaecati reiciendis debitis veniam reprehenderit adipisci molestias dicta, quisquam, impedit, ex dolorem perspiciatis sed ipsum. lorem
+                    </p>
+
+                </div>
+            </Fade>
+
         </div>
 
         
