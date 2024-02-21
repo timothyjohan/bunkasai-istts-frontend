@@ -68,7 +68,8 @@ export default function CompSelect() {
         <>
             <div
                 
-                className={`h-[200vh] bg-yellow-300 -rotate-45 xl:rotate-45 w-screen transition duration-1000 absolute z-30 ${
+                // style={{ height: "110vh" }}
+                className={`h-[110vh] h-1 bg-yellow-300 -rotate-45 xl:rotate-45 w-screen transition duration-1000 absolute z-30 ${
                     selected
                         ? "scale-150 scale-0 translate-x-0 -translate-y-0"
                         : "scale-0 translate-x-full -translate-y-full"
@@ -115,7 +116,7 @@ export default function CompSelect() {
                     </div>
 
                     <div
-                        className="text-center h-[50vh] w-[50vh] mx-auto"
+                        className="text-center h-[50vh] w-[50vh] mx-auto -mt-28"
                         onClick={toCoswalk}
                     >
                         <div
