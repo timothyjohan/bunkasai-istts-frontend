@@ -84,7 +84,7 @@ export default function Home() {
             </Fade>
         </div>
         <Fade>
-            <div className="w-full h-96 mt-[-4rem] xl:mt-[0rem] mx-auto xl:ml-auto">
+            <div className="w-full xl:w-5/6 h-96 mt-[-4rem] mx-auto xl:ml-auto">
                 <Carousel b slideInterval={5000}>
                     {images.map((elements) => {
                         return (
@@ -107,7 +107,7 @@ export default function Home() {
         </div>
     </Fade>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 mb-10 md:mb-44">
+    <div className="grid grid-cols-1 md:grid-cols-2">
         <Fade>
             <div>
                 <img
@@ -118,9 +118,9 @@ export default function Home() {
             </div>
         </Fade>
 
-        <div className="text-center md:text-right mt-10">
+        <div className="text-center text-justify md:text-right xl:mt-10 mb-44 w-5/6 mx-auto">
             <Fade bottom>
-                <h1 className="text-4xl md:text-5xl font-semibold">
+                <h1 className="text-4xl text-center xl:text-right md:text-5xl font-semibold mx-auto -mt-10">
                     MEET CLARISS
                 </h1>
             </Fade>
@@ -128,29 +128,20 @@ export default function Home() {
 
             <p>
                 <Fade bottom cascade>
-                    <p className="text-lg">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi doloribus corrupti soluta quas quia possimus obcaecati reiciendis debitis veniam reprehenderit adipisci molestias dicta, quisquam, impedit, ex dolorem perspiciatis sed ipsum. lorem
-                    </p>
+                    <div>
+                        <p className="text-lg">
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi doloribus corrupti soluta quas quia possimus obcaecati reiciendis debitis veniam reprehenderit adipisci molestias dicta, quisquam, impedit, ex dolorem perspiciatis sed ipsum. lorem
+                        </p>
+
+                    </div>
                 </Fade>
             </p>
         </div>
 
-        <div className="text-center md:text-left mt-10">
-            <Fade bottom>
-                <h1 className="text-4xl md:text-5xl font-semibold">
-                    MEET CLUE
-                </h1>
-            </Fade>
-            <br />
-            <Fade bottom cascade>
-                <p className="text-lg">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi doloribus corrupti soluta quas quia possimus obcaecati reiciendis debitis veniam reprehenderit adipisci molestias dicta, quisquam, impedit, ex dolorem perspiciatis sed ipsum. lorem
-                </p>
-            </Fade>
-        </div>
+        
 
         <Fade>
-            <div className="text-center md:text-left">
+            <div className="text-center md:text-left mx-auto">
                 <img
                     className="opacity-90 max-h-[85%] "
                     src="/clue-pose-2.png"
@@ -158,6 +149,24 @@ export default function Home() {
                 />
             </div>
         </Fade>
+
+        <div className="text-center md:text-left xl:mt-10 mb-44 w-5/6 mx-auto">
+            <Fade bottom>
+                <h1 className="text-4xl md:text-5xl font-semibold">
+                    MEET CLUE
+                </h1>
+            </Fade>
+            <br />
+            <Fade bottom cascade>
+                <div>
+                    <p className="text-lg text-justify ">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi doloribus corrupti soluta quas quia possimus obcaecati reiciendis debitis veniam reprehenderit adipisci molestias dicta, quisquam, impedit, ex dolorem perspiciatis sed ipsum. lorem
+                    </p>
+
+                </div>
+            </Fade>
+        </div>
+
     </div>
 </div>
         </>
