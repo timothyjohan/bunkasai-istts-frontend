@@ -74,8 +74,8 @@ export default function TenantConf() {
                     } flex items-center justify-center mt-20 bg-neutral-800/80 text-sm xl:text-xl xl:w-4/6 mx-auto p-10 text-neutral-200 rounded-md`}
                 >
                     <div className="text-center">
-                        <h1 className="text-2xl font-bold mb-10">Syarat dan ketentuan</h1>
-                        <p className="text-lg text-justify w-5/6 mx-auto">
+                        <h1 className="xl:text-2xl text-xl font-bold mb-10">Syarat dan ketentuan</h1>
+                        <p className="xl:text-lg text-sm text-justify w-5/6 mx-auto mb-5">
                             <li>Halaman ini adalah halaman pendaftaran tenant untuk acara BUNKASAI ISTTS.</li> 
                             <br />
                             <li>Dengan mengisi formulir ini, Anda setuju untuk memberikan informasi kontak yang valid.</li>
