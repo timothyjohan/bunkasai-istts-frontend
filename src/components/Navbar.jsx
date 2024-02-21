@@ -34,7 +34,7 @@ export default function Navbar() {
                             className="w-20 h-20 object-contain mx-5"
                         />
                     </div>
-                    <div className="flex items-center text-neutral-300">
+                    <div className="flex items-center text-neutral-300 ">
                         <button
                             onClick={toHome}
                             className="mx-5 text-xl font-bold transition-all hover:scale-110"
