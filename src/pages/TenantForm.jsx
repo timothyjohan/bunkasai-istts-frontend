@@ -125,6 +125,9 @@ export default function TenantForm() {
         setBtnClick(false);
         reset();
     };
+    const captchaConf = (value)=>{
+        setCaptcha(true)
+    }
 
     // Mengembalikan JSX untuk render komponen
     return (

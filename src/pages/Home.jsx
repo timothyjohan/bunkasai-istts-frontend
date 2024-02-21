@@ -55,7 +55,7 @@ export default function Home() {
             <div className="video-container mx-auto bg-yellow aspect-w-16 aspect-h-9 my-20 md:my-36 xl:my-44">
                 <iframe
                     className="mx-auto w-full xl:h-[80vh] lg:h-[50vh] md:h-[50vh] h-[28vh] object-cover"
-                    src="https://www.youtube.com/embed/MLLEpXi_EE0?autoplay=1&mute=1&loop=1&playlist=MLLEpXi_EE0&si=1nvFBuOkHpIwi5h_"
+                    src="https://www.youtube-nocookie.com/embed/MLLEpXi_EE0?autoplay=1&mute=1&loop=1&playlist=MLLEpXi_EE0&si=1nvFBuOkHpIwi5h_"
                     title="BUNKASAI ISTTS 2023 - Kibou no Hono"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
