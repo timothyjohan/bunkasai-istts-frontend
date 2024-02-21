@@ -42,69 +42,72 @@ export default function Navbar() {
     },[showMenu])
 
     return (
-    <div className="fixed w-full z-50 bg-neutral-800/60">
-        <nav className="w-11/12 mx-auto pb-2 mt-2 flex items-center justify-between">
-            <div className="flex items-center">
-                <img
-                    src="bunkasai-logo.png"
-                    className="xl:w-20 xl:h-20 w-16 h-16 object-contain mx-5"
-                    alt="Logo"
-                />
+        <>
+            <div className="fixed w-full z-50 bg-neutral-800/80">
+            <nav className="w-11/12 mx-auto pb-2 mt-2 flex items-center justify-between">
+                <div className="flex items-center">
+                    <img
+                        src="bunkasai-logo.png"
+                        className="xl:w-20 xl:h-20 w-16 h-16 object-contain mx-5"
+                        alt="Logo"
+                    />
+                </div>
+                <div className="hidden md:flex items-center text-neutral-300">
+                    <button
+                        onClick={toHome}
+                        className="mx-5 text-xl font-bold transition-all hover:scale-110"
+                    >
+                        HOME
+                    </button>
+                    <button
+                        onClick={toTenant}
+                        className="mx-5 text-xl font-bold transition-all hover:scale-110"
+                    >
+                        TENANT
+                    </button>
+                    <button
+                        onClick={toComp}
+                        className="mx-5 text-xl font-bold transition-all hover:scale-110"
+                    >
+                        COMPETITION
+                    </button>
+                </div>
+                <div className="md:hidden z-50">
+                    <img
+                        src="/burger_menu.png"
+                        className={`w-10 h-10 mr-4 cursor-pointer opacity-60 transition-all transform ${showMenu ? 'rotate-90' : 'rotate-0'}`}
+                        alt="Menu"
+                        onClick={toggleMenu}
+                    />
+                </div>
+            </nav>
+            {/* Dropdown menu */}
+            {showMenu && (
+                <div className={`md:hidden ${showMenuTransition ? 'opacity-100': 'opacity-0' } mt-0 absolute top-16 right-0 w-full text-neutral-100 bg-neutral-800/95 shadow-md rounded-xl transition-opacity duration-300 z-50`}>
+                    <button
+                        onClick={toHome}
+                        className="block w-full py-2 text-center border-b border-neutral-500 my-4"
+                    >
+                        HOME
+                    </button>
+                    <button
+                        onClick={toTenant}
+                        className="block w-full py-2 text-center border-b border-neutral-500 my-4"
+                    >
+                        TENANT
+                    </button>
+                    <button
+                        onClick={toComp}
+                        className="block w-full text-center  my-4"
+                    >
+                        COMPETITION
+                    </button>
+                </div>
+            )}
+            <div className={`bg-neutral-800 opacity-0 transition-all duration-700 blur-xl  ${showMenu ? 'h-screen w-full mx-auto opacity-80' : ''}  z-10`}>
             </div>
-            <div className="hidden md:flex items-center text-neutral-300">
-                <button
-                    onClick={toHome}
-                    className="mx-5 text-xl font-bold transition-all hover:scale-110"
-                >
-                    HOME
-                </button>
-                <button
-                    onClick={toTenant}
-                    className="mx-5 text-xl font-bold transition-all hover:scale-110"
-                >
-                    TENANT
-                </button>
-                <button
-                    onClick={toComp}
-                    className="mx-5 text-xl font-bold transition-all hover:scale-110"
-                >
-                    COMPETITION
-                </button>
-            </div>
-            <div className="md:hidden z-50">
-                <img
-                    src="/burger_menu.png"
-                    className={`w-10 h-10 mr-4 cursor-pointer opacity-60 transition-all transform ${showMenu ? 'rotate-90' : 'rotate-0'}`}
-                    alt="Menu"
-                    onClick={toggleMenu}
-                />
-            </div>
-        </nav>
-        {/* Dropdown menu */}
-        {showMenu && (
-            <div className={`md:hidden ${showMenuTransition ? 'opacity-100': 'opacity-0' } mt-0 absolute top-16 right-0 w-full text-neutral-100 bg-neutral-800/95 shadow-md rounded-xl transition-opacity duration-300 z-50`}>
-                <button
-                    onClick={toHome}
-                    className="block w-full py-2 text-center border-b border-neutral-500 my-4"
-                >
-                    HOME
-                </button>
-                <button
-                    onClick={toTenant}
-                    className="block w-full py-2 text-center border-b border-neutral-500 my-4"
-                >
-                    TENANT
-                </button>
-                <button
-                    onClick={toComp}
-                    className="block w-full text-center  my-4"
-                >
-                    COMPETITION
-                </button>
-            </div>
-        )}
-        <div className={`bg-neutral-800 opacity-0 transition-all duration-700 blur-xl -mt-20 ${showMenu ? 'h-screen w-full mx-auto opacity-80' : ''}  z-40`}>
         </div>
-    </div>
+        </>
+    
 );
 }
