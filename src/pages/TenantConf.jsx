@@ -71,7 +71,7 @@ export default function TenantConf() {
                             : load
                             ? "xl:translate-x-0 xl:transition-all duration-300"
                             : "xl:-translate-x-full"
-                    } flex items-center justify-center mt-20 bg-neutral-800/80 w-4/6 mx-auto p-10 text-neutral-200 rounded-md`}
+                    } flex items-center justify-center mt-20 bg-neutral-800/80 text-sm xl:text-xl xl:w-4/6 mx-auto p-10 text-neutral-200 rounded-md`}
                 >
                     <div className="text-center">
                         <h1 className="text-2xl font-bold mb-10">Syarat dan ketentuan</h1>
@@ -98,7 +98,7 @@ export default function TenantConf() {
                         </button>
                         <button
                             onClick={agree}
-                            className="ml-5 mt-5 bg-neutral-700 py-1.5 px-10 text-xl rounded-xl hover:text-violet-500 hover:bg-green-400 hover:font-bold transition-all hover:scale-110 shadow-xl"
+                            className="xl:ml-5 mt-5 bg-neutral-700 py-1.5 px-10 text-xl rounded-xl hover:text-violet-500 hover:bg-green-400 hover:font-bold transition-all hover:scale-110 shadow-xl"
                         >
                             Setuju
                         </button>

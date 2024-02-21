@@ -133,7 +133,7 @@ export default function TenantForm() {
     // Mengembalikan JSX untuk render komponen
     return (
         <>
-            <div className="pt-28 min-h-screen">
+            <div className="pt-28 min-h-screen mb-44">
                 <div
                     className={`${
                         disagreeClick
@@ -143,7 +143,7 @@ export default function TenantForm() {
                         load
                             ? "-translate-x-0 transition-all duration-300"
                             : "translate-x-[100vw]"
-                    } flex items-center justify-center mt-20 bg-neutral-800/80 w-2/6 mx-auto p-10 text-neutral-200 rounded-xl`}
+                    } flex items-center justify-center mt-20 bg-neutral-800/80 text-sm xl:text-xl xl:w-2/6 mx-auto p-10 text-neutral-200 rounded-xl`}
                 >
                     <div className="">
                         <form onSubmit={handleSubmit(submitTenant)}>
