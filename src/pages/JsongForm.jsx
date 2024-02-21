@@ -87,7 +87,7 @@ export default function JsongForm() {
         setTimeout(() => {
             setSelected(false);
             setLoad(true);
-        }, 0);
+        }, 50);
     }, []);
 
     // fungsi untuk submit jsong
@@ -139,7 +139,7 @@ export default function JsongForm() {
             {/* Transition */}
             <div
                 style={{ height: "110vh" }}
-                className={`bg-yellow-300 rotate-45 h-screen w-screen transition duration-1000 absolute z-30 ${
+                className={`bg-yellow-300 -rotate-45 xl:rotate-45 h-screen w-screen transition duration-1000 absolute z-30 ${
                     selected
                         ? "scale-150 translate-x-0 -translate-y-0"
                         : "scale-0 -translate-x-full translate-y-full"
