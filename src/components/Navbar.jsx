@@ -20,21 +20,21 @@ export default function Navbar() {
         // Fungsi untuk navigasi ke halaman Home
         dispatch(changePage(0)); // Memanggil action changePage dengan parameter 0
         navigate("/"); // Navigasi ke halaman Home
-        setShowMenu(!showMenu);
+        setShowMenu(false);
 
     };
     const toTenant = () => {
         // Fungsi untuk navigasi ke halaman Tenant
         dispatch(changePage(1)); // Memanggil action changePage dengan parameter 1
         navigate("/tenant-conf"); // Navigasi ke halaman Tenant
-        setShowMenu(!showMenu);
+        setShowMenu(false);
 
     };
     const toComp = () => {
         // Fungsi untuk navigasi ke halaman Competition
         dispatch(changePage(2)); // Memanggil action changePage dengan parameter 2
         navigate("/competition-select"); // Navigasi ke halaman Competition
-        setShowMenu(!showMenu);
+        setShowMenu(false);
 
     };
     useEffect(()=>{
@@ -104,7 +104,10 @@ export default function Navbar() {
                     </button>
                 </div>
             )}
-            <div className={`bg-neutral-800 opacity-0 transition-all duration-700 blur-xl  ${showMenu ? 'h-screen w-full mx-auto opacity-80' : ''}  z-10`}>
+            <div 
+                className={`bg-neutral-800 opacity-0 transition-all duration-700 blur-xl  ${showMenu ? 'h-screen w-full mx-auto opacity-80' : ''}  z-10`}
+                onClick={()=>setShowMenu(false)}
+            >
             </div>
         </div>
         </>

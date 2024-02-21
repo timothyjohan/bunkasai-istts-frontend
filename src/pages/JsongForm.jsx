@@ -146,7 +146,7 @@ export default function JsongForm() {
         <>
             {/* Transition */}
             <div
-                className={`h-[200vh] bg-yellow-300 -rotate-45 xl:rotate-45  w-screen transition duration-1000 absolute z-30 
+                className={`h-[200vh] md:h-[100vh] bg-yellow-300 -rotate-45 xl:rotate-45 w-[150vw] md:w-[100vw] transition duration-1000 absolute z-30 
                 ${
                     selected
                         ? "scale-150 translate-x-0 -translate-y-0"
