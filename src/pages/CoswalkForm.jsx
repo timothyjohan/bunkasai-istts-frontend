@@ -37,9 +37,6 @@ export default function CoswalkForm() {
             "string.empty": "Field 'Instagram' harus terisi",
             "string.pattern.base": "Field 'Instagram' harus diawali dengan '@'",
         }),
-        bukti: Joi.object().required().messages({
-            "any.required": "Field Bukti Transfer harus terisi",
-        }),
     });
 
     const {
@@ -57,9 +54,7 @@ export default function CoswalkForm() {
             setError(errors.nama_panggung.message);
         } else if (errors.instagram) {
             setError(errors.instagram.message);
-        } else if (errors.link) {
-            setError(errors.link.message);
-        }
+        } 
     };
 
     // useEffect yang akan dijalankan saat komponen dipasang
@@ -90,27 +85,55 @@ export default function CoswalkForm() {
     // 5. setBtnClick(false) untuk mengubah state btnClick menjadi false
     // 6. reset() untuk mereset form
     const submitCoswalk = async (data) => {
-        if (data.bukti[0]) {
-            setBtnClick(true);
-            try {
-                const formData = new FormData();
-                formData.append("nama_peserta", data.nama_peserta);
-                formData.append("nama_panggung", data.nama_panggung);
-                formData.append("instagram", data.instagram);
-                formData.append("bukti", data.bukti[0]);
-                (await axios.post(
-                    `${import.meta.env.VITE_API_URL}/api/coswalk/new`,
-                    formData
-                )) / setSuccess(true);
-                setError(null);
-            } catch (error) {
-                setSuccess(null);
-                setError(error);
-            }
-            setBtnClick(false);
-            reset();
-        } else {
-            setError("Field 'Bukti Transfer' harus terisi");
+        setBtnClick(true);
+        try {
+            const request = await axios.get(
+                `${import.meta.env.VITE_API_URL}/api/payment`
+            );
+            const transactionToken = request.data.transactionToken;
+            console.log(transactionToken);
+    
+            window.snap.pay(transactionToken, {
+                onSuccess: async (result) => {
+                    /* You may add your own implementation here */
+                    setSuccess(null);
+                    console.log(result);
+                    try {
+                        
+                        await axios.post(
+                            `${import.meta.env.VITE_API_URL}/api/coswalk/new`,
+                            data
+                        );
+    
+                        setSuccess(true);
+                        setError(null);
+                    } catch (error) {
+                        setSuccess(null);
+                        setError(error);
+                    }
+                    setBtnClick(false);
+                    reset();
+                },
+                onPending: function (result) {
+                    /* You may add your own implementation here */
+                    alert("Waiting for your payment!");
+                    console.log(result);
+                },
+                onError: function (result) {
+                    /* You may add your own implementation here */
+                    alert("Payment failed!");
+                    console.log(result);
+                    setBtnClick(false);
+                },
+                onClose: function () {
+                    /* You may add your own implementation here */
+                    alert('You closed the popup without finishing the payment');
+                    setBtnClick(false);
+                }
+            });
+        } catch (error) {
+            console.error("Error fetching transaction token:", error);
+            // Handle error
         }
     };
 
@@ -175,38 +198,6 @@ export default function CoswalkForm() {
                             type="title"
                             id="insta"
                             placeholder="contoh: @bunkasaiistts"
-                            className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]"
-                        />
-                        <br />
-                        <br />
-                        <label htmlFor="bukti" className="m-2">
-                            Bukti Transfer
-                        </label>
-                        <input
-                            {...register("bukti", {
-                                required: "File is required",
-                                validate: {
-                                    validFileType: (value) => {
-                                        const fileType =
-                                            value[0]?.type.split("/")[0];
-                                        return (
-                                            fileType === "image" ||
-                                            "File must be an image"
-                                        );
-                                    },
-                                    validFileSize: (value) => {
-                                        const fileSize = value[0]?.size;
-                                        return (
-                                            fileSize <= 1024 * 1024 * 5 ||
-                                            "File size must be less than 5MB"
-                                        );
-                                    },
-                                },
-                            })}
-                            disabled={btnClick ? "true" : null}
-                            type="file"
-                            accept="image/*"
-                            id="link"
                             className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]"
                         />
                         <br />

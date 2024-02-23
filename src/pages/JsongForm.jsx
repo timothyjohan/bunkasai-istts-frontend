@@ -52,9 +52,9 @@ export default function JsongForm() {
         link: Joi.string().required().messages({
             "string.empty": `Isi field 'link' dengan "-" jika tidak ada`,
         }),
-        bukti: Joi.object().required().messages({
-            "any.required": "deskripsi tidak boleh kosong",
-        }),
+        // bukti: Joi.object().required().messages({
+        //     "any.required": "deskripsi tidak boleh kosong",
+        // }),
     });
 
     const {
@@ -110,35 +110,58 @@ export default function JsongForm() {
     // 7. fungsi ShowErrors akan dijalankan
     // 8. fungsi submitJsong akan dijalankan lagi setelah 5 detik
     const submitJsong = async (data) => {
-        if (data.bukti[0]) {
-            setBtnClick(true);
-            setSuccess(null);
-            try {
-                const formData = new FormData();
-                formData.append("nama_peserta", data.nama_peserta);
-                formData.append("telp", data.telp);
-                formData.append("nama_panggung", data.nama_panggung);
-                formData.append("lagu", data.lagu);
-                formData.append("link", data.link);
-                formData.append("bukti", data.bukti[0]);
-
-                await axios.post(
-                    `${import.meta.env.VITE_API_URL}/api/jsong/new`,
-                    formData
-                );
-
-                setSuccess(true);
-                setError(null);
-            } catch (error) {
-                setSuccess(null);
-                setError(error);
-            }
-            setBtnClick(false);
-            reset();
-        } else {
-            setError("Field 'Bukti transfer' harus diupload");
+        setBtnClick(true);
+        try {
+            const request = await axios.get(
+                `${import.meta.env.VITE_API_URL}/api/payment`
+            );
+            const transactionToken = request.data.transactionToken;
+            console.log(transactionToken);
+    
+            window.snap.pay(transactionToken, {
+                onSuccess: async (result) => {
+                    /* You may add your own implementation here */
+                    setSuccess(null);
+                    console.log(result);
+                    try {
+                        
+                        await axios.post(
+                            `${import.meta.env.VITE_API_URL}/api/jsong/new`,
+                            data
+                        );
+    
+                        setSuccess(true);
+                        setError(null);
+                    } catch (error) {
+                        setSuccess(null);
+                        setError(error);
+                    }
+                    setBtnClick(false);
+                    reset();
+                },
+                onPending: function (result) {
+                    /* You may add your own implementation here */
+                    alert("Waiting for your payment!");
+                    console.log(result);
+                },
+                onError: function (result) {
+                    /* You may add your own implementation here */
+                    alert("Payment failed!");
+                    console.log(result);
+                    setBtnClick(false);
+                },
+                onClose: function () {
+                    /* You may add your own implementation here */
+                    alert('You closed the popup without finishing the payment');
+                    setBtnClick(false);
+                }
+            });
+        } catch (error) {
+            console.error("Error fetching transaction token:", error);
+            // Handle error
         }
     };
+    
 
     // mengembalikan JSX untuk render komponen
     return (
@@ -231,38 +254,7 @@ export default function JsongForm() {
                         />
                         <br />
                         <br />
-                        <label htmlFor="bukti" className="m-2">
-                            Bukti Transfer
-                        </label>
-                        <input
-                            {...register("bukti", {
-                                required: "File is required",
-                                validate: {
-                                    validFileType: (value) => {
-                                        const fileType =
-                                            value[0]?.type.split("/")[0];
-                                        return (
-                                            fileType === "image" ||
-                                            "File must be an image"
-                                        );
-                                    },
-                                    validFileSize: (value) => {
-                                        const fileSize = value[0]?.size;
-                                        return (
-                                            fileSize <= 1024 * 1024 * 5 ||
-                                            "File size must be less than 5MB"
-                                        );
-                                    },
-                                },
-                            })}
-                            disabled={btnClick ? "true" : null}
-                            type="file"
-                            accept="image/*"
-                            id="link"
-                            className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]"
-                        />
-                        <br />
-                        <br />
+                        
 
                         {success ? (
                             <>
