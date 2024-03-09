@@ -68,6 +68,22 @@ export default function Home() {
 
             <div className="min-h-screen mt-10 md:mt-44 mx-auto text-neutral-200">
                 <div className="grid grid-cols-1 md:grid-cols-2 my-10 md:my-80">
+                    
+                    <Fade>
+                        <div className="w-full xl:w-5/6 h-96 mt-[-4rem] mx-auto xl:ml-auto">
+                            <Carousel slideInterval={5000}>
+                                {images.map((elements, key) => {
+                                    return (
+                                        <img
+                                            key={key}
+                                            src={`${elements.img}`}
+                                            alt=""
+                                        />
+                                    );
+                                })}
+                            </Carousel>
+                        </div>
+                    </Fade>
                     <div className="text-center md:text-right mt-10">
                         <Fade bottom>
                             <h1 className="text-4xl md:text-5xl font-semibold xl:text-left xl:w-5/6 xl:mx-auto md:text-left md:w-5/6 md:mx-auto">
@@ -84,24 +100,11 @@ export default function Home() {
                             </div>
                         </Fade>
                     </div>
-                    <Fade>
-                        <div className="w-full xl:w-5/6 h-96 mt-[-4rem] mx-auto xl:ml-auto">
-                            <Carousel slideInterval={5000}>
-                                {images.map((elements, key) => {
-                                    return (
-                                        <img
-                                            key={key}
-                                            src={`${elements.img}`}
-                                            alt=""
-                                        />
-                                    );
-                                })}
-                            </Carousel>
-                        </div>
-                    </Fade>
                 </div>
 
-
+                <Fade left>
+                    <img src="/pararellogram_r.webp" className={`transition duration-700 absolute w-11/12 object-left object-cover -ml-[70rem] z-0`} />
+                </Fade>
                 <div className="xl:h-screen flex items-center justify-center bg-repeat pt-28 xl:pt-20 relative overflow-hidden ml-52">
                     <Fade right>
                         <img src="/pararellogram.webp" className={`transition duration-700 absolute w-11/12 object-left object-cover translate-x-96 ml-[35rem] z-0`} />
@@ -109,16 +112,16 @@ export default function Home() {
                     <Fade>
                         <div className="flex -ml-60">
                             <Fade top right>
-                                <img src="/slider_v.webp" className="h-52 " />
+                                <img src="/slider_v.webp" className="h-60 " />
 
                             </Fade>
                             <Fade right>
-                                <img src="/dejitaru.webp" className="h-52" />
-
+                                <img src="/dejitaru.webp" className="h-60" />
                             </Fade>
                         </div>
+                        
                     </Fade>
-
+                    
                     <Fade right>
                         <div className="-mt-72 -ml-72">
                             <Fade right>
@@ -128,13 +131,27 @@ export default function Home() {
                                 <img src="/NEW EVOLUTION.webp" className="bg-white p-2 lg:w-40 ml-32 -mt-8" />
 
                             </Fade>
+                            
                         </div>
+                        
                     </Fade>
                     
+                    
                 </div>
+                <div className="flex w-2/6 mx-auto -mt-60">
+                        <Fade right>
+                            <img src="/nippongo.webp" className="h-20" />
+                        </Fade>
+                        <Fade right>
+                            <img src="/bunka.webp" className="h-20 ml-16"  />
+                        </Fade>
+                </div>
+                
                 <Fade bottom cascade>
-                    <div className="text-center my-10 md:my-20 mb-20 md:mb-80 animate-pulse">
-                        <h1 className="text-5xl font-semibold">
+                    <div className="text-center my-10 md:my-20 md:mt-44 mb-20 md:mb-80 animate-pulse flex w-full items-center justify justify-center">
+                        
+                        <img src="/intro_logo.webp" className="h-16 mr-10"/>
+                        <h1 className="text-5xl  font-semibold flex">
                             INTRODUCING OUR CAST
                         </h1>
                     </div>
