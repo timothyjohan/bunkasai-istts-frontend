@@ -48,7 +48,7 @@ export default function Home() {
                     className={`h-full xl:mx-auto opacity-75 ${
                         load
                             ? "scale-100 transition duration-1000 translate-y-0"
-                            : "scale-0 -translate-y-96" 
+                            : "-translate-y-full" 
                     }`}
                 />
             </div>
@@ -102,12 +102,25 @@ export default function Home() {
                 </div>
 
 
-                <div className="xl:h-screen flex items-center justify-center bg-repeat pt-28 xl:pt-20 relative overflow-hidden">
+                <div className="xl:h-screen flex items-center justify-center bg-repeat pt-28 xl:pt-20 relative overflow-hidden ml-52">
                     <Fade right>
-                        <img src="/pararellogram.webp" className={`transition duration-700 absolute w-5/6 object-left object-cover translate-x-96 ml-[35rem] z-0`} />
+                        <img src="/pararellogram.webp" className={`transition duration-700 absolute w-11/12 object-left object-cover translate-x-96 ml-[35rem] z-0`} />
                     </Fade>
+                    <Fade>
+                        <div className="flex -ml-60">
+                            <Fade top right>
+                                <img src="/slider_v.webp" className="h-52 " />
+
+                            </Fade>
+                            <Fade right>
+                                <img src="/dejitaru.webp" className="h-52" />
+
+                            </Fade>
+                        </div>
+                    </Fade>
+
                     <Fade right>
-                        <div className="-mt-44">
+                        <div className="-mt-72 -ml-72">
                             <Fade right>
                                 <img src="/_Group_.webp" className="lg:h-24 lg:-mt-28" />
                             </Fade>
@@ -116,9 +129,8 @@ export default function Home() {
 
                             </Fade>
                         </div>
-
                     </Fade>
-                            
+                    
                 </div>
                 <Fade bottom cascade>
                     <div className="text-center my-10 md:my-20 mb-20 md:mb-80 animate-pulse">
