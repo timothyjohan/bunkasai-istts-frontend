@@ -43,7 +43,7 @@ export default function Home() {
         <>
             <div className="xl:h-screen flex items-center justify-center bg-repeat pt-28 xl:pt-20 ">
                 <img
-                    src="https://cdn.discordapp.com/attachments/1169649196882743334/1209767825841979422/banner.gif?ex=65e81f16&is=65d5aa16&hm=cfbf63841200c9e96fd18ec70a334bf6b10ef459ec1943b14f8e8c48840d9ba4&"
+                    src="/public/banner.gif"
                     className={`h-full xl:mx-auto opacity-75 ${
                         load
                             ? "scale-100 transition-all duration-300"
