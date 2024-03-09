@@ -41,18 +41,19 @@ export default function Home() {
     // mengembalikan JSX untuk render komponen
     return (
         <>
-            <div className="xl:h-screen flex items-center justify-center bg-repeat pt-28 xl:pt-20 ">
+            <div className="xl:h-screen flex items-center justify-center bg-repeat pt-28 xl:pt-20 relative overflow-hidden">
+                <img src="/pararellogram.webp" className={`transition duration-700 absolute w-5/6 object-left object-cover ${load? 'translate-x-60' : 'translate-x-full'}  `} />
                 <img
-                    src="/public/banner.gif"
+                    src="/banner.gif"
                     className={`h-full xl:mx-auto opacity-75 ${
                         load
-                            ? "scale-100 transition-all duration-300"
-                            : "scale-0"
+                            ? "scale-100 transition duration-1000 translate-y-0"
+                            : "scale-0 -translate-y-96" 
                     }`}
                 />
             </div>
 
-            <div className="video-container mx-auto bg-yellow aspect-w-16 aspect-h-9 my-20 md:my-36 xl:my-44">
+            {/* <div className="video-container mx-auto bg-yellow aspect-w-16 aspect-h-9 my-20 md:my-36 xl:my-44">
                 <iframe
                     className="mx-auto w-full xl:h-[80vh] lg:h-[50vh] md:h-[50vh] h-[28vh] object-cover"
                     src="https://www.youtube-nocookie.com/embed/MLLEpXi_EE0?autoplay=1&mute=1&loop=1&playlist=MLLEpXi_EE0&si=1nvFBuOkHpIwi5h_"
@@ -62,116 +63,133 @@ export default function Home() {
                     allowFullScreen
                     loop
                 ></iframe>
-                {
-                    
-                }
-            </div>
+            </div> */}
 
 
-            <div className="min-h-screen mt-10 md:mt-44 w-11/12 mx-auto text-neutral-200">
-    <div className="grid grid-cols-1 md:grid-cols-2 my-10 md:my-80">
-        <div className="text-center md:text-right mt-10">
-            <Fade bottom>
-                <h1 className="text-4xl md:text-5xl font-semibold xl:text-left xl:w-5/6 xl:mx-auto md:text-left md:w-5/6 md:mx-auto">
-                    APA ITU BUNKASAI?
-                </h1>
-            </Fade>
-            <br />
-            <Fade bottom cascade>
-                <div>
-                    <p className="text-lg text-justify w-5/6 mx-auto ">
-                        Festival Budaya Jepang atau yang lebih dikenal dengan Bunkasai (文化祭) merupakan salah satu festival yang cukup terkenal dan biasanya diadakan di sekolah atau perguruan tinggi di Jepang untuk menunjukkan hasil kegiatan dari sekolah 
-                    </p>
+            <div className="min-h-screen mt-10 md:mt-44 mx-auto text-neutral-200">
+                <div className="grid grid-cols-1 md:grid-cols-2 my-10 md:my-80">
+                    <div className="text-center md:text-right mt-10">
+                        <Fade bottom>
+                            <h1 className="text-4xl md:text-5xl font-semibold xl:text-left xl:w-5/6 xl:mx-auto md:text-left md:w-5/6 md:mx-auto">
+                                APA ITU BUNKASAI?
+                            </h1>
+                        </Fade>
+                        <br />
+                        <Fade bottom cascade>
+                            <div>
+                                <p className="text-lg text-justify w-5/6 mx-auto ">
+                                    Festival Budaya Jepang atau yang lebih dikenal dengan Bunkasai (文化祭) merupakan salah satu festival yang cukup terkenal dan biasanya diadakan di sekolah atau perguruan tinggi di Jepang untuk menunjukkan hasil kegiatan dari sekolah 
+                                </p>
 
+                            </div>
+                        </Fade>
+                    </div>
+                    <Fade>
+                        <div className="w-full xl:w-5/6 h-96 mt-[-4rem] mx-auto xl:ml-auto">
+                            <Carousel slideInterval={5000}>
+                                {images.map((elements, key) => {
+                                    return (
+                                        <img
+                                            key={key}
+                                            src={`${elements.img}`}
+                                            alt=""
+                                        />
+                                    );
+                                })}
+                            </Carousel>
+                        </div>
+                    </Fade>
                 </div>
-            </Fade>
-        </div>
-        <Fade>
-            <div className="w-full xl:w-5/6 h-96 mt-[-4rem] mx-auto xl:ml-auto">
-                <Carousel slideInterval={5000}>
-                    {images.map((elements, key) => {
-                        return (
+
+
+                <div className="xl:h-screen flex items-center justify-center bg-repeat pt-28 xl:pt-20 relative overflow-hidden">
+                    <Fade right>
+                        <img src="/pararellogram.webp" className={`transition duration-700 absolute w-5/6 object-left object-cover translate-x-96 ml-[35rem] z-0`} />
+                    </Fade>
+                    <Fade right>
+                        <div className="-mt-44">
+                            <Fade right>
+                                <img src="/_Group_.webp" className="lg:h-24 lg:-mt-28" />
+                            </Fade>
+                            <Fade right>
+                                <img src="/NEW EVOLUTION.webp" className="bg-white p-2 lg:w-40 ml-32 -mt-8" />
+
+                            </Fade>
+                        </div>
+
+                    </Fade>
+                            
+                </div>
+                <Fade bottom cascade>
+                    <div className="text-center my-10 md:my-20 mb-20 md:mb-80 animate-pulse">
+                        <h1 className="text-5xl font-semibold">
+                            INTRODUCING OUR CAST
+                        </h1>
+                    </div>
+                </Fade>
+
+                <div className="grid grid-cols-1 md:grid-cols-2">
+                    <Fade>
+                        <div>
                             <img
-                                key={key}
-                                src={`${elements.img}`}
+                                className="opacity-90 max-h-[85%] "
+                                src="/clariss-pose-1.png"
                                 alt=""
                             />
-                        );
-                    })}
-                </Carousel>
-            </div>
-        </Fade>
-    </div>
-    <Fade bottom cascade>
-        <div className="text-center my-10 md:my-20 mb-20 md:mb-80 animate-pulse">
-            <h1 className="text-5xl font-semibold">
-                INTRODUCING OUR CAST
-            </h1>
-        </div>
-    </Fade>
+                        </div>
+                    </Fade>
 
-    <div className="grid grid-cols-1 md:grid-cols-2">
-        <Fade>
-            <div>
-                <img
-                    className="opacity-90 max-h-[85%] "
-                    src="/clariss-pose-1.png"
-                    alt=""
-                />
-            </div>
-        </Fade>
-
-        <div className="text-center text-justify md:text-right xl:mt-10 mb-44 w-5/6 mx-auto">
-            <Fade bottom>
-                <h1 className="text-4xl text-center xl:text-right md:text-5xl font-semibold mx-auto -mt-10">
-                    MEET CLARISS
-                </h1>
-            </Fade>
-            <br />
+                    <div className="text-center text-justify md:text-right xl:mt-10 mb-44 w-5/6 mx-auto">
+                        <Fade bottom>
+                            <h1 className="text-4xl text-center xl:text-right md:text-5xl font-semibold mx-auto -mt-10">
+                                MEET CLARISS
+                            </h1>
+                        </Fade>
+                        <br />
 
 
-            <Fade bottom cascade>
-                <div>
-                    <p className="text-lg">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi doloribus corrupti soluta quas quia possimus obcaecati reiciendis debitis veniam reprehenderit adipisci molestias dicta, quisquam, impedit, ex dolorem perspiciatis sed ipsum. lorem
-                    </p>
+                        <Fade bottom cascade>
+                            <div>
+                                <p className="text-lg">
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi doloribus corrupti soluta quas quia possimus obcaecati reiciendis debitis veniam reprehenderit adipisci molestias dicta, quisquam, impedit, ex dolorem perspiciatis sed ipsum. lorem
+                                </p>
 
-                </div>
-            </Fade>
+                            </div>
+                        </Fade>
 
-        </div>
+                    </div>
 
-        
+                    
 
-        <Fade>
-            <div className="text-center md:text-left mx-auto">
-                <img
-                    className="opacity-90 max-h-[85%] "
-                    src="/clue-pose-2.png"
-                    alt=""
-                />
-            </div>
-        </Fade>
+                    <Fade>
+                        <div className="text-center md:text-left mx-auto">
+                            <img
+                                className="opacity-90 max-h-[85%] "
+                                src="/clue-pose-2.png"
+                                alt=""
+                            />
+                        </div>
+                    </Fade>
 
-        <div className="text-center md:text-left xl:mt-10 mb-44 w-5/6 mx-auto">
-            <Fade bottom>
-                <h1 className="text-4xl md:text-5xl font-semibold">
-                    MEET CLUE
-                </h1>
-            </Fade>
-            <br />
-            <Fade bottom cascade>
-                <div>
-                    <p className="text-lg text-justify ">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi doloribus corrupti soluta quas quia possimus obcaecati reiciendis debitis veniam reprehenderit adipisci molestias dicta, quisquam, impedit, ex dolorem perspiciatis sed ipsum. lorem
-                    </p>
+                    <div className="text-center md:text-left xl:mt-10 mb-44 w-5/6 mx-auto">
+                        <Fade bottom>
+                            <h1 className="text-4xl md:text-5xl font-semibold">
+                                MEET CLUE
+                            </h1>
+                        </Fade>
+                        <br />
+                        <Fade bottom cascade>
+                            <div>
+                                <p className="text-lg text-justify ">
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi doloribus corrupti soluta quas quia possimus obcaecati reiciendis debitis veniam reprehenderit adipisci molestias dicta, quisquam, impedit, ex dolorem perspiciatis sed ipsum. lorem
+                                </p>
+
+                            </div>
+                        </Fade>
+                    </div>
 
                 </div>
-            </Fade>
-        </div>
-
-    </div>
-</div>
+            </div>
         </>
     );
 }
