@@ -43,7 +43,7 @@ export default function Home() {
         <>
             <div className="xl:h-screen flex items-center justify-center bg-repeat pt-28 xl:pt-20 ">
                 <img
-                    src="/public/banner.gif"
+                    src="/banner.gif"
                     className={`h-full xl:mx-auto opacity-75 ${
                         load
                             ? "scale-100 transition-all duration-300"
