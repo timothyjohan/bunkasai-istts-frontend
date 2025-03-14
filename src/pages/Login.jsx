@@ -17,8 +17,35 @@ export default function Login() {
         }
         
         setError('');
-        navigate('/'); // Redirect to home page if form is valid
+        login()
     };
+
+    const login = async () => {
+        //login to localhost:3666/api/user the body username and password using axios then save the token to cookies
+        try {
+            const res = await fetch('http://localhost:3666/api/user/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+            const data = await res.json();
+            console.log({data});
+
+            if (res.ok) {
+                document.cookie = `token=${data.body.token}; path=/`;
+                // Dispatch an event to notify components about token change
+                window.dispatchEvent(new Event('tokenUpdated'));
+                navigate('/');
+            } else {
+                setError(data.message);
+            }
+        } catch (err) {
+            console.error(err);
+            setError('Something went wrong!');
+        }
+    }
 
     return (
         <div className="flex justify-center items-center h-screen bg-transparent">

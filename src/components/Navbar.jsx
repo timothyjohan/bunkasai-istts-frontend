@@ -1,53 +1,98 @@
-import { Link, useNavigate } from "react-router-dom"; // Mengimpor modul Link dan useNavigate dari react-router-dom
-import { changePage } from "../app/pageSlice"; // Mengimpor fungsi changePage dari file pageSlice.js
-import { useDispatch } from "react-redux"; // Mengimpor fungsi useDispatch dari react-redux
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { changePage } from "../app/pageSlice";
+import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
 
 export default function Navbar() {
-    // Mendefinisikan komponen Navbar
-    const dispatch = useDispatch(); // Menggunakan useDispatch untuk memanggil action Redux
-    const navigate = useNavigate(); // Menggunakan useNavigate untuk navigasi antar halaman
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const [showMenu, setShowMenu] = useState(false);
     const [showMenuTransition, setShowMenuTransition] = useState(false);
+    const [hasToken, setHasToken] = useState(false);
+    const [showProfileDropdown, setShowProfileDropdown] = useState(false);
 
+    // Function to check token status
+    const checkTokenStatus = () => {
+        const token = Cookies.get('token');
+        setHasToken(!!token);
+    };
+
+    // Check token on component mount and when location changes
+    useEffect(() => {
+        checkTokenStatus();
+        
+        // Create custom event listener for token changes
+        const handleTokenChange = () => {
+            checkTokenStatus();
+        };
+
+        // Listen for storage events (in case token is changed in another tab)
+        window.addEventListener('storage', handleTokenChange);
+        
+        // Custom event for token updates
+        window.addEventListener('tokenUpdated', handleTokenChange);
+
+        return () => {
+            window.removeEventListener('storage', handleTokenChange);
+            window.removeEventListener('tokenUpdated', handleTokenChange);
+        };
+    }, [location]);
 
     const toggleMenu = () => {
         setShowMenu(!showMenu);
     };
 
-    const toHome = () => {
-        // Fungsi untuk navigasi ke halaman Home
-        dispatch(changePage(0)); // Memanggil action changePage dengan parameter 0
-        navigate("/"); // Navigasi ke halaman Home
-        setShowMenu(false);
+    const toggleProfileDropdown = () => {
+        setShowProfileDropdown(!showProfileDropdown);
+    };
 
+    const toHome = () => {
+        dispatch(changePage(0));
+        navigate("/");
+        setShowMenu(false);
     };
     const toTenant = () => {
-        // Fungsi untuk navigasi ke halaman Tenant
-        dispatch(changePage(1)); // Memanggil action changePage dengan parameter 1
-        navigate("/tenant-conf"); // Navigasi ke halaman Tenant
+        dispatch(changePage(1));
+        navigate("/tenant-conf");
         setShowMenu(false);
-
     };
     const toComp = () => {
-        // Fungsi untuk navigasi ke halaman Competition
-        dispatch(changePage(2)); // Memanggil action changePage dengan parameter 2
-        navigate("/competition-select"); // Navigasi ke halaman Competition
+        dispatch(changePage(2));
+        navigate("/competition-select");
         setShowMenu(false);
-
     };
 
     const toLogin = () => {
-        // Fungsi untuk navigasi ke halaman Login
-        dispatch(changePage(3)); // Memanggil action changePage dengan parameter 3
-        navigate("/login"); // Navigasi ke halaman Login
+        dispatch(changePage(3));
+        navigate("/login");
+        setShowMenu(false);
     }
-
+    
+    const toProfile = () => {
+        // Profile functionality placeholder
+        setShowProfileDropdown(false);
+    }
+    
+    const handleLogout = () => {
+        Cookies.remove('token');
+        setHasToken(false);
+        // Dispatch custom event to inform other components
+        window.dispatchEvent(new Event('tokenUpdated'));
+        navigate('/');
+        setShowProfileDropdown(false);
+    }
 
     useEffect(()=>{
         setShowMenuTransition(showMenu)
     },[showMenu])
+
+    // Check token status before rendering to ensure latest state
+    useEffect(() => {
+        checkTokenStatus();
+    }, []);
 
     return (
         <>
@@ -79,12 +124,41 @@ export default function Navbar() {
                     >
                         COMPETITION
                     </button>
-                    <button
-                        onClick={toLogin}
-                        className="mx-5 text-xl font-bold transition-all hover:scale-110"
-                    >
-                        LOGIN
-                    </button>
+                    {hasToken ? (
+                        <div className="relative mx-5">
+                            <div 
+                                className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 cursor-pointer transition-all hover:scale-110"
+                                onClick={toggleProfileDropdown}
+                            >
+                                <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path>
+                                </svg>
+                            </div>
+                            {showProfileDropdown && (
+                                <div className="absolute right-0 mt-2 w-48 bg-neutral-700 rounded-md shadow-lg py-1 z-50">
+                                    <button
+                                        onClick={toProfile}
+                                        className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-neutral-600"
+                                    >
+                                        PROFILE
+                                    </button>
+                                    <button
+                                        onClick={handleLogout}
+                                        className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-neutral-600"
+                                    >
+                                        LOGOUT
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        <button
+                            onClick={toLogin}
+                            className="mx-5 text-xl font-bold transition-all hover:scale-110"
+                        >
+                            LOGIN
+                        </button>
+                    )}
                 </div>
                 <div className="md:hidden z-50">
                     <img
@@ -112,16 +186,33 @@ export default function Navbar() {
                     </button>
                     <button
                         onClick={toComp}
-                        className="block w-full text-center  my-4"
+                        className="block w-full text-center my-4"
                     >
                         COMPETITION
                     </button>
-                    <button
-                        onClick={toLogin}
-                        className="block w-full py-2 text-center border-t border-neutral-500 my-4"
-                    >
-                        LOGIN
-                    </button>
+                    {hasToken ? (
+                        <>
+                            <button
+                                onClick={toProfile}
+                                className="block w-full py-2 text-center border-t border-neutral-500 my-4"
+                            >
+                                PROFILE
+                            </button>
+                            <button
+                                onClick={handleLogout}
+                                className="block w-full py-2 text-center my-4"
+                            >
+                                LOGOUT
+                            </button>
+                        </>
+                    ) : (
+                        <button
+                            onClick={toLogin}
+                            className="block w-full py-2 text-center border-t border-neutral-500 my-4"
+                        >
+                            LOGIN
+                        </button>
+                    )}
                 </div>
             )}
             <div 
@@ -131,6 +222,5 @@ export default function Navbar() {
             </div>
         </div>
         </>
-    
-);
+    );
 }

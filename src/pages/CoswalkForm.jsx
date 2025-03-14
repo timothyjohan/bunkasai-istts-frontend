@@ -7,7 +7,8 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { getAuthToken, isAuthenticated } from "../utils/authUtils";
 
 export default function CoswalkForm() {
     // State untuk menentukan apakah komponen telah dipilih
@@ -23,6 +24,7 @@ export default function CoswalkForm() {
 
     const [hide, setHide] = useState(false);
 
+    const navigate = useNavigate();
 
     // validasi schema Joi
     // pesan error akan ditampilkan jika data yang dimasukkan tidak sesuai dengan schema
@@ -85,6 +87,7 @@ export default function CoswalkForm() {
     // 5. setBtnClick(false) untuk mengubah state btnClick menjadi false
     // 6. reset() untuk mereset form
     const submitCoswalk = async (data) => {
+        if (!isAuthenticated()) navigate("/login");
         setBtnClick(true);
         try {
             const request = await axios.get(

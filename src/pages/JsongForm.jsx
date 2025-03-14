@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Joi from "joi";
 import { joiResolver } from "@hookform/resolvers/joi";
+import { getAuthToken, isAuthenticated } from "../utils/authUtils";
 
 export default function JsongForm() {
     // State untuk menentukan apakah tombol submit telah ditekan
@@ -22,6 +23,8 @@ export default function JsongForm() {
     const [error, setError] = useState(null);
 
     const [hide, setHide] = useState(false);
+
+    const navigate = useNavigate();
 
     // validasi form menggunakan joi
     // pesan error akan ditampilkan jika data yang dimasukkan tidak sesuai dengan schema
@@ -110,6 +113,7 @@ export default function JsongForm() {
     // 7. fungsi ShowErrors akan dijalankan
     // 8. fungsi submitJsong akan dijalankan lagi setelah 5 detik
     const submitJsong = async (data) => {
+        if (!isAuthenticated()) navigate("/login");
         setBtnClick(true);
         try {
             const request = await axios.get(
