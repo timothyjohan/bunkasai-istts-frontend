@@ -37,6 +37,14 @@ export default function Navbar() {
         setShowMenu(false);
 
     };
+
+    const toLogin = () => {
+        // Fungsi untuk navigasi ke halaman Login
+        dispatch(changePage(3)); // Memanggil action changePage dengan parameter 3
+        navigate("/login"); // Navigasi ke halaman Login
+    }
+
+
     useEffect(()=>{
         setShowMenuTransition(showMenu)
     },[showMenu])
@@ -71,6 +79,12 @@ export default function Navbar() {
                     >
                         COMPETITION
                     </button>
+                    <button
+                        onClick={toLogin}
+                        className="mx-5 text-xl font-bold transition-all hover:scale-110"
+                    >
+                        LOGIN
+                    </button>
                 </div>
                 <div className="md:hidden z-50">
                     <img
@@ -101,6 +115,12 @@ export default function Navbar() {
                         className="block w-full text-center  my-4"
                     >
                         COMPETITION
+                    </button>
+                    <button
+                        onClick={toLogin}
+                        className="block w-full py-2 text-center border-t border-neutral-500 my-4"
+                    >
+                        LOGIN
                     </button>
                 </div>
             )}

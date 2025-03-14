@@ -16,6 +16,8 @@ import CoswalkForm from "./pages/CoswalkForm.jsx";
 import FeedbackForm from "./pages/FeedbackForm.jsx";
 import { Provider } from "react-redux";
 import store from "./app/store.js";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
 
 // Membuat router
 const router = createBrowserRouter([
@@ -50,6 +52,14 @@ const router = createBrowserRouter([
             {
                 path: "/feedback-form",
                 element: <FeedbackForm />,
+            },
+            {
+                path: "/login",
+                element: <Login />,
+            },
+            {
+                path: "/register",
+                element: <Register />,
             },
         ],
     },
