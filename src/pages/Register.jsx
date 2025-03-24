@@ -63,7 +63,7 @@ export default function Register() {
 
   return (
     <div className="flex justify-center items-center h-screen bg-transparent">
-      <div className="bg-transparent border border-white rounded-lg p-8 w-2/5 min-w-[400px]">
+      <div className="mt-20 bg-neutral-800 border border-white rounded-lg p-8 w-2/5 min-w-[400px]">
         <h1 className="text-3xl font-bold text-center text-white mb-6">
           REGISTER
         </h1>
