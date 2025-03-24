@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [name, setName] = useState("");
+  const [phone_number, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -12,6 +14,16 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!name.trim()) {
+      setError("Name tidak boleh kosong!");
+      return;
+    }
+    
+    if (!phone_number.trim()) {
+      setError("Phone number tidak boleh kosong!");
+      return;
+    }
 
     if (!email.trim()) {
       setError("Email tidak boleh kosong!");
@@ -45,7 +57,7 @@ export default function Register() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, name, phone_number }),
       });
       const data = await res.json();
 
@@ -62,13 +74,45 @@ export default function Register() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-transparent">
-      <div className="mt-20 bg-neutral-800 border border-white rounded-lg p-8 w-2/5 min-w-[400px]">
-        <h1 className="text-3xl font-bold text-center text-white mb-6">
+    <div className="flex justify-center items-center min-h-screen bg-transparent">
+      <div className="mt-32 mb-10 bg-neutral-800 border border-white rounded-lg p-4 sm:p-8 w-full max-w-lg">
+        <h1 className="text-2xl sm:text-3xl font-bold text-center text-white mb-4 sm:mb-6">
           REGISTER
         </h1>
-        <form className="mt-6" onSubmit={handleSubmit}>
-          <div className="mb-5">
+        <form className="mt-4 sm:mt-6" onSubmit={handleSubmit}>
+          <div className="mb-4 sm:mb-5">
+            <label
+              htmlFor="name"
+              className="block text-lg font-medium text-white"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-2 sm:px-3 py-1 sm:py-2 mt-1 text-lg text-white bg-transparent border border-white rounded-lg focus:outline-none focus:ring-1 focus:ring-white"
+            />
+          </div>
+          <div className="mb-4 sm:mb-5">
+            <label
+              htmlFor="phone_number"
+              className="block text-lg font-medium text-white"
+            >
+              Phone number
+            </label>
+            <input
+              type="text"
+              id="phone_number"
+              name="phone_number"
+              value={phone_number}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              className="w-full px-2 sm:px-3 py-1 sm:py-2 mt-1 text-lg text-white bg-transparent border border-white rounded-lg focus:outline-none focus:ring-1 focus:ring-white"
+            />
+          </div>
+          <div className="mb-4 sm:mb-5">
             <label
               htmlFor="email"
               className="block text-lg font-medium text-white"
@@ -81,10 +125,10 @@ export default function Register() {
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 mt-1 text-lg text-white bg-transparent border border-white rounded-lg focus:outline-none focus:ring-1 focus:ring-white"
+              className="w-full px-2 sm:px-3 py-1 sm:py-2 mt-1 text-lg text-white bg-transparent border border-white rounded-lg focus:outline-none focus:ring-1 focus:ring-white"
             />
           </div>
-          <div className="mb-5">
+          <div className="mb-4 sm:mb-5">
             <label
               htmlFor="password"
               className="block text-lg font-medium text-white"
@@ -98,7 +142,7 @@ export default function Register() {
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 mt-1 text-lg text-white bg-transparent border border-white rounded-lg focus:outline-none focus:ring-1 focus:ring-white"
+                className="w-full px-2 sm:px-3 py-1 sm:py-2 mt-1 text-lg text-white bg-transparent border border-white rounded-lg focus:outline-none focus:ring-1 focus:ring-white"
               />
               <button
                 type="button"
@@ -144,7 +188,7 @@ export default function Register() {
               </button>
             </div>
           </div>
-          <div className="mb-5">
+          <div className="mb-4 sm:mb-5">
             <label
               htmlFor="confirmPassword"
               className="block text-lg font-medium text-white"
@@ -158,7 +202,7 @@ export default function Register() {
                 name="confirmPassword"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-3 py-2 mt-1 text-lg text-white bg-transparent border border-white rounded-lg focus:outline-none focus:ring-1 focus:ring-white"
+                className="w-full px-2 sm:px-3 py-1 sm:py-2 mt-1 text-lg text-white bg-transparent border border-white rounded-lg focus:outline-none focus:ring-1 focus:ring-white"
               />
               <button
                 type="button"
@@ -213,7 +257,7 @@ export default function Register() {
 
           <button
             type="submit"
-            className="w-full px-3 py-3 mt-2 mb-4 text-lg text-white bg-transparent border border-white rounded-lg hover:bg-white/10 transition-colors"
+            className="w-full px-2 sm:px-3 py-2 sm:py-3 mt-2 mb-4 text-lg text-white bg-transparent border border-white rounded-lg hover:bg-white/10 transition-colors"
           >
             Register
           </button>
