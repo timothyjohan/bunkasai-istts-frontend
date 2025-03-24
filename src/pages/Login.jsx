@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
@@ -11,8 +11,8 @@ export default function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        if (!username.trim() || !password.trim()) {
-            setError('Username dan password tidak boleh kosong!');
+        if (!email.trim() || !password.trim()) {
+            setError('Email dan password tidak boleh kosong!');
             return;
         }
         
@@ -21,14 +21,14 @@ export default function Login() {
     };
 
     const login = async () => {
-        //login to localhost:3666/api/user the body username and password using axios then save the token to cookies
+        //login to localhost:3666/api/user the body email and password using axios then save the token to cookies
         try {
             const res = await fetch('http://localhost:3666/api/user/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({ email, password })
             });
             const data = await res.json();
             console.log({data});
@@ -54,17 +54,17 @@ export default function Login() {
                 <form className="mt-6" onSubmit={handleSubmit}>
                     <div className="mb-5">
                         <label
-                            htmlFor="username"
+                            htmlFor="email"
                             className="block text-lg font-medium text-white"
                         >
-                            Username
+                            Email
                         </label>
                         <input
                             type="text"
-                            id="username"
-                            name="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            id="email"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="w-full px-3 py-2 mt-1 text-lg text-white bg-transparent border border-white rounded-lg focus:outline-none focus:ring-1 focus:ring-white"
                         />
                     </div>
