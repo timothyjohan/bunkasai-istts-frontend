@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -13,8 +13,8 @@ export default function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!username.trim()) {
-      setError("Username tidak boleh kosong!");
+    if (!email.trim()) {
+      setError("Email tidak boleh kosong!");
       return;
     }
 
@@ -45,7 +45,7 @@ export default function Register() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
       const data = await res.json();
 
@@ -63,24 +63,24 @@ export default function Register() {
 
   return (
     <div className="flex justify-center items-center h-screen bg-transparent">
-      <div className="bg-transparent border border-white rounded-lg p-8 w-2/5 min-w-[400px]">
+      <div className="mt-20 bg-neutral-800 border border-white rounded-lg p-8 w-2/5 min-w-[400px]">
         <h1 className="text-3xl font-bold text-center text-white mb-6">
           REGISTER
         </h1>
         <form className="mt-6" onSubmit={handleSubmit}>
           <div className="mb-5">
             <label
-              htmlFor="username"
+              htmlFor="email"
               className="block text-lg font-medium text-white"
             >
-              Username
+              Email
             </label>
             <input
               type="text"
-              id="username"
-              name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              id="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-3 py-2 mt-1 text-lg text-white bg-transparent border border-white rounded-lg focus:outline-none focus:ring-1 focus:ring-white"
             />
           </div>
