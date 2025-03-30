@@ -93,6 +93,40 @@ export default function TenantForm() {
     }, 0);
   }, []);
 
+  // useEffect yang akan dijalankan saat komponen dipasang
+  useEffect(() => {
+    // fungsi untuk mendapatkan cookie
+    const getCookie = (name) => {
+      const cookies = document.cookie.split(";");
+      for (let cookie of cookies) {
+        const [cookieName, cookieValue] = cookie.trim().split("=");
+        if (cookieName === name) {
+          return cookieValue;
+        }
+      }
+      return null;
+    };
+
+    // fungsi untuk mengisi field form dengan data dari token
+    const autoCompleteField = () => {
+      const token = getCookie("token");
+
+      // Mengecek apakah token ada
+      // Jika ada, maka ambil data dari token dan isi field form dengan data tersebut
+      if (token) {
+        const name = getCookie("name");
+        const phone = getCookie("phone");
+
+        reset({
+          nama_tenant: name,
+          nama_cp: name,
+          telp: phone,
+        });
+      }
+    };
+    autoCompleteField();
+  }, []);
+
   // fungsi untuk submit tenant
   // data yang diinputkan akan dikirim ke API
   // cara kerja:
