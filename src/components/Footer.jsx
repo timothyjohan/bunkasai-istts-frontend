@@ -8,11 +8,11 @@ export default function Footer(){
                     <div className="w-11/12 mx-auto border-r border-solid border-neutral-500 mt-10 md:mt-0 md:border-0 md:pr-10">
                         <h1 className="text-xl mb-3 md:mb-5">Contact Person</h1>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full my-5 md:w-4/6">
-                            <p>Ryan Dylan: +62 6969666420</p>
-                            <p>Ryan Dylan: +62 6969666420</p>
-                            <p>Ryan Dylan: +62 6969666420</p>
+                            <p>Maria Theresa: +62 821-5223-4714</p>
+                            <p>Christopher: +62 857-9194-9799</p>
+                            <p>Calysta: +62 857-0629-2939</p>
                         </div>
-                        <h1 className="font-bold">2023 &copy; BUNKASAI ISTTS</h1>
+                        <h1 className="font-bold">2025 &copy; BUNKASAI ISTTS</h1>
                     </div>
                     <div className="w-11/12 mx-auto mt-10 md:mt-0 md:border-0 md:pl-10">
                         <div className="flex flex-col md:flex-row md:justify-end">

@@ -118,12 +118,12 @@ export default function Navbar() {
                     >
                         TENANT
                     </button>
-                    <button
+                    {/* <button
                         onClick={toComp}
                         className="mx-5 text-xl font-bold transition-all hover:scale-110"
                     >
                         COMPETITION
-                    </button>
+                    </button> */}
                     {hasToken ? (
                         <div className="relative mx-5">
                             <div 

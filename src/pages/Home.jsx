@@ -94,6 +94,51 @@ export default function Home() {
           </Fade>
         </div>
         <Fade bottom cascade>
+          <div className="w-11/12 mx-auto my-20 md:my-44 mb-32 md:mb-60 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10 md:gap-y-20 items-center">
+            {/* Kolom kiri: Google Maps */}
+            <Fade left>
+              <div className="h-[400px] rounded-xl overflow-hidden border border-white shadow-lg">
+                <iframe
+                  title="Lokasi ISTTS"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.555771876901!2d112.75602017499985!3d-7.291275192716183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fbb476048727%3A0x5f5f7cf736ae643e!2sInstitut%20Sains%20dan%20Teknologi%20Terpadu%20Surabaya%20(ISTTS)!5e0!3m2!1sen!2sid!4v1745413161622!5m2!1sen!2sid"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+            </Fade>
+
+            {/* Kolom kanan: Deskripsi kampus dan event */}
+            <Fade right>
+              <div className="text-left text-neutral-200">
+                <h2 className="text-4xl font-semibold mb-4">Kampus Kami</h2>
+                <p className="text-lg mb-6 text-justify">
+                  Institut Sains dan Teknologi Terpadu Surabaya (ISTTS) menjadi
+                  rumah bagi BUNKASAI—festival budaya Jepang yang penuh warna,
+                  kreativitas, dan semangat komunitas. Di sinilah para penggemar
+                  anime, cosplayer, seniman, dan pecinta budaya Jepang berkumpul
+                  untuk merayakan mimpi dan inspirasi dalam suasana yang hangat
+                  dan inklusif. Dengan lokasi yang strategis di tengah kota
+                  Surabaya, ISTTS bukan hanya tempat belajar, tapi juga tempat
+                  lahirnya pengalaman yang tak terlupakan.
+                </p>
+                <a
+                  href="https://istts.ac.id/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors"
+                >
+                  Visit Us!
+                </a>
+              </div>
+            </Fade>
+          </div>
+        </Fade>
+
+        <Fade bottom cascade>
           <div className="text-center my-10 md:my-20 mb-20 md:mb-80 animate-pulse">
             <h1 className="text-5xl font-semibold">INTRODUCING OUR CAST</h1>
           </div>
