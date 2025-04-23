@@ -8,6 +8,8 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -33,20 +35,36 @@ export default function Register() {
       return;
     }
 
+    if (!name.trim()) {
+      setError("Nama tidak boleh kosong!");
+      return;
+    }
+    if (!phoneNumber.trim()) {
+      setError("Nomor telepon tidak boleh kosong!");
+      return;
+    }
+
     setError("");
     register();
   };
 
   const register = async () => {
-    
     try {
-      const res = await fetch("http://localhost:3666/api/user/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/user/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+            name,
+            phone_number: phoneNumber,
+          }),
+        }
+      );
       const data = await res.json();
 
       if (res.ok) {
@@ -58,7 +76,6 @@ export default function Register() {
       console.error(err);
       setError("Something went wrong!");
     }
-    
   };
 
   return (
@@ -68,6 +85,39 @@ export default function Register() {
           REGISTER
         </h1>
         <form className="mt-6" onSubmit={handleSubmit}>
+          <div className="mb-5">
+            <label
+              htmlFor="name"
+              className="block text-lg font-medium text-white"
+            >
+              Nama
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-3 py-2 mt-1 text-lg text-white bg-transparent border border-white rounded-lg focus:outline-none focus:ring-1 focus:ring-white"
+            />
+          </div>
+
+          <div className="mb-5">
+            <label
+              htmlFor="phone"
+              className="block text-lg font-medium text-white"
+            >
+              Nomor Telepon
+            </label>
+            <input
+              type="text"
+              id="phone"
+              name="phone"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              className="w-full px-3 py-2 mt-1 text-lg text-white bg-transparent border border-white rounded-lg focus:outline-none focus:ring-1 focus:ring-white"
+            />
+          </div>
           <div className="mb-5">
             <label
               htmlFor="email"
