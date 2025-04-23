@@ -23,7 +23,7 @@ export default function Login() {
   const login = async () => {
     //login to localhost:3666/api/user the body email and password using axios then save the token to cookies
     try {
-      const res = await fetch("http://localhost:3666/api/user/", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

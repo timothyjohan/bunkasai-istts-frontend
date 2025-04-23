@@ -40,7 +40,7 @@ export default function Register() {
   const register = async () => {
     
     try {
-      const res = await fetch("http://localhost:3666/api/user/register", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
