@@ -10,6 +10,7 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
 import ReCAPTCHA from "react-google-recaptcha";
 import { getAuthToken, isAuthenticated } from "../utils/authUtils";
+import SubmitButton from "../components/SubmitButton"; // Import the SubmitButton component
 
 export default function TenantForm() {
   // State untuk menentukan apakah tombol tidak setuju telah ditekan
@@ -262,26 +263,7 @@ export default function TenantForm() {
                   </div>
                 </>
               )}
-              {btnClick ? (
-                <button
-                  type="submit"
-                  disabled
-                  className="w-full py-2 rounded-xl font-bold transition-all text-violet-500 bg-green-400"
-                >
-                  <img
-                    src="loading.png"
-                    className="h-6 mx-auto transition-all animate-spin"
-                    alt=""
-                  />
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  className="bg-neutral-700 w-full py-2 rounded-xl hover:font-bold transition-all hover:scale-110 hover:text-violet-500 hover:bg-green-400"
-                >
-                  Submit
-                </button>
-              )}
+              <SubmitButton btnClick={btnClick} ShowErrors={ShowErrors} />
             </form>
           </div>
         </div>

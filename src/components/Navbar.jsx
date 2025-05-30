@@ -3,6 +3,9 @@ import { changePage } from "../app/pageSlice";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
+import NavLinkButton from "./NavLinkButton";
+import DropdownItemButton from "./DropdownItemButton";
+import MobileMenuItemButton from "./MobileMenuItemButton";
 
 export default function Navbar() {
     const dispatch = useDispatch();
@@ -106,24 +109,9 @@ export default function Navbar() {
                     />
                 </div>
                 <div className="hidden md:flex items-center text-neutral-300">
-                    <button
-                        onClick={toHome}
-                        className="mx-5 text-xl font-bold transition-all hover:scale-110"
-                    >
-                        HOME
-                    </button>
-                    <button
-                        onClick={toTenant}
-                        className="mx-5 text-xl font-bold transition-all hover:scale-110"
-                    >
-                        TENANT
-                    </button>
-                    {/* <button
-                        onClick={toComp}
-                        className="mx-5 text-xl font-bold transition-all hover:scale-110"
-                    >
-                        COMPETITION
-                    </button> */}
+                    <NavLinkButton onClick={toHome} text="HOME" />
+                    <NavLinkButton onClick={toTenant} text="TENANT" />
+                    {/* <NavLinkButton onClick={toComp} text="COMPETITION" /> */}
                     {hasToken ? (
                         <div className="relative mx-5">
                             <div 
@@ -136,28 +124,13 @@ export default function Navbar() {
                             </div>
                             {showProfileDropdown && (
                                 <div className="absolute right-0 mt-2 w-48 bg-neutral-700 rounded-md shadow-lg py-1 z-50">
-                                    <button
-                                        onClick={toProfile}
-                                        className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-neutral-600"
-                                    >
-                                        PROFILE
-                                    </button>
-                                    <button
-                                        onClick={handleLogout}
-                                        className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-neutral-600"
-                                    >
-                                        LOGOUT
-                                    </button>
+                                    <DropdownItemButton onClick={toProfile} text="PROFILE" />
+                                    <DropdownItemButton onClick={handleLogout} text="LOGOUT" />
                                 </div>
                             )}
                         </div>
                     ) : (
-                        <button
-                            onClick={toLogin}
-                            className="mx-5 text-xl font-bold transition-all hover:scale-110"
-                        >
-                            LOGIN
-                        </button>
+                        <NavLinkButton onClick={toLogin} text="LOGIN" />
                     )}
                 </div>
                 <div className="md:hidden z-50">
@@ -172,46 +145,38 @@ export default function Navbar() {
             {/* Dropdown menu */}
             {showMenu && (
                 <div className={`md:hidden ${showMenuTransition ? 'opacity-100': 'opacity-0' } mt-0 absolute top-16 right-0 w-full text-neutral-100 bg-neutral-800/95 shadow-md rounded-xl transition-opacity duration-300 z-50`}>
-                    <button
+                    <MobileMenuItemButton
                         onClick={toHome}
-                        className="block w-full py-2 text-center border-b border-neutral-500 my-4"
-                    >
-                        HOME
-                    </button>
-                    <button
+                        text="HOME"
+                        className="border-b border-neutral-500"
+                    />
+                    <MobileMenuItemButton
                         onClick={toTenant}
-                        className="block w-full py-2 text-center border-b border-neutral-500 my-4"
-                    >
-                        TENANT
-                    </button>
-                    <button
+                        text="TENANT"
+                        className="border-b border-neutral-500"
+                    />
+                    <MobileMenuItemButton
                         onClick={toComp}
-                        className="block w-full text-center my-4"
-                    >
-                        COMPETITION
-                    </button>
+                        text="COMPETITION"
+                    />
                     {hasToken ? (
                         <>
-                            <button
+                            <MobileMenuItemButton
                                 onClick={toProfile}
-                                className="block w-full py-2 text-center border-t border-neutral-500 my-4"
-                            >
-                                PROFILE
-                            </button>
-                            <button
+                                text="PROFILE"
+                                className="border-t border-neutral-500"
+                            />
+                            <MobileMenuItemButton
                                 onClick={handleLogout}
-                                className="block w-full py-2 text-center my-4"
-                            >
-                                LOGOUT
-                            </button>
+                                text="LOGOUT"
+                            />
                         </>
                     ) : (
-                        <button
+                        <MobileMenuItemButton
                             onClick={toLogin}
-                            className="block w-full py-2 text-center border-t border-neutral-500 my-4"
-                        >
-                            LOGIN
-                        </button>
+                            text="LOGIN"
+                            className="border-t border-neutral-500"
+                        />
                     )}
                 </div>
             )}

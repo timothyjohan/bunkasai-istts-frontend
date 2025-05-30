@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import SubmitButton from "../components/SubmitButton"; // Import the SubmitButton component
 
 export default function FeedbackForm() {
     // State untuk menentukan apakah tombol submit telah ditekan
@@ -185,26 +186,7 @@ export default function FeedbackForm() {
                                 </div>
                             </>
                         )}
-                        {btnClick ? (
-                            <button
-                                type="submit"
-                                disabled
-                                className="w-full py-2 rounded-xl font-bold transition-all text-violet-500 bg-green-400"
-                            >
-                                <img
-                                    src="loading.png"
-                                    className="h-6 mx-auto transition-all animate-spin"
-                                    alt=""
-                                />
-                            </button>
-                        ) : (
-                            <button
-                                type="submit"
-                                className="bg-neutral-700 w-full py-2 rounded-xl hover:font-bold transition-all hover:scale-110 hover:text-violet-500 hover:bg-green-400"
-                            >
-                                Submit
-                            </button>
-                        )}
+                        <SubmitButton btnClick={btnClick} ShowErrors={ShowErrors} />
                     </form>
                 </div>
             </div>

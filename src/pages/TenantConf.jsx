@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import AgreementButton from "../components/AgreementButton"; // Import the new component
 
 export default function TenantConf() {
     // State untuk menandakan apakah tombol tidak setuju telah ditekan
@@ -89,18 +90,15 @@ export default function TenantConf() {
                             <br />
                             <li>Informasi kontak yang Anda berikan akan diperlakukan secara rahasia dan tidak akan dibagikan kepada pihak ketiga tanpa izin Anda.</li>
                         </p>
-                        <button
+                        <AgreementButton
                             onClick={disagree}
-                            className="mt-5 bg-neutral-700 py-1.5 px-10 text-xl rounded-xl hover:bg-violet-500 hover:text-green-400 hover:font-bold transition-all hover:scale-110 shadow-xl"
-                        >
-                            Tidak setuju
-                        </button>
-                        <button
+                            text="Tidak setuju"
+                        />
+                        <AgreementButton
                             onClick={agree}
-                            className="xl:ml-5 mt-5 bg-neutral-700 py-1.5 px-10 text-xl rounded-xl hover:text-violet-500 hover:bg-green-400 hover:font-bold transition-all hover:scale-110 shadow-xl"
-                        >
-                            Setuju
-                        </button>
+                            text="Setuju"
+                            additionalClasses="xl:ml-5"
+                        />
                     </div>
                 </div>
             </div>
