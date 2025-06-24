@@ -117,54 +117,22 @@ export default function JsongForm() {
     if (!isAuthenticated()) navigate("/login");
     setBtnClick(true);
     try {
-      const request = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/payment/transaction`,
+      const token = await getAuthToken();
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/jsong/new`,
+        data,
         {
           headers: {
-            "x-auth-token": getAuthToken(),
+            "x-auth-token": token,
           },
+          body: JSON.stringify(data),
         }
       );
-      const transactionToken = request.data.transactionToken;
-      console.log(transactionToken);
-
-      window.snap.pay(transactionToken, {
-        onSuccess: async (result) => {
-          /* You may add your own implementation here */
-          setSuccess(null);
-          console.log(result);
-          try {
-            await axios.post(
-              `${import.meta.env.VITE_API_URL}/api/jsong/new`,
-              data
-            );
-
-            setSuccess(true);
-            setError(null);
-          } catch (error) {
-            setSuccess(null);
-            setError(error);
-          }
-          setBtnClick(false);
-          reset();
-        },
-        onPending: function (result) {
-          /* You may add your own implementation here */
-          alert("Waiting for your payment!");
-          console.log(result);
-        },
-        onError: function (result) {
-          /* You may add your own implementation here */
-          alert("Payment failed!");
-          console.log(result);
-          setBtnClick(false);
-        },
-        onClose: function () {
-          /* You may add your own implementation here */
-          alert("You closed the popup without finishing the payment");
-          setBtnClick(false);
-        },
-      });
+      setSuccess(true);
+      setError(null);
+      setBtnClick(false);
+      reset();
+      ShowErrors();
     } catch (error) {
       console.error("Error fetching transaction token:", error);
       // Handle error
