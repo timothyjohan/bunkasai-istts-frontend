@@ -40,6 +40,7 @@ export default function Login() {
         document.cookie = `token=${data.body.token}; path=/`;
         document.cookie = `name=${data.body.name}; path=/`;
         document.cookie = `phone=${data.body.phone}; path=/`;
+        document.cookie = `email=${data.body.email}; path=/`;
 
         // Dispatch an event to notify components about token change
         window.dispatchEvent(new Event("tokenUpdated"));

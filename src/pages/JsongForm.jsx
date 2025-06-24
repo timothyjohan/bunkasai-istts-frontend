@@ -27,6 +27,14 @@ export default function JsongForm() {
 
     const navigate = useNavigate();
 
+    // fungsi untuk mengambil value dari cookie berdasarkan name
+    const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+    };
+
     // validasi form menggunakan joi
     // pesan error akan ditampilkan jika data yang dimasukkan tidak sesuai dengan schema
     const schema = Joi.object({
@@ -52,23 +60,19 @@ export default function JsongForm() {
                 "string.empty": "Field 'Judul dan asal lagu' harus terisi",
                 "string.pattern.base":
                     "Field 'Judul dan asal lagu' diisi dengan format <judul> - <asal>",
-            }),
-        link: Joi.string().required().messages({
+            }),        link: Joi.string().required().messages({
             "string.empty": `Isi field 'link' dengan "-" jika tidak ada`,
         }),
-        // bukti: Joi.object().required().messages({
-        //     "any.required": "deskripsi tidak boleh kosong",
-        // }),
-    });
-
-    const {
+        bukti_transfer: Joi.any().required().messages({
+            "any.required": "Bukti transfer harus diupload",
+        }),
+    });    const {
         register,
         handleSubmit,
         reset,
+        setValue,
         formState: { errors },
-    } = useForm({ resolver: joiResolver(schema) });
-
-    // fungsi untuk menampilkan pesan error
+    } = useForm({ resolver: joiResolver(schema) });// fungsi untuk menampilkan pesan error
     const ShowErrors = () => {
         if (errors.nama_peserta) {
             setError(errors.nama_peserta.message);
@@ -80,21 +84,35 @@ export default function JsongForm() {
             setError(errors.lagu.message);
         } else if (errors.link) {
             setError(errors.link.message);
+        } else if (errors.bukti_transfer) {
+            setError(errors.bukti_transfer.message);
         }
     };
 
     // useEffect yang akan dijalankan saat komponen dipasang
     useEffect(() => {
         ShowErrors();
-    }, [errors]);
-
-    // useEffect yang akan dijalankan saat komponen dipasang
+    }, [errors]);    // useEffect yang akan dijalankan saat komponen dipasang
     useEffect(() => {
         setTimeout(() => {
             setSelected(false);
             setLoad(true);
         }, 50);
     }, []);
+
+    // useEffect untuk mengisi form dengan data dari cookies
+    useEffect(() => {
+        const nameFromCookie = getCookie('name');
+        const phoneFromCookie = getCookie('phone');
+        
+        if (nameFromCookie) {
+            setValue('nama_peserta', nameFromCookie);
+        }
+        
+        if (phoneFromCookie) {
+            setValue('telp', phoneFromCookie);
+        }
+    }, [setValue]);
 
     useEffect(()=>{
         setTimeout(() => {
@@ -161,6 +179,33 @@ export default function JsongForm() {
                     setBtnClick(false);
                 }
             });
+
+            // implement transaction proof
+            // Upload bukti transfer
+            if (data.bukti_transfer && data.bukti_transfer[0]) {
+                const formData = new FormData();
+                formData.append('transferProof', data.bukti_transfer[0]);
+                formData.append('email', getCookie('email') || '');
+                formData.append('type', 'jsong');
+
+                try {
+                    await axios.post(
+                        `${import.meta.env.VITE_API_URL}/api/transfer-proof/uploadTransferProof`,
+                        formData,
+                        {
+                            headers: {
+                                'Content-Type': 'multipart/form-data',
+                            },
+                        }
+                    );
+                    console.log('Transfer proof uploaded successfully');
+                } catch (uploadError) {
+                    console.error('Error uploading transfer proof:', uploadError);
+                    // Handle upload error if needed
+                }
+            }
+            
+
         } catch (error) {
             console.error("Error fetching transaction token:", error);
             // Handle error
@@ -243,8 +288,7 @@ export default function JsongForm() {
                             id="lagu"
                             placeholder="contoh: Unravel - Tokyo Ghoul"
                             className="w-full p-2 px-4 bg-neutral-700 rounded-xl transistion duration-300 focus:scale-[1.02]"
-                        />
-                        <br />
+                        />                        <br />
                         <br />
                         <label htmlFor="link" className="m-2">
                             Link lagu / instrument
@@ -259,9 +303,45 @@ export default function JsongForm() {
                         />
                         <br />
                         <br />
-                        
-
-                        {success ? (
+                          {/* Upload Bukti Transfer */}
+                        <div>
+                            <label htmlFor="bukti_transfer" className="block m-2">
+                                Upload Bukti Transfer
+                            </label>
+                            <p className="text-xs text-neutral-400 mt-2 mb-4 mx-2">
+                                Contoh : 
+                                <br />
+                                Transfer biaya pendaftaran sebesar Rp 50.000 <br />
+                                ke: BCA: 1234567890 a.n. Bunkasai ISTTS<br />
+                            </p>
+                            <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-neutral-600 border-dashed rounded-lg">
+                                <div className="space-y-1 text-center">
+                                    <svg className="mx-auto h-12 w-12 text-neutral-500" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+                                    </svg>
+                                    <div className="flex text-sm text-neutral-400 justify-center">
+                                        <label htmlFor="bukti_transfer" className="relative cursor-pointer bg-neutral-700 rounded-md font-medium text-yellow-400 hover:text-yellow-300 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-neutral-800 focus-within:ring-yellow-500 px-3 py-1">
+                                            <span>Unggah file</span>
+                                            <input 
+                                                {...register("bukti_transfer")}
+                                                id="bukti_transfer" 
+                                                name="bukti_transfer" 
+                                                type="file" 
+                                                className="sr-only" 
+                                                accept="image/*"
+                                                disabled={btnClick ? "true" : null}
+                                            />
+                                        </label>
+                                        <p className="pl-1">atau tarik dan lepas</p>
+                                    </div>
+                                    <p className="text-xs text-neutral-500">
+                                        PNG, JPG, GIF hingga 10MB
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />{success ? (
                             <>
                                 <div className="bg-green-400 text-neutral-700 font-semibold py-2 px-4 mb-8 rounded-xl text-violet-500 transition duration-400 scale-100">
                                     <p>
