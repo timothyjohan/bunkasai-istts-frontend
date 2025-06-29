@@ -212,21 +212,7 @@ export default function CoswalkForm() { // Renamed from JsongForm to CoswalkForm
           return;
         }
 
-        const formData = new FormData();
-        formData.append('email', userEmail);
-        formData.append('type', 'coswalk');
-        formData.append('transferProof', selectedFile);
-
-        // Upload the transfer proof image
-        const uploadResponse = await axios.post(
-          `${import.meta.env.VITE_API_URL}/api/transfer-proof/uploadTransferProof`,
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          }
-        );
+        
 
         // STEP 2: Submit Coswalk form (skip payment)
         const formPayload = {
@@ -248,6 +234,22 @@ export default function CoswalkForm() { // Renamed from JsongForm to CoswalkForm
           }
         );
 
+        const formData = new FormData();
+        formData.append('email', userEmail);
+        formData.append('type', 'coswalk');
+        formData.append('transferProof', selectedFile);
+
+        // Upload the transfer proof image
+        const uploadResponse = await axios.post(
+          `${import.meta.env.VITE_API_URL}/api/transfer-proof/uploadTransferProof`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        );
+        
         setSuccess(true);
         setError(null);
       } catch (err) {
@@ -389,7 +391,7 @@ export default function CoswalkForm() { // Renamed from JsongForm to CoswalkForm
                             <p className="text-xs text-neutral-400 mt-2 mb-4 mx-2">
                                 Contoh : 
                                 <br />
-                                Transfer biaya pendaftaran sebesar Rp 50.000 <br />
+                                Transfer biaya pendaftaran sebesar Rp 20.000 <br />
                                 ke: BCA: 7881139344 a.n. Valerie Tandyono<br />
                             </p>
                             <div 
