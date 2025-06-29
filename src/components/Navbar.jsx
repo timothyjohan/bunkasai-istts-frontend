@@ -111,7 +111,7 @@ export default function Navbar() {
                 <div className="hidden md:flex items-center text-neutral-300">
                     <NavLinkButton onClick={toHome} text="HOME" />
                     <NavLinkButton onClick={toTenant} text="TENANT" />
-                    <NavLinkButton onClick={toComp} text="COMPETITION" />
+                    {/* <NavLinkButton onClick={toComp} text="COMPETITION" /> */}
                     {hasToken ? (
                         <div className="relative mx-5">
                             <div 
