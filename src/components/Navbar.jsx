@@ -83,6 +83,7 @@ export default function Navbar() {
     const toProfile = () => {
         // Profile functionality placeholder
         setShowProfileDropdown(false);
+        navigate("/profile");
     }
     
     const handleLogout = () => {
