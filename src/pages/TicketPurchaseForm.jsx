@@ -340,8 +340,8 @@ export default function TicketPurchaseForm() {
                             <p className="text-xs text-neutral-400 mt-2 mb-4 mx-2">
                                 Contoh : 
                                 <br />
-                                Transfer biaya tiket sebesar Rp 30.000 per tiket <br />
-                                ke: BCA: 1234567890 a.n. Bunkasai ISTTS<br />
+                                Transfer biaya tiket sebesar Rp 25.000 per tiket <br />
+                                ke: BCA: 7881139344 a.n. Valerie Tandyono<br />
                             </p>
                             <div 
                                 className={`mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-lg transition-colors ${
