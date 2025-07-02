@@ -18,6 +18,8 @@ import { Provider } from "react-redux";
 import store from "./app/store.js";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
+import TicketPurchaseForm from "./pages/TicketPurchaseForm.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
 
 // Membuat router
 const router = createBrowserRouter([
@@ -61,6 +63,14 @@ const router = createBrowserRouter([
                 path: "/register",
                 element: <Register />,
             },
+            {
+                path: "/buy-ticket",
+                element: <TicketPurchaseForm />,
+            },
+            {
+                path: "/profile",
+                element: <ProfilePage />,
+            }
         ],
     },
 ]);

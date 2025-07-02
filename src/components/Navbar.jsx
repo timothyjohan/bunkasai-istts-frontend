@@ -73,10 +73,17 @@ export default function Navbar() {
         navigate("/login");
         setShowMenu(false);
     }
+
+    const toTicket = () => {
+        dispatch(changePage(4));
+        navigate("/buy-ticket");
+        setShowMenu(false);
+    }
     
     const toProfile = () => {
         // Profile functionality placeholder
         setShowProfileDropdown(false);
+        navigate("/profile");
     }
     
     const handleLogout = () => {
@@ -112,6 +119,7 @@ export default function Navbar() {
                     <NavLinkButton onClick={toHome} text="HOME" />
                     <NavLinkButton onClick={toTenant} text="TENANT" />
                     <NavLinkButton onClick={toComp} text="COMPETITION" />
+                    <NavLinkButton onClick={toTicket} text="TICKET" />
                     {hasToken ? (
                         <div className="relative mx-5">
                             <div 
@@ -158,6 +166,10 @@ export default function Navbar() {
                     <MobileMenuItemButton
                         onClick={toComp}
                         text="COMPETITION"
+                    />
+                    <MobileMenuItemButton
+                        onClick={toTicket}
+                        text="TICKET"
                     />
                     {hasToken ? (
                         <>

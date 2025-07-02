@@ -1,4 +1,4 @@
-// Coswalk Competition Registration Form Page
+// Ticket Purchase Form Page
 
 // Import required libraries
 import { useEffect } from "react";
@@ -6,27 +6,21 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie'; // Pastikan Cookies diimpor
 
-// Joi and joiResolver imports are removed as they cannot be resolved in this environment.
-// import Joi from "joi";
-// import { joiResolver } from "@hookform/resolvers/joi";
-
-// Mocking authUtils functions as they cannot be resolved in this environment.
-// In a real application, these would be properly imported from "../utils/authUtils".
+// Fungsi autentikasi yang realistis
 const isAuthenticated = () => {
-    // In a real app, this would check if a user is logged in
-    return true; // Always return true for this demo
+    const token = Cookies.get('token'); // Mengambil token dari Cookies
+    // Di aplikasi nyata, Anda mungkin juga ingin memverifikasi token ini (misalnya, apakah belum kedaluwarsa)
+    return !!token; // Mengembalikan true jika token ada, false jika tidak
 };
 
 const getAuthToken = async () => {
-    // In a real app, this would fetch the actual auth token
-    return "dummy-auth-token-123"; // Return a dummy token for this demo
+    const token = Cookies.get('token'); // Mengambil token dari Cookies
+    return token; // Mengembalikan token yang sebenarnya atau undefined jika tidak ada
 };
 
-// SubmitButton component's logic is inlined directly.
-// In a real application, this would be imported from "../components/SubmitButton".
-
-export default function CoswalkForm() { // Renamed from JsongForm to CoswalkForm
+export default function TicketPurchaseForm() {
     // State for determining if submit button has been pressed
     const [btnClick, setBtnClick] = useState(false);
     // State for determining if component is loading (currently unused in render logic)
@@ -127,16 +121,11 @@ export default function CoswalkForm() { // Renamed from JsongForm to CoswalkForm
     const validateForm = (formData) => {
         const newErrors = {};
 
-        if (!formData.nama_peserta) {
-            newErrors.nama_peserta = "Field 'Nama peserta' harus terisi";
+        if (!formData.nama_pembeli) {
+            newErrors.nama_pembeli = "Field 'Nama Pembeli' harus terisi";
         }
-        if (!formData.nama_panggung) {
-            newErrors.nama_panggung = "Field 'Nama panggung/Stage name' harus terisi";
-        }
-        if (!formData.instagram || !/^@/.test(formData.instagram)) {
-            newErrors.instagram = "Field 'Instagram' harus diawali dengan '@'";
-        }
-        if (!selectedFile) { // Check selectedFile state directly for file existence
+        // Ensure transfer proof is selected. It must not be uploaded alone.
+        if (!selectedFile) {
             newErrors.bukti_transfer = "Bukti transfer harus diupload";
         }
 
@@ -160,12 +149,11 @@ export default function CoswalkForm() { // Renamed from JsongForm to CoswalkForm
         }, 50);
     }, []);
 
-    // Effect to populate form fields from cookies on component mount
+    // Effect to populate form fields from cookies on component mount (if applicable)
     useEffect(() => {
         const nameFromCookie = getCookie('name');
-        
         if (nameFromCookie) {
-            setValue('nama_peserta', nameFromCookie);
+            setValue('nama_pembeli', nameFromCookie);
         }
     }, [setValue]);
 
@@ -176,113 +164,123 @@ export default function CoswalkForm() { // Renamed from JsongForm to CoswalkForm
         }, 1000);
     },[selected]);
 
-    // Main function to submit Coswalk registration
-    const submitCoswalk = async (data) => {
-      // Manual validation before proceeding
-      const validationErrorMessage = validateForm(data);
-      if (validationErrorMessage) {
-        setError(validationErrorMessage);
-        return;
-      }
-
-      if (!isAuthenticated()) {
-        navigate("/login");
-        return;
-      }
-      setBtnClick(true); // Disable button to prevent multiple submissions
-      setError(null); // Clear previous errors
-      setSuccess(null); // Clear previous success messages
-
-      try {
-        // STEP 1: Upload transfer proof
-        if (!selectedFile) {
-          setBtnClick(false);
-          setError('Bukti transfer harus diupload.');
-          return;
-        }
-        if (!selectedFile.name) {
-          setBtnClick(false);
-          setError('File tidak valid. Silakan pilih file lagi.');
-          return;
-        }
-        const userEmail = getCookie('email');
-        if (!userEmail) {
-          setBtnClick(false);
-          setError('Email tidak ditemukan. Silakan login ulang.');
-          return;
+    // Main function to submit ticket purchase registration
+    const submitTicketPurchase = async (data) => {
+        // --- VALIDASI DAN AUTENTIKASI AWAL ---
+        // 1. Pastikan pengguna sudah login
+        if (!isAuthenticated()) {
+            navigate("/login");
+            return;
         }
 
-        
-
-        // STEP 2: Submit Coswalk form (skip payment)
-        const formPayload = {
-          nama_peserta: data.nama_peserta,
-          nama_panggung: data.nama_panggung,
-          instagram: data.instagram,
-          // Optionally add reference to uploaded proof if needed
-        };
-
-        // Ambil token dari cookie
-        const token = getCookie('token');
-        const mainFormResponse = await axios.post(
-          `${import.meta.env.VITE_API_URL}/api/coswalk/new`,
-          formPayload,
-          {
-            headers: {
-              "x-auth-token": token,
-            },
-          }
-        );
-
-        const formData = new FormData();
-        formData.append('email', userEmail);
-        formData.append('type', 'coswalk');
-        formData.append('transferProof', selectedFile);
-
-        // Upload the transfer proof image
-        const uploadResponse = await axios.post(
-          `${import.meta.env.VITE_API_URL}/api/transfer-proof/uploadTransferProof`,
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          }
-        );
-        
-        setSuccess(true);
-        setError(null);
-      } catch (err) {
-        setSuccess(null);
-        let errorMessage = 'Terjadi kesalahan saat memproses pendaftaran. Silakan coba lagi.';
-        if (err.response?.data && typeof err.response.data === 'string') {
-          const htmlError = err.response.data;
-          if (htmlError.includes('Proof already exists with status')) {
-            errorMessage = 'Bukti transfer sudah pernah diupload sebelumnya dan sedang dalam proses pengecekan.';
-          } else if (htmlError.includes('Email is required')) {
-            errorMessage = 'Email tidak ditemukan. Silakan login ulang.';
-          } else if (htmlError.includes('Invalid file type')) {
-            errorMessage = 'Tipe file tidak valid. Harap upload gambar (PNG, JPG, GIF).';
-          }
-        } else if (err.response?.data?.message) {
-          errorMessage = err.response.data.message;
-        } else if (err.message?.includes('Network Error')) {
-          errorMessage = 'Koneksi jaringan terputus atau server tidak merespons.';
-        } else if (err.response?.status === 500) {
-          errorMessage = 'Gagal memproses. Terjadi kesalahan server internal. Silakan coba lagi.';
-        } else if (err.message) {
-          errorMessage = err.message;
+        // 2. Lakukan validasi form lokal. Ini memastikan bukti transfer tidak diupload sendiri
+        const validationErrorMessage = validateForm(data);
+        if (validationErrorMessage) {
+            setError(validationErrorMessage);
+            return;
         }
-        setError(errorMessage);
-      } finally {
-        setBtnClick(false);
-        reset();
-        setSelectedFile(null);
-        setFilePreview(null);
-        setValue('bukti_transfer', null);
-        const fileInput = document.getElementById('bukti_transfer');
-        if (fileInput) fileInput.value = '';
-      }
+
+        setBtnClick(true); // Disable button to prevent multiple submissions
+        setError(null); // Clear previous errors
+        setSuccess(null); // Clear previous success messages
+
+        try {
+            // STEP 1: Submit Ticket form first
+            console.log('Submitting ticket form...');
+            const formPayload = {
+                nama_pembeli: data.nama_pembeli,
+            };
+
+            const mainFormResponse = await axios.post(
+                `${import.meta.env.VITE_API_URL}/api/ticket/new`,
+                formPayload,
+                {
+                    headers: {
+                        "x-auth-token": await getAuthToken(), // Get token here
+                    },
+                }
+            );
+            console.log('Ticket form submitted successfully:', mainFormResponse.data);
+
+            // STEP 2: Upload transfer proof after successful ticket submission
+            console.log('Uploading transfer proof...');
+            
+            if (!selectedFile) { // Should already be caught by validateForm, but as a safeguard
+                setBtnClick(false);
+                setError('Bukti transfer harus diupload.');
+                return;
+            }
+            
+            const userEmail = getCookie('email');
+            if (!userEmail) {
+                setBtnClick(false);
+                setError('Email tidak ditemukan. Silakan login ulang.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('email', userEmail);
+            formData.append('type', 'ticket'); 
+            formData.append('transferProof', selectedFile); 
+
+            const uploadResponse = await axios.post(
+                `${import.meta.env.VITE_API_URL}/api/transfer-proof/uploadTransferProof`,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data', 
+                    },
+                }
+            );
+
+            console.log('Transfer proof uploaded successfully:', uploadResponse.data);
+
+            // If both steps succeed
+            setSuccess(true);
+            setError(null);
+
+        } catch (err) {
+            console.error("Error during ticket purchase process:", err);
+            console.error('Error response:', err.response?.data);
+            console.error('Error status:', err.response?.status);
+            setSuccess(null); // Ensure success is null if any error occurs
+            
+            let errorMessage = 'Terjadi kesalahan saat memproses pembelian tiket. Silakan coba lagi.';
+            
+            // Handle 401 Unauthorized errors from either API call
+            if (err.response && err.response.status === 401) {
+                errorMessage = 'Sesi Anda telah berakhir atau Anda belum login. Silakan login kembali.';
+                navigate('/login'); // Navigate to login page
+            } else if (err.response?.data?.message) { // Check for JSON error message
+                errorMessage = err.response.data.message;
+            } else if (err.response?.data && typeof err.response.data === 'string') {
+                const htmlError = err.response.data;
+                if (htmlError.includes('Proof already exists with status')) {
+                    errorMessage = 'Bukti transfer sudah pernah diupload sebelumnya dan sedang dalam proses pengecekan.';
+                } else if (htmlError.includes('Email is required')) {
+                    errorMessage = 'Email tidak ditemukan. Silakan login ulang.';
+                } else if (htmlError.includes('Invalid file type')) {
+                    errorMessage = 'Tipe file tidak valid. Harap upload gambar (PNG, JPG, GIF).';
+                }
+            } else if (err.message?.includes('Network Error')) {
+                errorMessage = 'Koneksi jaringan terputus atau server tidak merespons.';
+            } else if (err.response?.status === 500) {
+                errorMessage = 'Gagal memproses. Terjadi kesalahan server internal. Silakan coba lagi.';
+            } else if (err.message) {
+                errorMessage = err.message;
+            }
+            
+            setError(errorMessage);
+        } finally {
+            setBtnClick(false);
+            reset();
+            // Reset file states
+            setSelectedFile(null);
+            setFilePreview(null);
+            setValue('bukti_transfer', null); 
+            const fileInput = document.getElementById('bukti_transfer');
+            if (fileInput) fileInput.value = ''; 
+        }
     };
     
     // Inlined SubmitButton component logic
@@ -318,70 +316,21 @@ export default function CoswalkForm() { // Renamed from JsongForm to CoswalkForm
 
             <div className="pt-28 min-h-screen mb-44">
                 <div className="flex items-center justify-center mt-20 bg-neutral-800/80 text-sm xl:text-xl xl:w-2/6 mx-auto p-10 text-neutral-200 rounded-xl mb-44">
-                    <form onSubmit={handleSubmit(submitCoswalk)} className="w-full"> {/* Added w-full for better responsiveness */}
+                    <form onSubmit={handleSubmit(submitTicketPurchase)} className="w-full">
                         <h1 className="text-2xl mb-10 text-center ">
-                            Form pendaftaran Coswalk
+                            Form Pembelian Tiket
                         </h1>
-                        <label htmlFor="nama_peserta" className="m-2 block"> {/* Added block for better spacing */}
-                            Nama peserta
+                        <label htmlFor="nama_pembeli" className="m-2 block">
+                            Nama Pembeli
                         </label>
                         <input
-                            {...register("nama_peserta")}
+                            {...register("nama_pembeli")}
                             disabled={btnClick}
                             type="text"
-                            id="nama_peserta"
-                            placeholder="Nama peserta"
+                            id="nama_pembeli"
+                            placeholder="Nama Lengkap Pembeli"
                             className="w-full p-2 px-4 bg-neutral-700 rounded-xl transition duration-300 focus:scale-[1.02] mb-4"
                         />
-                        
-                        <label htmlFor="nama_panggung" className="m-2 block">
-                            Nama panggung / Stage name
-                        </label>
-                        <input
-                            {...register("nama_panggung")}
-                            disabled={btnClick}
-                            type="text"
-                            id="nama_panggung"
-                            placeholder="Nama panggung"
-                            className="w-full p-2 px-4 bg-neutral-700 rounded-xl transition duration-300 focus:scale-[1.02] mb-4"
-                        />
-                        
-                        <label htmlFor="instagram" className="m-2 block"> {/* Changed id to instagram from insta */}
-                            Instagram
-                        </label>
-                        <input
-                            {...register("instagram")}
-                            disabled={btnClick}
-                            type="text"
-                            id="instagram"
-                            placeholder="contoh: @bunkasaiistts"
-                            className="w-full p-2 px-4 bg-neutral-700 rounded-xl transition duration-300 focus:scale-[1.02] mb-4"
-                        />
-                        
-                        {/* Removed Lagu and Link fields as per Coswalk form requirements */}
-                        {/* <label htmlFor="lagu" className="m-2 block">
-                            Judul dan asal lagu
-                        </label>
-                        <input
-                            {...register("lagu")}
-                            disabled={btnClick}
-                            type="text"
-                            id="lagu"
-                            placeholder="contoh: Unravel - Tokyo Ghoul"
-                            className="w-full p-2 px-4 bg-neutral-700 rounded-xl transition duration-300 focus:scale-[1.02] mb-4"
-                        />
-                        
-                        <label htmlFor="link" className="m-2 block">
-                            Link lagu / instrument
-                        </label>
-                        <input
-                            {...register("link")}
-                            disabled={btnClick}
-                            type="url"
-                            id="link"
-                            placeholder="contoh: https://youtu.be/5c8MGs_8ngg?si=ZDHI9kSidmGkwbxN"
-                            className="w-full p-2 px-4 bg-neutral-700 rounded-xl transition duration-300 focus:scale-[1.02] mb-4"
-                        /> */}
                         
                         {/* Upload Bukti Transfer Section */}
                         <div>
@@ -391,8 +340,8 @@ export default function CoswalkForm() { // Renamed from JsongForm to CoswalkForm
                             <p className="text-xs text-neutral-400 mt-2 mb-4 mx-2">
                                 Contoh : 
                                 <br />
-                                Transfer biaya pendaftaran sebesar Rp 20.000 <br />
-                                ke: BCA: 7881139344 a.n. Valerie Tandyono<br />
+                                Transfer biaya tiket sebesar Rp 30.000 per tiket <br />
+                                ke: BCA: 1234567890 a.n. Bunkasai ISTTS<br />
                             </p>
                             <div 
                                 className={`mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-lg transition-colors ${
@@ -472,11 +421,11 @@ export default function CoswalkForm() { // Renamed from JsongForm to CoswalkForm
                         {/* Success and Error Messages */}
                         {success && (
                             <div className="bg-green-400 text-neutral-700 font-semibold py-2 px-4 mb-8 rounded-xl transition duration-400 scale-100">
-                                <p>Pengajuan Coswalk Competition telah disimpan</p>
+                                <p>Pembelian tiket telah disimpan</p>
                             </div>
                         )}
                         {error && (
-                            <div className="bg-red-500 text-white font-semibold py-2 px-4 mb-8 rounded-xl transition duration-400 scale-100"> {/* Changed background to red for error */}
+                            <div className="bg-red-500 text-white font-semibold py-2 px-4 mb-8 rounded-xl transition duration-400 scale-100">
                                 <p> {error} </p>
                             </div>
                         )}
