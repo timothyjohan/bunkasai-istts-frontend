@@ -93,7 +93,7 @@ export default function CompSelect() {
         }  `}
       ></div>
 
-      <div className="pt-28 min-h-screen">
+      <div className="pt-28 min-h-screen mb-44">
         <h1 className="text-4xl text-center text-neutral-200 font-semibold ">
           Pendaftaran Lomba
         </h1>
@@ -170,11 +170,11 @@ export default function CompSelect() {
               onMouseEnter={yonkomaHover}
               onMouseLeave={yonkomaHovernt}
               // TODO: Replace with your actual image path, e.g., /yonkoma.png
-              className={`bg-[url('https://placehold.co/500x500/1a1a1a/ffffff?text=Yonkoma')] h-full w-full mx-auto z-0 bg-center bg-cover flex flex-col justify-end transition-all ${
+              className={`bg-[url('/yonkoma.jpg')] h-full w-full mx-auto z-0 bg-center bg-contain flex flex-col justify-end transition-all ${
                 yonkoma ? "scale-110 brightness-50 blur-sm" : ""
               }  rounded-md brightness-75 shadow-xl relative`}
             >
-              <p className="text-4xl mb-4 font-semibold blur-none text-neutral-100">
+              <p className="text-4xl mb-4 font-semibold blur-none text-neutral-500">
                 YONKOMA
               </p>
             </div>
@@ -198,7 +198,7 @@ export default function CompSelect() {
               onMouseEnter={cosplayHover}
               onMouseLeave={cosplayHovernt}
               // TODO: Replace with your actual image path, e.g., /cosplay-competition.png
-              className={`bg-[url('https://placehold.co/500x500/1a1a1a/ffffff?text=Cosplay+Comp')] h-full w-full mx-auto z-0 bg-center bg-cover flex flex-col justify-end transition-all ${
+              className={`bg-[url('/coscomp.jpg')] h-full w-full mx-auto z-0 bg-center bg-cover flex flex-col justify-end transition-all ${
                 cosplay ? "scale-110 brightness-50 blur-sm" : ""
               }  rounded-md brightness-75 shadow-xl relative`}
             >
