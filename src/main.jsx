@@ -20,6 +20,8 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import TicketPurchaseForm from "./pages/TicketPurchaseForm.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
+import YonkomaForm from "./pages/YonkomaForm.jsx";
+import CosplayCompetitionForm from "./pages/CosplayCompetitionForm.jsx";
 
 // Membuat router
 const router = createBrowserRouter([
@@ -50,6 +52,14 @@ const router = createBrowserRouter([
             {
                 path: "/coswalk-form",
                 element: <CoswalkForm />,
+            },
+            {
+                path: "/yonkoma-form",
+                element: <YonkomaForm />,
+            },
+            {
+                path: "/cosplay-competition-form",
+                element: <CosplayCompetitionForm />,
             },
             {
                 path: "/feedback-form",
