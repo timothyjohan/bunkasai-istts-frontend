@@ -21,6 +21,8 @@ export default function ProfilePage() {
     const [jsongData, setJsongData] = useState([]);
     const [coswalkData, setCoswalkData] = useState([]);
     const [ticketData, setTicketData] = useState([]);
+    const [yonkomaData, setYonkomaData] = useState([]); // State for Yonkoma data
+    const [cosplayData, setCosplayData] = useState([]); // State for Cosplay Competition data
     const [userEmail, setUserEmail] = useState(null);
     const navigate = useNavigate();
 
@@ -40,40 +42,55 @@ export default function ProfilePage() {
             setUserEmail(email);
             const token = await getAuthToken();
 
-            try {
-                // Fetch J-Song data
-                const jsongResponse = await axios.get(
-                    `${import.meta.env.VITE_API_URL}/api/jsong/email/${email}`,
-                    { headers: { "x-auth-token": token } }
-                );
-                setJsongData(Array.isArray(jsongResponse.data) ? jsongResponse.data : [jsongResponse.data].filter(Boolean));
-            } catch (err) {
-                console.error("Error fetching J-Song data:", err);
+            // Use Promise.allSettled to fetch all data concurrently
+            const results = await Promise.allSettled([
+                axios.get(`${import.meta.env.VITE_API_URL}/api/jsong/email/${email}`, { headers: { "x-auth-token": token } }),
+                axios.get(`${import.meta.env.VITE_API_URL}/api/coswalk/email/${email}`, { headers: { "x-auth-token": token } }),
+                axios.get(`${import.meta.env.VITE_API_URL}/api/ticket/email/${email}`, { headers: { "x-auth-token": token } }),
+                axios.get(`${import.meta.env.VITE_API_URL}/api/yonkoma/email/${email}`, { headers: { "x-auth-token": token } }),
+                axios.get(`${import.meta.env.VITE_API_URL}/api/cosplay-competition/email/${email}`, { headers: { "x-auth-token": token } })
+            ]);
+
+            // Process J-Song data
+            if (results[0].status === 'fulfilled') {
+                const data = results[0].value.data;
+                setJsongData(Array.isArray(data) ? data : [data].filter(Boolean));
+            } else {
+                console.error("Error fetching J-Song data:", results[0].reason);
             }
 
-            try {
-                // Fetch Coswalk data
-                const coswalkResponse = await axios.get(
-                    `${import.meta.env.VITE_API_URL}/api/coswalk/email/${email}`,
-                    { headers: { "x-auth-token": token } }
-                );
-                setCoswalkData(Array.isArray(coswalkResponse.data) ? coswalkResponse.data : [coswalkResponse.data].filter(Boolean));
-            } catch (err) {
-                console.error("Error fetching Coswalk data:", err);
+            // Process Coswalk data
+            if (results[1].status === 'fulfilled') {
+                const data = results[1].value.data;
+                setCoswalkData(Array.isArray(data) ? data : [data].filter(Boolean));
+            } else {
+                console.error("Error fetching Coswalk data:", results[1].reason);
             }
 
-            try {
-                // Fetch Ticket data
-                const ticketResponse = await axios.get(
-                    `${import.meta.env.VITE_API_URL}/api/ticket/email/${email}`,
-                    { headers: { "x-auth-token": token } }
-                );
-                // Pastikan ticketResponse.data adalah array atau ubah menjadi array
-                setTicketData(Array.isArray(ticketResponse.data) ? ticketResponse.data : [ticketResponse.data].filter(Boolean));
-            } catch (err) {
-                console.error("Error fetching Ticket data:", err);
+            // Process Ticket data
+            if (results[2].status === 'fulfilled') {
+                const data = results[2].value.data;
+                setTicketData(Array.isArray(data) ? data : [data].filter(Boolean));
+            } else {
+                console.error("Error fetching Ticket data:", results[2].reason);
             }
             
+            // Process Yonkoma data
+            if (results[3].status === 'fulfilled') {
+                const data = results[3].value.data;
+                setYonkomaData(Array.isArray(data) ? data : [data].filter(Boolean));
+            } else {
+                console.error("Error fetching Yonkoma data:", results[3].reason);
+            }
+
+            // Process Cosplay Competition data
+            if (results[4].status === 'fulfilled') {
+                const data = results[4].value.data;
+                setCosplayData(Array.isArray(data) ? data : [data].filter(Boolean));
+            } else {
+                console.error("Error fetching Cosplay Competition data:", results[4].reason);
+            }
+
             setLoading(false);
         };
 
@@ -102,7 +119,7 @@ export default function ProfilePage() {
                 <h1 className="text-3xl font-bold text-center mb-8 text-yellow-400">Profil Pengguna</h1>
                 <p className="text-center text-lg mb-8">Selamat datang, {userEmail || 'Pengguna'}!</p>
 
-                {/* Bagian J-Song - Hanya tampilkan jika ada data */}
+                {/* Bagian J-Song */}
                 {jsongData.length > 0 && (
                     <div className="mb-10 p-6 bg-neutral-700 rounded-lg shadow-md">
                         <h2 className="text-2xl font-semibold mb-4 text-neutral-200">Pendaftaran J-Song</h2>
@@ -117,7 +134,7 @@ export default function ProfilePage() {
                     </div>
                 )}
 
-                {/* Bagian Coswalk - Hanya tampilkan jika ada data */}
+                {/* Bagian Coswalk */}
                 {coswalkData.length > 0 && (
                     <div className="mb-10 p-6 bg-neutral-700 rounded-lg shadow-md">
                         <h2 className="text-2xl font-semibold mb-4 text-neutral-200">Pendaftaran Coswalk</h2>
@@ -132,7 +149,36 @@ export default function ProfilePage() {
                     </div>
                 )}
 
-                {/* Bagian Tiket - Hanya tampilkan jika ada data */}
+                {/* Bagian Yonkoma */}
+                {yonkomaData.length > 0 && (
+                    <div className="mb-10 p-6 bg-neutral-700 rounded-lg shadow-md">
+                        <h2 className="text-2xl font-semibold mb-4 text-neutral-200">Pendaftaran Lomba Yonkoma</h2>
+                        {yonkomaData.map((entry, index) => (
+                            <div key={index} className="bg-neutral-600 p-4 rounded-md mb-4 last:mb-0">
+                                <p><span className="font-medium">Nama Peserta:</span> {entry.nama_peserta}</p>
+                                <p><span className="font-medium">No. Telepon:</span> {entry.telp}</p>
+                                <p><span className="font-medium">Status:</span> {entry.status ? <span className="text-green-400">Dikonfirmasi</span> : <span className="text-yellow-400">Menunggu Verifikasi</span>}</p>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                {/* Bagian Cosplay Competition */}
+                {cosplayData.length > 0 && (
+                    <div className="mb-10 p-6 bg-neutral-700 rounded-lg shadow-md">
+                        <h2 className="text-2xl font-semibold mb-4 text-neutral-200">Pendaftaran Cosplay Competition</h2>
+                        {cosplayData.map((entry, index) => (
+                            <div key={index} className="bg-neutral-600 p-4 rounded-md mb-4 last:mb-0">
+                                <p><span className="font-medium">Nama Ketua:</span> {entry.nama_peserta}</p>
+                                <p><span className="font-medium">Nama Kelompok:</span> {entry.nama_kelompok}</p>
+                                <p><span className="font-medium">No. Telepon:</span> {entry.telp}</p>
+                                <p><span className="font-medium">Status:</span> {entry.status ? <span className="text-green-400">Dikonfirmasi</span> : <span className="text-yellow-400">Menunggu Verifikasi</span>}</p>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                {/* Bagian Tiket */}
                 {ticketData.length > 0 && (
                     <div className="p-6 bg-neutral-700 rounded-lg shadow-md">
                         <h2 className="text-2xl font-semibold mb-4 text-neutral-200">Pembelian Tiket</h2>
@@ -141,28 +187,25 @@ export default function ProfilePage() {
                                 <p><span className="font-medium">Nama Pembeli:</span> {entry.nama_pembeli}</p>
                                 <p><span className="font-medium">Status:</span> {entry.status ? <span className="text-green-400">Dikonfirmasi</span> : <span className="text-yellow-400">Menunggu Verifikasi</span>}</p>
                                 <p className="mt-2"><span className="font-medium">ULID Tiket:</span></p>
-                                {/* Render QR Code menggunakan data URL dari backend */}
                                 <div className="bg-white p-4 rounded-md flex justify-center items-center">
                                     {entry.qrCode ? (
                                         <img 
                                             src={entry.qrCode} 
                                             alt={`QR Code for ${entry.ulid}`} 
-                                            className="w-32 h-32 object-contain" // Sesuaikan ukuran sesuai kebutuhan
+                                            className="w-32 h-32 object-contain"
                                         />
                                     ) : (
                                         <p className="text-black text-sm">QR Code tidak tersedia.</p>
                                     )}
                                 </div>
-                                <div className="text-center mt-2 text-sm break-all text-black bg-white p-2 rounded-md">{entry.ulid}</div> {/* Menampilkan ULID di bawah QR code */}
-                                <p className="text-sm text-neutral-400 mt-2">
-                                </p>
+                                <div className="text-center mt-2 text-sm break-all text-black bg-white p-2 rounded-md">{entry.ulid}</div>
                             </div>
                         ))}
                     </div>
                 )}
 
                 {/* Tampilkan pesan jika tidak ada data sama sekali */}
-                {jsongData.length === 0 && coswalkData.length === 0 && ticketData.length === 0 && (
+                {jsongData.length === 0 && coswalkData.length === 0 && ticketData.length === 0 && yonkomaData.length === 0 && cosplayData.length === 0 && (
                     <p className="text-center text-neutral-400 mt-8">Tidak ada data pendaftaran atau pembelian tiket yang ditemukan.</p>
                 )}
             </div>
