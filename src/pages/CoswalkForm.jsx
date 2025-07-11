@@ -136,9 +136,6 @@ export default function CoswalkForm() { // Renamed from JsongForm to CoswalkForm
         if (!formData.instagram || !/^@/.test(formData.instagram)) {
             newErrors.instagram = "Field 'Instagram' harus diawali dengan '@'";
         }
-        if (!selectedFile) { // Check selectedFile state directly for file existence
-            newErrors.bukti_transfer = "Bukti transfer harus diupload";
-        }
 
         // Return the first error message found, or null if no errors
         const firstErrorKey = Object.keys(newErrors)[0];
@@ -194,17 +191,6 @@ export default function CoswalkForm() { // Renamed from JsongForm to CoswalkForm
       setSuccess(null); // Clear previous success messages
 
       try {
-        // STEP 1: Upload transfer proof
-        if (!selectedFile) {
-          setBtnClick(false);
-          setError('Bukti transfer harus diupload.');
-          return;
-        }
-        if (!selectedFile.name) {
-          setBtnClick(false);
-          setError('File tidak valid. Silakan pilih file lagi.');
-          return;
-        }
         const userEmail = getCookie('email');
         if (!userEmail) {
           setBtnClick(false);
@@ -240,15 +226,15 @@ export default function CoswalkForm() { // Renamed from JsongForm to CoswalkForm
         formData.append('transferProof', selectedFile);
 
         // Upload the transfer proof image
-        const uploadResponse = await axios.post(
-          `${import.meta.env.VITE_API_URL}/api/transfer-proof/uploadTransferProof`,
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          }
-        );
+        // const uploadResponse = await axios.post(
+        //   `${import.meta.env.VITE_API_URL}/api/transfer-proof/uploadTransferProof`,
+        //   formData,
+        //   {
+        //     headers: {
+        //       'Content-Type': 'multipart/form-data',
+        //     },
+        //   }
+        // );
         
         setSuccess(true);
         setError(null);
@@ -383,91 +369,6 @@ export default function CoswalkForm() { // Renamed from JsongForm to CoswalkForm
                             className="w-full p-2 px-4 bg-neutral-700 rounded-xl transition duration-300 focus:scale-[1.02] mb-4"
                         /> */}
                         
-                        {/* Upload Bukti Transfer Section */}
-                        <div>
-                            <label htmlFor="bukti_transfer" className="block m-2">
-                                Upload Bukti Transfer
-                            </label>
-                            <p className="text-xs text-neutral-400 mt-2 mb-4 mx-2">
-                                Contoh : 
-                                <br />
-                                Transfer biaya pendaftaran sebesar Rp 20.000 <br />
-                                ke: BCA: 7881139344 a.n. Valerie Tandyono<br />
-                            </p>
-                            <div 
-                                className={`mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-lg transition-colors ${
-                                    isDragging 
-                                        ? 'border-yellow-400 bg-yellow-400/10' 
-                                        : 'border-neutral-600'
-                                }`}
-                                onDragEnter={handleDragEnter}
-                                onDragLeave={handleDragLeave}
-                                onDragOver={handleDragOver}
-                                onDrop={handleDrop}
-                            >
-                                <div className="space-y-1 text-center">
-                                    {selectedFile ? (
-                                        // Preview area when file is selected
-                                        <div className="space-y-3">
-                                            {filePreview && (
-                                                <img 
-                                                    src={filePreview} 
-                                                    alt="Preview" 
-                                                    className="mx-auto h-32 w-32 object-cover rounded-lg border border-neutral-600"
-                                                />
-                                            )}
-                                            <div className="text-sm text-green-400">
-                                                <p className="font-medium">File terpilih:</p>
-                                                <p className="text-neutral-300">{selectedFile.name}</p>
-                                                <p className="text-neutral-400">
-                                                    {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
-                                                </p>
-                                            </div>
-                                            <button
-                                                type="button"
-                                                onClick={() => {
-                                                    setSelectedFile(null);
-                                                    setFilePreview(null);
-                                                    setValue('bukti_transfer', null); // Clear hook-form value
-                                                    // Reset file input element value
-                                                    const fileInput = document.getElementById('bukti_transfer');
-                                                    if (fileInput) fileInput.value = '';
-                                                }}
-                                                className="text-yellow-400 hover:text-yellow-300 text-sm underline"
-                                            >
-                                                Pilih file lain
-                                            </button>
-                                        </div>
-                                    ) : (
-                                        // Default upload area
-                                        <>
-                                            <svg className="mx-auto h-12 w-12 text-neutral-500" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                                            </svg>
-                                            <div className="flex text-sm text-neutral-400 justify-center">
-                                                <label htmlFor="bukti_transfer" className="relative cursor-pointer bg-neutral-700 rounded-md font-medium text-yellow-400 hover:text-yellow-300 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-neutral-800 focus-within:ring-yellow-500 px-3 py-1">
-                                                    <span>Unggah file</span>
-                                                    <input 
-                                                        id="bukti_transfer" 
-                                                        name="bukti_transfer" 
-                                                        type="file" 
-                                                        className="sr-only" 
-                                                        accept="image/*"
-                                                        disabled={btnClick}
-                                                        onChange={handleFileInputChange}
-                                                    />
-                                                </label>
-                                                <p className="pl-1">atau tarik dan lepas</p>
-                                            </div>
-                                            <p className="text-xs text-neutral-500">
-                                                PNG, JPG, GIF hingga 10MB
-                                            </p>
-                                        </>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                        <br />
 
                         {/* Success and Error Messages */}
                         {success && (
