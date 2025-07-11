@@ -12,7 +12,7 @@ export default function YonkomaForm() {
   const [load, setLoad] = useState(false);
   const [selected, setSelected] = useState(true);
   const [hide, setHide] = useState(false);
-  
+
   // State for submission status
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
@@ -25,12 +25,7 @@ export default function YonkomaForm() {
   const navigate = useNavigate();
 
   // React Hook Form setup
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setValue,
-  } = useForm();
+  const { register, handleSubmit, reset, setValue } = useForm();
 
   // Function to get value from a cookie by its name
   const getCookie = (name) => {
@@ -58,8 +53,10 @@ export default function YonkomaForm() {
     // Check file type (allow images)
     const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
     if (!allowedTypes.includes(file.type)) {
-        setError("Tipe file tidak valid. Harap unggah file gambar (JPG, PNG, GIF).");
-        return;
+      setError(
+        "Tipe file tidak valid. Harap unggah file gambar (JPG, PNG, GIF)."
+      );
+      return;
     }
 
     setSelectedFile(file);
@@ -76,9 +73,20 @@ export default function YonkomaForm() {
   };
 
   // Drag and drop event handlers
-  const handleDragEnter = (e) => { e.preventDefault(); e.stopPropagation(); setIsDragging(true); };
-  const handleDragLeave = (e) => { e.preventDefault(); e.stopPropagation(); setIsDragging(false); };
-  const handleDragOver = (e) => { e.preventDefault(); e.stopPropagation(); };
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
   const handleDrop = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -106,7 +114,8 @@ export default function YonkomaForm() {
       newErrors.nama_peserta = "Field 'Nama peserta' harus terisi";
     }
     if (!formData.telp || !/^[0-9]{10,}$/.test(formData.telp)) {
-      newErrors.telp = "Field 'No Telepon' harus berupa angka dan minimal 10 digit";
+      newErrors.telp =
+        "Field 'No Telepon' harus berupa angka dan minimal 10 digit";
     }
     if (!selectedFile) {
       newErrors.bukti_transfer = "Bukti transfer harus diupload";
@@ -138,7 +147,7 @@ export default function YonkomaForm() {
         nama_peserta: data.nama_peserta,
         telp: data.telp,
       };
-      
+
       // TODO: Replace with your actual Yonkoma submission endpoint
       await axios.post(
         `${import.meta.env.VITE_API_URL}/api/yonkoma/new`,
@@ -147,7 +156,7 @@ export default function YonkomaForm() {
           headers: { "x-auth-token": getCookie("token") },
         }
       );
-      
+
       // Step 2: Upload transfer proof
       const proofFormData = new FormData();
       proofFormData.append("email", userEmail);
@@ -155,13 +164,15 @@ export default function YonkomaForm() {
       proofFormData.append("transferProof", selectedFile);
 
       await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/transfer-proof/uploadTransferProof`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/transfer-proof/uploadTransferProof`,
         proofFormData,
         {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-      
+
       setSuccess("Pendaftaran Lomba Yonkoma berhasil!");
       reset();
       setSelectedFile(null);
@@ -169,9 +180,11 @@ export default function YonkomaForm() {
       setValue("bukti_transfer", null);
       const fileInput = document.getElementById("bukti_transfer");
       if (fileInput) fileInput.value = "";
-
     } catch (err) {
-      const errorMessage = err.response?.data?.message || err.message || "Terjadi kesalahan saat mendaftar.";
+      const errorMessage =
+        err.response?.data?.message ||
+        err.message ||
+        "Terjadi kesalahan saat mendaftar.";
       setError(errorMessage);
       console.error("Yonkoma submission failed:", err);
     } finally {
@@ -204,7 +217,6 @@ export default function YonkomaForm() {
     }, 1000);
   }, [selected]);
 
-
   // --- Render ---
 
   return (
@@ -212,7 +224,11 @@ export default function YonkomaForm() {
       {/* Transition Element */}
       <div
         className={`h-[200vh] md:h-[100vh] bg-yellow-300 -rotate-45 xl:rotate-45 w-[150vw] md:w-[100vw] transition duration-1000 absolute z-30 
-          ${selected ? "scale-150 translate-x-0 -translate-y-0" : "scale-0 -translate-x-full translate-y-full"}
+          ${
+            selected
+              ? "scale-150 translate-x-0 -translate-y-0"
+              : "scale-0 -translate-x-full translate-y-full"
+          }
           ${hide ? "hidden" : ""}
         `}
       ></div>
@@ -220,10 +236,14 @@ export default function YonkomaForm() {
       <div className="pt-28 min-h-screen mb-44">
         <div className="flex items-center justify-center mt-20 bg-neutral-800/80 text-sm xl:text-xl xl:w-2/6 mx-auto p-10 text-neutral-200 rounded-xl mb-44">
           <form onSubmit={handleSubmit(submitYonkoma)} className="w-full">
-            <h1 className="text-2xl mb-10 text-center">Form Pendaftaran Yonkoma</h1>
-            
+            <h1 className="text-2xl mb-10 text-center">
+              Form Pendaftaran Yonkoma
+            </h1>
+
             {/* Name Input */}
-            <label htmlFor="nama_peserta" className="m-2 block">Nama Peserta</label>
+            <label htmlFor="nama_peserta" className="m-2 block">
+              Nama Peserta
+            </label>
             <input
               {...register("nama_peserta")}
               disabled={btnClick}
@@ -234,7 +254,9 @@ export default function YonkomaForm() {
             />
 
             {/* Phone Input */}
-            <label htmlFor="telp" className="m-2 block">Nomor Telepon</label>
+            <label htmlFor="telp" className="m-2 block">
+              Nomor Telepon
+            </label>
             <input
               {...register("telp")}
               disabled={btnClick}
@@ -246,31 +268,44 @@ export default function YonkomaForm() {
 
             {/* File Upload Section */}
             <div>
-              <label htmlFor="bukti_transfer" className="block m-2">Upload Bukti Transfer</label>
+              <label htmlFor="bukti_transfer" className="block m-2">
+                Upload Bukti Transfer
+              </label>
               <p className="text-xs text-neutral-400 mt-2 mb-4 mx-2">
                 Contoh :
                 <br />
                 Transfer biaya pendaftaran sebesar Rp 20.000
                 <br />
-                ke: BCA: 7881139344 a.n. Valerie Tandyono
+                ke: BCA: 7881139344 a.n. Valerie Tandyo
               </p>
               <div
                 className={`mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-lg transition-colors ${
-                  isDragging ? "border-yellow-400 bg-yellow-400/10" : "border-neutral-600"
+                  isDragging
+                    ? "border-yellow-400 bg-yellow-400/10"
+                    : "border-neutral-600"
                 }`}
-                onDragEnter={handleDragEnter} onDragLeave={handleDragLeave} onDragOver={handleDragOver} onDrop={handleDrop}
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
               >
                 <div className="space-y-1 text-center">
                   {selectedFile ? (
                     // Preview area when file is selected
                     <div className="space-y-3">
                       {filePreview && (
-                        <img src={filePreview} alt="Preview" className="mx-auto h-32 w-auto object-contain rounded-lg"/>
+                        <img
+                          src={filePreview}
+                          alt="Preview"
+                          className="mx-auto h-32 w-auto object-contain rounded-lg"
+                        />
                       )}
                       <div className="text-sm text-green-400">
                         <p className="font-medium">File terpilih:</p>
                         <p className="text-neutral-300">{selectedFile.name}</p>
-                        <p className="text-neutral-400">{(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
+                        <p className="text-neutral-400">
+                          {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
+                        </p>
                       </div>
                       <button
                         type="button"
@@ -278,7 +313,8 @@ export default function YonkomaForm() {
                           setSelectedFile(null);
                           setFilePreview(null);
                           setValue("bukti_transfer", null);
-                          const fileInput = document.getElementById("bukti_transfer");
+                          const fileInput =
+                            document.getElementById("bukti_transfer");
                           if (fileInput) fileInput.value = "";
                         }}
                         className="text-yellow-400 hover:text-yellow-300 text-sm underline"
@@ -289,17 +325,41 @@ export default function YonkomaForm() {
                   ) : (
                     // Default upload area
                     <>
-                      <svg className="mx-auto h-12 w-12 text-neutral-500" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+                      <svg
+                        className="mx-auto h-12 w-12 text-neutral-500"
+                        stroke="currentColor"
+                        fill="none"
+                        viewBox="0 0 48 48"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        ></path>
                       </svg>
                       <div className="flex text-sm text-neutral-400 justify-center">
-                        <label htmlFor="bukti_transfer" className="relative cursor-pointer bg-neutral-700 rounded-md font-medium text-yellow-400 hover:text-yellow-300 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-neutral-800 focus-within:ring-yellow-500 px-3 py-1">
+                        <label
+                          htmlFor="bukti_transfer"
+                          className="relative cursor-pointer bg-neutral-700 rounded-md font-medium text-yellow-400 hover:text-yellow-300 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-neutral-800 focus-within:ring-yellow-500 px-3 py-1"
+                        >
                           <span>Unggah file</span>
-                          <input id="bukti_transfer" name="bukti_transfer" type="file" className="sr-only" accept="image/jpeg,image/png,image/gif" disabled={btnClick} onChange={handleFileInputChange} />
+                          <input
+                            id="bukti_transfer"
+                            name="bukti_transfer"
+                            type="file"
+                            className="sr-only"
+                            accept="image/jpeg,image/png,image/gif"
+                            disabled={btnClick}
+                            onChange={handleFileInputChange}
+                          />
                         </label>
                         <p className="pl-1">atau tarik dan lepas</p>
                       </div>
-                      <p className="text-xs text-neutral-500">PNG, JPG, GIF hingga 10MB</p>
+                      <p className="text-xs text-neutral-500">
+                        PNG, JPG, GIF hingga 10MB
+                      </p>
                     </>
                   )}
                 </div>
@@ -324,7 +384,9 @@ export default function YonkomaForm() {
               type="submit"
               disabled={btnClick}
               className={`w-full py-2 px-4 rounded-xl text-neutral-800 font-semibold transition duration-300 ${
-                btnClick ? "bg-gray-400 cursor-not-allowed" : "bg-yellow-400 hover:bg-yellow-300"
+                btnClick
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-yellow-400 hover:bg-yellow-300"
               }`}
             >
               {btnClick ? "Loading..." : "Submit"}

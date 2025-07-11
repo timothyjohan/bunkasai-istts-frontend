@@ -449,7 +449,7 @@ export default function JsongForm() {
                 Contoh :
                 <br />
                 Transfer biaya pendaftaran sebesar Rp 20.000 <br />
-                ke: BCA: 7881139344 a.n. Valerie Tandyono
+                ke: BCA: 7881139344 a.n. Valerie Tandyo
                 <br />
               </p>
               <div
