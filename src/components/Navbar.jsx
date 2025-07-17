@@ -119,7 +119,7 @@ export default function Navbar() {
                     <NavLinkButton onClick={toHome} text="HOME" />
                     <NavLinkButton onClick={toTenant} text="TENANT" />
                     <NavLinkButton onClick={toComp} text="COMPETITION" />
-                    <NavLinkButton onClick={toTicket} text="TICKET" />
+                    {/* <NavLinkButton onClick={toTicket} text="TICKET" /> */}
                     {hasToken ? (
                         <div className="relative mx-5">
                             <div 
@@ -167,10 +167,10 @@ export default function Navbar() {
                         onClick={toComp}
                         text="COMPETITION"
                     />
-                    <MobileMenuItemButton
+                    {/* <MobileMenuItemButton
                         onClick={toTicket}
                         text="TICKET"
-                    />
+                    /> */}
                     {hasToken ? (
                         <>
                             <MobileMenuItemButton
