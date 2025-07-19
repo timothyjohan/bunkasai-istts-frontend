@@ -62,11 +62,11 @@ export default function Navbar() {
         navigate("/tenant-conf");
         setShowMenu(false);
     };
-    // const toComp = () => {
-    //     dispatch(changePage(2));
-    //     navigate("/competition-select");
-    //     setShowMenu(false);
-    // };
+    const toComp = () => {
+        dispatch(changePage(2));
+        navigate("/competition-select");
+        setShowMenu(false);
+    };
 
     const toLogin = () => {
         dispatch(changePage(3));
@@ -118,7 +118,7 @@ export default function Navbar() {
                 <div className="hidden md:flex items-center text-neutral-300">
                     <NavLinkButton onClick={toHome} text="HOME" />
                     <NavLinkButton onClick={toTenant} text="TENANT" />
-                    <NavLinkButton onClick={toComp} text="COMPETITION" />
+                    {/* <NavLinkButton onClick={toComp} text="COMPETITION" /> */}
                     {/* <NavLinkButton onClick={toTicket} text="TICKET" /> */}
                     {hasToken ? (
                         <div className="relative mx-5">
