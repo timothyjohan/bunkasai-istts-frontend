@@ -62,11 +62,11 @@ export default function Navbar() {
         navigate("/tenant-conf");
         setShowMenu(false);
     };
-    const toComp = () => {
-        dispatch(changePage(2));
-        navigate("/competition-select");
-        setShowMenu(false);
-    };
+    // const toComp = () => {
+    //     dispatch(changePage(2));
+    //     navigate("/competition-select");
+    //     setShowMenu(false);
+    // };
 
     const toLogin = () => {
         dispatch(changePage(3));
@@ -163,10 +163,10 @@ export default function Navbar() {
                         text="TENANT"
                         className="border-b border-neutral-500"
                     />
-                    <MobileMenuItemButton
+                    {/* <MobileMenuItemButton
                         onClick={toComp}
                         text="COMPETITION"
-                    />
+                    /> */}
                     {/* <MobileMenuItemButton
                         onClick={toTicket}
                         text="TICKET"
